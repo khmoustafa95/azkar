@@ -1,0 +1,41 @@
+You are an expert Flutter and Dart developer working on this repo (package: `holly_quran`, product: Hajj/Umrah — Arabic RTL).
+
+## Architecture and layout
+- Use **feature-first** structure: `lib/features/<feature>/{data,presentation}/` with models and repos under `data`, screens/cubits under `presentation`.
+- **Core** shared code lives in `lib/core/` (resources, DI, routing, helpers, Dio). Do not duplicate theme/spacing/color logic in random widgets.
+- **State**: prefer **Cubit** + **`part '<name>_state.dart';`** for states (see `DuaaCubit`, `BottomNavBarCubit`). Register long-lived dependencies with **get_it** in `lib/core/di/service_locator.dart`.
+- **Data**: define an **abstract repo** in `*_repo.dart` and implement in `*_repo_impl.dart`. Keep `fetch*` / domain methods on the repo, not inside widgets.
+
+## Navigation
+- Routing uses **go_router** in `lib/core/resources/app_routers.dart`. Add new routes there; keep path names consistent with existing `Routes.*` constants.
+- When passing models to a route, this codebase often uses **`state.extra` as `Map<String, dynamic>`** and **`Model.fromJson`** in the route builder (see duaa and group detail routes). Prefer the same pattern for new detail screens unless you introduce a typed extra wrapper.
+
+## UI and theming
+- App shell is **RTL**: wrap screens that need it with `Directionality(textDirection: TextDirection.rtl, ...)` when consistent with existing views (e.g. `HomeView`, `DuaaView`).
+- **Colors**: `lib/core/resources/app_colors.dart`. **Typography/theme**: `theme_manager.dart`, `styles_manager.dart`, `app_fonts.dart`.
+- **Spacing and sizes**: use **`AppPadding`**, **`AppMargin`**, **`AppSize`** from `lib/core/resources/values_manager.dart` — avoid raw magic numbers for layout.
+- **User-visible Arabic strings**: prefer **`AppStrings`** in `lib/core/resources/app_strings.dart` for reusable copy; local one-offs may stay inline only if they match existing files.
+- **Assets**: reference via **`ImageAssets` / `JsonAssets`** etc. in `app_assets.dart` when adding images or Lottie.
+- **App-wide timing / magic ints** (animations, delays): prefer **`AppConstants`** in `app_constants.dart`.
+- New layouts should work on common phone sizes; use `FittedBox`, `MediaQuery`, and existing padding/size tokens before introducing new scaling systems.
+
+## Widgets and naming
+- Screens: `*View` (e.g. `HomeView`, `DuaaView`). Tab/page bodies: `*ViewBody` under `presentation/views/widgets/`.
+- Shared UI: `lib/features/common_widgets/` (e.g. `AppBottomNavigationBar`, app bars). Prefer extending these patterns over one-off duplicates.
+- Imports: always use **`package:holly_quran/...`** for project files. Include all necessary imports; run **`dart format`** on touched files.
+
+## Bloc scope
+- **App-wide** cubits (e.g. data loaded once at startup): provide at the root in `main.dart` (`MultiBlocProvider`).
+- **Screen-local** cubits: provide on the matching `GoRoute` builder (see `BottomNavBarCubit` on home) so they dispose with the route.
+
+## Media and content
+- **Duaa** items use `DuaaModel` with `type` discriminating behavior (e.g. `"audio"` vs `"video"`). Preserve that contract when extending; use existing `DuaaAudioPlayer` / `DuaaVideoPlayer` patterns where applicable.
+- Asset paths under `assets/` are declared in `pubspec.yaml`; new media must be added there.
+
+## API / network
+- **Dio** helper is `lib/core/dio/api_service.dart`. Do not wire unrelated placeholder APIs into feature repos without replacing base URL and aligning with product needs. Prefer clear repo boundaries if you add real backends.
+
+## General quality
+- Prefer **StatelessWidget** when no local mutable state; use **StatefulWidget** only when needed.
+- Keep changes minimal and consistent with surrounding files; avoid drive-by refactors unrelated to the task.
+- Do not add README or doc files unless the user asks.
