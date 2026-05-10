@@ -6,7 +6,7 @@ import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/card_member.dart';
 
-import '../../../../../core/resources/app_assets.dart';
+import 'package:holly_quran/core/resources/app_assets.dart';
 import '../../../../../core/resources/app_colors.dart';
 import '../../../data/models/duaa/group_model.dart';
 
@@ -27,77 +27,77 @@ class _AdminViewBodyState extends State<AdminViewBody> {
         id: 1,
         name: "محمود رضوان الحداد",
         phone: '+905356055733',
-        photo: "assets/members/almasi0.png",
+        photo: MemberImageAssets.almasi0,
         position: "رئيس التكتل",
       ),
       MemberModel(
         id: 2,
         name: "عبد الرحمن حياني",
         phone: '+905380777027',
-        photo: "assets/members/almasi1.png",
+        photo: MemberImageAssets.almasi1,
         position: "معاون رئيس التكتل",
       ),
       MemberModel(
         id: 3,
         name: "خالد علي علبي",
         phone: '+905350144210',
-        photo: "assets/members/almasi2.png",
+        photo: MemberImageAssets.almasi2,
         position: "معاون رئيس التكتل",
       ),
       MemberModel(
         id: 4,
         name: "موسى محمد الإبراهيم",
         phone: '+905374725875',
-        photo: "assets/members/almasi3.png",
+        photo: MemberImageAssets.almasi3,
         position: "المرشد الديني للتكتل",
       ),
       MemberModel(
         id: 5,
         name: "محمود محمد الحجي",
         phone: '+905315128572',
-        photo: "assets/members/almasi4.png",
+        photo: MemberImageAssets.almasi4,
         position: "معاون و منسق التكتل",
       ),
       MemberModel(
         id: 6,
         name: "ابراهيم محمد بدران",
         phone: '+905395928888',
-        photo: "assets/members/almasi5.png",
+        photo: MemberImageAssets.almasi5,
         position: "منسق التكتل",
       ),
       MemberModel(
         id: 7,
         name: "رياض حسين طيفور",
         phone: '+905537858568',
-        photo: "assets/members/almasi6.png",
+        photo: MemberImageAssets.almasi6,
         position: "منسق التكتل",
       ),
       MemberModel(
         id: 8,
         name: "محمد محمد رياض ضبيط",
         phone: '+963968152939',
-        photo: "assets/members/almasi7.png",
+        photo: MemberImageAssets.almasi7,
         position: "منسق التكتل",
       ),
       MemberModel(
         id: 9,
         name: "أمية عبد المحسن شهاب",
         phone: '+905314935812',
-        photo: "assets/members/almasi8.png",
+        photo: MemberImageAssets.almasi8,
         position: "موجهة التكتل",
       ),
       MemberModel(
         id: 10,
         name: "أمل حسن عدس",
         phone: '+905317262999',
-        photo: "assets/members/almasi8.png",
+        photo: MemberImageAssets.almasi8,
         position: "موجهة التكتل",
       ),
       MemberModel(
         id: 11,
         name: "أمل أحمد محمد هادي",
         phone: '+905523248735',
-        photo: "assets/members/almasi8.png",
+        photo: MemberImageAssets.almasi8,
         position: "موجهة التكتل",
       ),
     ];
