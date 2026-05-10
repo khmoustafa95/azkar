@@ -29,7 +29,7 @@ You are an expert Flutter and Dart developer working on this repo (package: `hol
 - **Screen-local** cubits: provide on the matching `GoRoute` builder (see `BottomNavBarCubit` on home) so they dispose with the route.
 
 ## Media and content
-- **Duaa** items use `DuaaModel` with `type` discriminating behavior (e.g. `"audio"` vs `"video"`). Preserve that contract when extending; use existing `DuaaAudioPlayer` / `DuaaVideoPlayer` patterns where applicable.
+- **Duaa** items use `DuaaModel` with `type` for playback (`"audio"` vs `"video"`) and `category` (`DuaaContentCategory`) for the four main tabs on the duaa screen. Preserve those contracts when extending; use existing `DuaaAudioPlayer` / `DuaaVideoPlayer` patterns where applicable.
 - Asset paths under `assets/` are declared in `pubspec.yaml`; new media must be added there.
 
 ## API / network

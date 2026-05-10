@@ -24,6 +24,86 @@ class _GroupViewBodyState extends State<GroupViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final adminMembers = <MemberModel>[
+      MemberModel(
+        id: 1,
+        name: "محمود رضوان الحداد",
+        phone: '+905356055733',
+        photo: "assets/members/almasi0.png",
+        position: "رئيس التكتل",
+      ),
+      MemberModel(
+        id: 2,
+        name: "عبد الرحمن حياني",
+        phone: '+905380777027',
+        photo: "assets/members/almasi1.png",
+        position: "معاون رئيس التكتل",
+      ),
+      MemberModel(
+        id: 3,
+        name: "خالد علي علبي",
+        phone: '+905350144210',
+        photo: "assets/members/almasi2.png",
+        position: "معاون رئيس التكتل",
+      ),
+      MemberModel(
+        id: 4,
+        name: "موسى محمد الإبراهيم",
+        phone: '+905374725875',
+        photo: "assets/members/almasi3.png",
+        position: "المرشد الديني للتكتل",
+      ),
+      MemberModel(
+        id: 5,
+        name: "محمود محمد الحجي",
+        phone: '+905315128572',
+        photo: "assets/members/almasi4.png",
+        position: "معاون و منسق التكتل",
+      ),
+      MemberModel(
+        id: 6,
+        name: "ابراهيم محمد بدران",
+        phone: '+905395928888',
+        photo: "assets/members/almasi5.png",
+        position: "منسق التكتل",
+      ),
+      MemberModel(
+        id: 7,
+        name: "رياض حسين طيفور",
+        phone: '+905537858568',
+        photo: "assets/members/almasi6.png",
+        position: "منسق التكتل",
+      ),
+      MemberModel(
+        id: 8,
+        name: "محمد محمد رياض ضبيط",
+        phone: '+963968152939',
+        photo: "assets/members/almasi7.png",
+        position: "منسق التكتل",
+      ),
+      MemberModel(
+        id: 9,
+        name: "أمية عبد المحسن شهاب",
+        phone: '+905314935812',
+        photo: "assets/members/almasi8.png",
+        position: "موجهة التكتل",
+      ),
+      MemberModel(
+        id: 10,
+        name: "أمل حسن عدس",
+        phone: '+905317262999',
+        photo: "assets/members/almasi8.png",
+        position: "موجهة التكتل",
+      ),
+      MemberModel(
+        id: 11,
+        name: "أمل أحمد محمد هادي",
+        phone: '+905523248735',
+        photo: "assets/members/almasi8.png",
+        position: "موجهة التكتل",
+      ),
+    ];
+
     final othmanMembers = <MemberModel>[
       MemberModel(
         id: 1,
@@ -221,6 +301,14 @@ class _GroupViewBodyState extends State<GroupViewBody> {
     ];
     final groups = <GroupModel>[
       GroupModel(
+          id: 0,
+          name: "تكتل الماسي",
+          logo: 'assets/groups/almasi_logo.png',
+          officer: "محمود رضوان الحداد",
+          phone: '+905392008784',
+          members: adminMembers,
+          photo: "assets/groups/almasi_photo.png"),
+      GroupModel(
           id: 1,
           name: "مجموعة عثمان بن عفان",
           logo: 'assets/groups/othman_logo.png',
@@ -317,36 +405,6 @@ class _GroupViewBodyState extends State<GroupViewBody> {
             const SizedBox(
               height: AppSize.s1,
             ),
-            // Container(
-            //     padding: const EdgeInsets.symmetric(horizontal: AppSize.s4),
-            //     child: Row(
-            //       crossAxisAlignment: CrossAxisAlignment.center,
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: [
-            //         Image.asset(
-            //           "assets/images/icon.png",
-            //           height: AppSize.s80,
-            //         ),
-            //         Expanded(
-            //           child: Container(
-            //             alignment: Alignment.center,
-            //             child: Text(
-            //               "تكتل الماسي \n برئاسة \n محمود رضوان الحداد",
-            //               style: Theme.of(context).textTheme.displayLarge,
-            //             ),
-            //           ),
-            //         ),
-            //         CircleAvatar(
-            //           radius: AppSize.s50,
-            //           backgroundColor: Colors.white,
-            //           child: CircleAvatar(
-            //             radius: AppSize.s40,
-            //             backgroundImage:
-            //                 AssetImage("assets/groups/almasi_photo.png"),
-            //           ),
-            //         ),
-            //       ],
-            //     )),
             CarouselSlider.builder(
               itemCount: groups.length,
               itemBuilder: (ctx, index, realIdx) {
