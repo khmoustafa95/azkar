@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_constants.dart';
 import 'package:holly_quran/core/resources/app_fonts.dart';
 import 'package:holly_quran/core/resources/app_strings.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/contact_us/presentation/widgets/who_we_are_video.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUsViewBody extends StatefulWidget {
@@ -80,43 +80,14 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
       ),
       child: SingleChildScrollView(
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: context.height * 0.25,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s20)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(AppSize.s20),
-                        child: Image.asset(
-                          "assets/images/icon.png",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppSize.s20)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(AppSize.s20),
-                        child: Image.asset(
-                          "assets/images/mawasem_logo.png",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            const SizedBox(height: AppSize.s16),
+            const WhoWeAreVideo(
+              assetPath: VideoAssets.whoWeAre,
+              title: 'من نحن؟',
+              subtitle: 'تعرّف على تكتل الماسي لخدمات الحج',
             ),
-            const SizedBox(height: AppSize.s8),
+            const SizedBox(height: AppSize.s20),
             const Text(
               AppStrings.contactTitle,
               textAlign: TextAlign.center,

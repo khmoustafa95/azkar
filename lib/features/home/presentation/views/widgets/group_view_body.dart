@@ -372,7 +372,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمود رضوان الحداد",
           phone: adminMembers.first.syPhone,
           members: adminMembers,
-          photo: GroupImageAssets.almasiPhoto),
+          photo: MemberImageAssets.almasiMahmoudHaddad),
       GroupModel(
           id: 1,
           name: "مجموعة العناية",
@@ -380,7 +380,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمد ياسر أبو كشة",
           phone: enayaMembers.first.syPhone,
           members: enayaMembers,
-          photo: GroupImageAssets.enayaPhoto),
+          photo: MemberImageAssets.enayaYasserKesheh),
       GroupModel(
           id: 2,
           name: "مجموعة إشراق",
@@ -388,7 +388,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمد اسماعيل الأحمد",
           phone: ishraqMembers.first.syPhone,
           members: ishraqMembers,
-          photo: GroupImageAssets.ishraqPhoto),
+          photo: MemberImageAssets.ishraqMohammadIsmail),
       GroupModel(
           id: 3,
           name: "مجموعة نماء",
@@ -396,7 +396,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "عبد الكريم يحيى البدر",
           phone: nemaMembers.first.syPhone,
           members: nemaMembers,
-          photo: GroupImageAssets.nemaPhoto),
+          photo: MemberImageAssets.nemaaAbdoBadr),
       GroupModel(
           id: 4,
           name: "مجموعة مواسم",
@@ -404,7 +404,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمد محمود الحجي",
           phone: mawasemMembers.first.syPhone,
           members: mawasemMembers,
-          photo: GroupImageAssets.mawasemPhoto),
+          photo: MemberImageAssets.mawasemMohammadHajji),
       GroupModel(
           id: 5,
           name: "مجموعة النور",
@@ -412,7 +412,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "أنس محمد الخلف",
           phone: alnourMembers.first.syPhone,
           members: alnourMembers,
-          photo: GroupImageAssets.alnourPhoto),
+          photo: MemberImageAssets.alnourAnasKhalaf),
       GroupModel(
           id: 6,
           name: "مجموعة عزائم",
@@ -420,7 +420,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "عبد الرحمن حياني",
           phone: azaaemMembers.first.syPhone,
           members: azaaemMembers,
-          photo: GroupImageAssets.othmanPhoto),
+          photo: MemberImageAssets.azaemAbdulrahmanHayani),
       GroupModel(
           id: 7,
           name: "مجموعة معالم",
@@ -428,7 +428,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "عبد الرحمن محمد نداف",
           phone: ma3alemMembers.first.syPhone,
           members: ma3alemMembers,
-          photo: GroupImageAssets.tasnimPhoto),
+          photo: MemberImageAssets.maalemAbdulrahmanNadaf),
       GroupModel(
           id: 8,
           name: "مجموعة التحرير",
@@ -436,7 +436,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمد مصطفى خندقاني",
           phone: tahrirMembers.first.syPhone,
           members: tahrirMembers,
-          photo: GroupImageAssets.awnPhoto),
+          photo: MemberImageAssets.tahrirMohammadKhandakani),
       GroupModel(
           id: 9,
           name: "مجموعة الشقروق",
@@ -444,7 +444,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمد حسن شقروق",
           phone: shaqrouqMembers.first.syPhone,
           members: shaqrouqMembers,
-          photo: GroupImageAssets.rohamaPhoto),
+          photo: MemberImageAssets.shaqrouqMohammadShaqrouq),
       GroupModel(
           id: 10,
           name: "مجموعة ويس و ملا",
@@ -452,7 +452,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "محمد الأمين محمد ويس",
           phone: waisMembers.first.syPhone,
           members: waisMembers,
-          photo: GroupImageAssets.duraPhoto),
+          photo: MemberImageAssets.waisMohammadWais),
       GroupModel(
           id: 11,
           name: " مجموعة الحرم الشريف",
@@ -460,7 +460,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           officer: "عبد الله ابو النور عدنان الكردي",
           phone: haramMembers.first.syPhone,
           members: haramMembers,
-          photo: GroupImageAssets.haramPhoto),
+          photo: MemberImageAssets.haramAbdKurdi),
     ];
     return Container(
       height: context.height,

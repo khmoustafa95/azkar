@@ -36,11 +36,26 @@ class ImageAssets {
   static const String rating = "$imagePath/rating.png";
   static const String share = "$imagePath/share.png";
   static const String werd = "$imagePath/werd.png";
+
+  /// Front face of the printed Hajj card (branding + partner logos).
+  static const String frontCard = "$imagePath/front_card.png";
+
+  /// Back face of the printed Hajj card (hotel info, leader, address).
+  static const String backCard = "$imagePath/back_card.png";
 }
 
 class JsonAssets {
   static const String homeAvatar = "$jsonPath/home_avatar.json";
   static const String salahAvatar = "$jsonPath/salah.json";
+}
+
+const String videosAssetPath = "assets/videos";
+
+class VideoAssets {
+  VideoAssets._();
+
+  /// Introductory "who we are" coalition video shown on the Contact page.
+  static const String whoWeAre = "$videosAssetPath/who_we_are.mp4";
 }
 
 const String membersAssetPath = "assets/members";
