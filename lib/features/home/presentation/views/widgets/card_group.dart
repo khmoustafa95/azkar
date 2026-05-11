@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/core/widgets/group_logo_image.dart';
 import 'package:holly_quran/features/home/data/models/duaa/group_model.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/phone_widget.dart';
 
@@ -136,7 +137,7 @@ class CardGroup extends StatelessWidget {
               // Logo
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Image.asset(
+                child: GroupLogoImage(
                   group.logo,
                   height: AppSize.s100,
                 ),

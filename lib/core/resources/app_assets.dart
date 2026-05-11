@@ -45,6 +45,7 @@ class JsonAssets {
 
 const String membersAssetPath = "assets/members";
 const String groupsAssetPath = "assets/groups";
+const String groupsSvgAssetPath = "assets/groups/svg";
 
 /// Member headshots under [membersAssetPath]. Prefer these over raw paths
 /// so typos are caught at compile time.
@@ -98,6 +99,76 @@ class MemberImageAssets {
   static const String mawasem1 = "$_b/mawasem1.png";
   static const String mawasem2 = "$_b/mawasem2.png";
 
+  // ---------- Named member portraits (jpg) ----------
+
+  // Al-Masi
+  static const String almasiIbrahimBadran = "$_b/almasi_ibrahim_badran.jpg";
+  static const String almasiKhaledOlabi = "$_b/almasi_khaled_olabi.jpg";
+  static const String almasiMahmoudHaddad = "$_b/almasi_mahmoud_haddad.jpg";
+  static const String almasiMahmoudHajji = "$_b/almasi_mahmoud_hajji.jpg";
+  static const String almasiMohammadHannoura =
+      "$_b/almasi_mohammad_hannoura.jpg";
+
+  // Al-Nour
+  static const String alnourAbdoulrahmanShabak =
+      "$_b/alnour_abdoulrahman_shabak.jpg";
+  static const String alnourAnasKhalaf = "$_b/alnour_anas_khalaf.jpg";
+  static const String alnourMohammadAboud = "$_b/alnour_mohammad_aboud.jpg";
+  static const String alnourOsamaMouri = "$_b/alnour_osama_mouri.jpg";
+
+  // Azaem
+  static const String azaemAbdulbasetZaleq = "$_b/azaem_abdulbaset_zaleq.jpg";
+  static const String azaemAbdulrahmanHayani =
+      "$_b/azaem_abdulrahman_hayani.jpg";
+
+  // Enaya
+  static const String enayaMohammadNader = "$_b/enaya_mohammad_nader.jpg";
+  static const String enayaMohammadObaid = "$_b/enaya_mohammad_obaid.jpg";
+  static const String enayaYasserKesheh = "$_b/enaya_yasser_kesheh.jpg";
+
+  // Haram
+  static const String haramAbdKurdi = "$_b/haram_abd_kurdi.jpg";
+  static const String haramAdnanKurdi = "$_b/haram_adnan_kurdi.jpg";
+  static const String haramHussamHout = "$_b/haram_hussam_hout.jpg";
+  static const String haramKarimSawas = "$_b/haram_karim_sawas.jpg";
+
+  // Ishraq
+  static const String ishraqAliOthman = "$_b/ishraq_ali_othman.jpg";
+  static const String ishraqAmmarAliso = "$_b/ishraq_ammar_aliso.jpg";
+  static const String ishraqMohammadAkil = "$_b/ishraq_mohammad_akil.jpg";
+  static const String ishraqMohammadIsmail = "$_b/ishraq_mohammad_ismail.jpg";
+
+  // Maalem
+  static const String maalemAbdulrahmanNadaf =
+      "$_b/maalem_abdulrahman_nadaf.jpg";
+  static const String maalemFaroukSaleh = "$_b/maalem_farouk_saleh.jpg";
+
+  // Mawasem
+  static const String mawasemMohammadHajji = "$_b/mawasem_mohammad_hajji.jpg";
+  static const String mawasemOmarAbboud = "$_b/mawasem_omar_abboud.jpg";
+  static const String mawasemSafaBahlwan = "$_b/mawasem_safa_bahlwan.jpg";
+
+  // Nemaa
+  static const String nemaaAbdoBadr = "$_b/nemaa_abdo_badr.jpg";
+  static const String nemaaMohammadDerbala = "$_b/nemaa_mohammad_derbala.jpg";
+  static const String nemaaMohannadHasan = "$_b/nemaa_mohannad_hasan.jpg";
+
+  // Shaqrouq
+  static const String shaqrouqAliAli = "$_b/shaqrouq_ali_ali.jpg";
+  static const String shaqrouqMohammadShaqrouq =
+      "$_b/shaqrouq_mohammad_shaqrouq.jpg";
+
+  // Tahrir
+  static const String tahrirHazemHaddad = "$_b/tahrir_hazem_haddad.jpg";
+  static const String tahrirMohammadKhandakani =
+      "$_b/tahrir_mohammad_khandakani.jpg";
+
+  // Wais
+  static const String waisAbdulhamidMahfouz = "$_b/wais_abdulhamid_mahfouz.jpg";
+  static const String waisAbdulrahmanAzizi = "$_b/wais_abdulrahman_azizi.jpg";
+  static const String waisAbdulrahmanDoukha = "$_b/wais_abdulrahman_doukha.jpg";
+  static const String waisMohammadWais = "$_b/wais_mohammad_wais.jpg";
+
   /// All [MemberImageAssets] paths — keep in sync when adding a new field above.
   /// Used by [allBundledMemberAndGroupImagePaths] and `tool/verify_assets.dart`.
   static List<String> get bundledPaths => [
@@ -135,6 +206,45 @@ class MemberImageAssets {
         ishraq2,
         mawasem1,
         mawasem2,
+        // Named portraits
+        almasiIbrahimBadran,
+        almasiKhaledOlabi,
+        almasiMahmoudHaddad,
+        almasiMahmoudHajji,
+        almasiMohammadHannoura,
+        alnourAbdoulrahmanShabak,
+        alnourAnasKhalaf,
+        alnourMohammadAboud,
+        alnourOsamaMouri,
+        azaemAbdulbasetZaleq,
+        azaemAbdulrahmanHayani,
+        enayaMohammadNader,
+        enayaMohammadObaid,
+        enayaYasserKesheh,
+        haramAbdKurdi,
+        haramAdnanKurdi,
+        haramHussamHout,
+        haramKarimSawas,
+        ishraqAliOthman,
+        ishraqAmmarAliso,
+        ishraqMohammadAkil,
+        ishraqMohammadIsmail,
+        maalemAbdulrahmanNadaf,
+        maalemFaroukSaleh,
+        mawasemMohammadHajji,
+        mawasemOmarAbboud,
+        mawasemSafaBahlwan,
+        nemaaAbdoBadr,
+        nemaaMohammadDerbala,
+        nemaaMohannadHasan,
+        shaqrouqAliAli,
+        shaqrouqMohammadShaqrouq,
+        tahrirHazemHaddad,
+        tahrirMohammadKhandakani,
+        waisAbdulhamidMahfouz,
+        waisAbdulrahmanAzizi,
+        waisAbdulrahmanDoukha,
+        waisMohammadWais,
       ];
 }
 
@@ -178,6 +288,13 @@ class GroupImageAssets {
   static const String ishraqLogo = "$_b/ishraq_logo.png";
   static const String ishraqPhoto = "$_b/ishraq_photo.png";
 
+  /// No PNG logo exists for Haram; falls back to the SVG logo.
+  /// See [GroupSvgAssets.haram].
+  static const String haramLogo = GroupSvgAssets.haram;
+
+  /// No dedicated cover photo for Haram; reuse the group leader's portrait.
+  static const String haramPhoto = MemberImageAssets.haramAbdKurdi;
+
   /// All [GroupImageAssets] paths — keep in sync when adding a new field above.
   static List<String> get bundledPaths => [
         almasiLogo,
@@ -202,6 +319,50 @@ class GroupImageAssets {
         duraPhoto,
         ishraqLogo,
         ishraqPhoto,
+        haramPhoto,
+      ];
+}
+
+/// Vector (SVG) group logos under [groupsSvgAssetPath].
+///
+/// Render these with `SvgPicture.asset(...)` from the `flutter_svg` package,
+/// or use the [GroupLogoImage] helper widget which auto-detects `.svg`.
+class GroupSvgAssets {
+  GroupSvgAssets._();
+
+  static const String _b = groupsSvgAssetPath;
+
+  static const String almasi = "$_b/almasi_logo.svg";
+  static const String azaem = "$_b/azaem_logo.svg";
+  static const String enaya = "$_b/enaya_logo.svg";
+  static const String haram = "$_b/haram_logo.svg";
+  static const String ishraq = "$_b/ishraq_logo.svg";
+
+  /// File on disk is `ma3alem_logo.svg`.
+  static const String maalem = "$_b/ma3alem_logo.svg";
+  static const String mawasem = "$_b/mawasem_logo.svg";
+  static const String nema = "$_b/nema_logo.svg";
+
+  /// File on disk is `nour_logo.svg` (the "Al-Nour" group).
+  static const String alnour = "$_b/nour_logo.svg";
+  static const String shaqrouq = "$_b/shaqrouq_logo.svg";
+  static const String tahrir = "$_b/tahrir_logo.svg";
+  static const String wais = "$_b/wais_logo.svg";
+
+  /// All [GroupSvgAssets] paths — keep in sync when adding a new field above.
+  static List<String> get bundledPaths => [
+        almasi,
+        azaem,
+        enaya,
+        haram,
+        ishraq,
+        maalem,
+        mawasem,
+        nema,
+        alnour,
+        shaqrouq,
+        tahrir,
+        wais,
       ];
 }
 

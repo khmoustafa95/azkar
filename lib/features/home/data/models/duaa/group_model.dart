@@ -43,26 +43,34 @@ class MemberModel {
   final String name;
   final String position;
   final String photo;
-  final String phone;
+  final String syPhone;
+  final String? trPhone;
+  final String? saPhone;
 
   MemberModel(
       {required this.id,
       required this.name,
-      required this.phone,
+      required this.syPhone,
+      this.trPhone,
+      this.saPhone,
       required this.photo,
       required this.position});
 
   factory MemberModel.fromJson(Map<String, dynamic> json) => MemberModel(
       id: json['id'],
       name: json['name'],
-      phone: json['phone'],
+      syPhone: json['syPhone'],
+      trPhone: json['trPhone'],
+      saPhone: json['saPhone'],
       photo: json['photo'],
       position: json['position']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'phone': phone,
+        'syPhone': syPhone,
+        'trPhone': trPhone,
+        'saPhone': saPhone,
         'photo': photo,
         'position': position,
       };

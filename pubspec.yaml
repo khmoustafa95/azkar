@@ -31,6 +31,7 @@ dependencies:
   flutter_packages_remover: ^0.0.1
   youtube_player_flutter: ^9.1.1
   expansion_tile_list: ^2.0.0
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
     - assets/images/
     - assets/json/
     - assets/groups/
+    - assets/groups/svg/
     - assets/members/
     - assets/media/
     - assets/videos/
