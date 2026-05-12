@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/prayer_times_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Home landing screen for the "Hajj Syria – Al-Masi Coalition" app.
@@ -42,9 +43,9 @@ class HomeViewBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
-            _BrandHeader(),
             SizedBox(height: AppSize.s16),
-            SizedBox(height: AppSize.s16),
+            PrayerTimesCard(),
+            SizedBox(height: AppSize.s20),
             _FlippingCard(),
             SizedBox(height: AppSize.s20),
             _QuickAccessSection(),
