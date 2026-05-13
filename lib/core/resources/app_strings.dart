@@ -1,8 +1,8 @@
 class AppStrings {
   // bottom navbar
   static const String quran = 'القرآن';
-  static const String pilgrimGuide = 'دليل الحاج';
-  static const String pilgrimBag = 'حقيبة الحاج';
+  static const String pilgrimGuide = 'زاد المناسك';
+  static const String pilgrimBag = 'تعليمات إدارية';
 
   static const String duaa = 'الأدعية';
   static const String groups = 'المجموعات';

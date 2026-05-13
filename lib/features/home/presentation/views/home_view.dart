@@ -17,8 +17,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navBarWidgets = <Widget>[
-      const DuaaViewBody(),
       const AdminViewBody(),
+      const DuaaViewBody(),
       const GroupViewBody(),
       const ContactUsViewBody(),
     ];

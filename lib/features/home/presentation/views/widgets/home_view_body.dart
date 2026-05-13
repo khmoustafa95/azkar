@@ -4,30 +4,27 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/home/data/communication_channel.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/contact_request_sheet.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/prayer_times_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Home landing screen for the "Hajj Syria – Al-Masi Coalition" app.
 ///
 /// Layout (top → bottom):
-///   1. Auto-flipping ID card showing [ImageAssets.frontCard] and
-///      [ImageAssets.backCard]. Tapping it opens the hotel location in a map.
-///   2. Quick-access cards: طلب فتوى (WhatsApp) and رقم الطوارئ (dial).
-///   3. Primary "View Details" button (placeholder onPressed).
-///   4. `حج 1447 - 2026` footer pill.
+///   1. Quick-access cards (four channels) → bottom sheet → WhatsApp.
+///   2. Auto-flipping ID card …
+///   3. Prayer times card.
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
 
   // Brand palette derived from the printed Hajj materials.
-  static const Color _primaryGreen = Color(0xFF0F5847);
   static const Color _darkGreen = Color(0xFF083A30);
   static const Color _gold = Color(0xFFC9A961);
   static const Color _goldText = Color(0xFF7A6635);
 
-  // Coalition hotel — used for the tap-to-map / call / WhatsApp actions.
+  // Coalition hotel — used for the tap-to-map action on the flipping card.
   static const String _hotelQuery = 'فندق نرجس الحديقة مكة المكرمة';
-  static const String _primaryPhone = '+963995168816';
-  static const String _saudiPhone = '+966542380552';
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +41,11 @@ class HomeViewBody extends StatelessWidget {
           children: const [
             SizedBox(height: AppSize.s16),
 
+            _QuickAccessSection(),
+            SizedBox(height: AppSize.s20),
             _FlippingCard(),
             SizedBox(height: AppSize.s20),
             PrayerTimesCard(),
-            SizedBox(height: AppSize.s20),
-            _QuickAccessSection(),
             SizedBox(height: AppSize.s20),
             // _DetailsButton(),
             // SizedBox(height: AppSize.s20),
@@ -279,7 +276,7 @@ class _QuickAccessSection extends StatelessWidget {
               Expanded(child: _GoldRule()),
               SizedBox(width: AppSize.s12),
               Text(
-                'وصول سريع',
+                'أرقام هامة',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w800,
@@ -299,52 +296,53 @@ class _QuickAccessSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _QuickAccessCard(
-                icon: Icons.menu_book_rounded,
-                title: 'طلب فتوى',
-                subtitle: 'تواصل مع الموجه الديني عبر واتساب',
-                color: HomeViewBody._primaryGreen,
-                onTap: () =>
-                    _launchWhatsApp(context, HomeViewBody._primaryPhone),
+                icon: CommunicationChannel.fatwa.icon,
+                title: CommunicationChannel.fatwa.title,
+                subtitle: CommunicationChannel.fatwa.sheetSubtitle,
+                color: CommunicationChannel.fatwa.accentColor,
+                onTap: () => showContactRequestSheet(
+                  context,
+                  channel: CommunicationChannel.fatwa,
+                ),
               ),
               const SizedBox(height: AppSize.s12),
               _QuickAccessCard(
-                icon: Icons.report_problem_outlined,
-                title: 'رقم الطوارئ',
-                subtitle: 'للإبلاغ عن أي مشكلة فوراً',
-                color: const Color(0xFFC0392B),
-                onTap: () => _launchTel(context, HomeViewBody._saudiPhone),
+                icon: CommunicationChannel.emergency.icon,
+                title: CommunicationChannel.emergency.title,
+                subtitle: CommunicationChannel.emergency.sheetSubtitle,
+                color: CommunicationChannel.emergency.accentColor,
+                onTap: () => showContactRequestSheet(
+                  context,
+                  channel: CommunicationChannel.emergency,
+                ),
+              ),
+              const SizedBox(height: AppSize.s12),
+              _QuickAccessCard(
+                icon: CommunicationChannel.complaints.icon,
+                title: CommunicationChannel.complaints.title,
+                subtitle: CommunicationChannel.complaints.sheetSubtitle,
+                color: CommunicationChannel.complaints.accentColor,
+                onTap: () => showContactRequestSheet(
+                  context,
+                  channel: CommunicationChannel.complaints,
+                ),
+              ),
+              const SizedBox(height: AppSize.s12),
+              _QuickAccessCard(
+                icon: CommunicationChannel.hotel.icon,
+                title: CommunicationChannel.hotel.title,
+                subtitle: CommunicationChannel.hotel.sheetSubtitle,
+                color: CommunicationChannel.hotel.accentColor,
+                onTap: () => showContactRequestSheet(
+                  context,
+                  channel: CommunicationChannel.hotel,
+                ),
               ),
             ],
           ),
         ),
       ],
     );
-  }
-
-  static Future<void> _launchTel(BuildContext context, String phone) async {
-    final uri = Uri.parse('tel:$phone');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-      return;
-    }
-    _showError(context, 'تعذر فتح تطبيق الهاتف');
-  }
-
-  static Future<void> _launchWhatsApp(
-      BuildContext context, String phone) async {
-    // wa.me accepts the number without the leading "+".
-    final number = phone.replaceAll(RegExp(r'[^\d]'), '');
-    final uri = Uri.parse('https://wa.me/$number');
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-      return;
-    }
-    _showError(context, 'تعذر فتح تطبيق واتساب');
-  }
-
-  static void _showError(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
   }
 }
 
