@@ -21,9 +21,9 @@ class AppBottomNavigationBar extends StatelessWidget {
       ImageAssets.about,
     ];
     final navBarTitles = <String>[
-      AppStrings.pilgrimGuide,
       AppStrings.pilgrimBag,
-      AppStrings.groups,
+      AppStrings.pilgrimGuide,
+      AppStrings.admins,
       AppStrings.who,
     ];
     return AnimatedBottomNavigationBar.builder(

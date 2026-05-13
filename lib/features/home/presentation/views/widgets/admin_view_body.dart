@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
-import 'package:holly_quran/core/shared_preferences/app_preferences.dart';
 import 'package:holly_quran/features/admin_instructions/presentation/views/admin_instructions_view.dart';
-import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_steps.dart';
-import 'package:holly_quran/features/hajj_tracker/presentation/cubit/hajj_tracker_cubit.dart';
-import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracker_scroll_view.dart';
-import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracker_welcome_view.dart';
-import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
-import 'package:holly_quran/features/quran/presentation/cubit/quran_cubit.dart';
-import 'package:holly_quran/features/quran/presentation/views/quran_reading_view.dart';
 
-/// Pilgrim services landing page.
-///
-/// Renders a 2×2 grid of section tiles. Tapping a tile is wired to a
-/// placeholder; concrete destinations will be added in follow-up work.
+/// صفحة التعليمات الإدارية والطبية (بلاطتان).
 class AdminViewBody extends StatelessWidget {
   const AdminViewBody({super.key});
 
-  // Brand palette — matches the rest of the Hajj home screens.
-  static const Color _primaryGreen = Color(0xFF0F5847);
   static const Color _darkGreen = Color(0xFF083A30);
   static const Color _gold = Color(0xFFC9A961);
   static const Color _ink = Color(0xFF1A2421);
@@ -32,65 +17,21 @@ class AdminViewBody extends StatelessWidget {
     final tiles = <_SectionTile>[
       _SectionTile(
         title: 'تعليمات إدارية',
-        subtitle: 'إرشادات و توجيهات',
+        subtitle: 'إرشادات وتوجيهات',
         icon: Icons.assignment_rounded,
         color: const Color(0xFF1E5A7A),
         onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
+          MaterialPageRoute<void>(
             builder: (_) => const AdminInstructionsView(),
           ),
         ),
       ),
       _SectionTile(
         title: 'تعليمات طبية',
-        subtitle: 'صحة و سلامة الحاج',
+        subtitle: 'صحة وسلامة الحاج',
         icon: Icons.health_and_safety_rounded,
         color: const Color(0xFFB85A33),
         onTap: () => _showComingSoon(context, 'تعليمات طبية'),
-      ),
-      _SectionTile(
-        title: 'القرآن الكريم',
-        subtitle: 'تلاوة و قراءة',
-        icon: Icons.menu_book_rounded,
-        color: _gold,
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) => BlocProvider(
-              create: (_) => QuranCubit(
-                getIt.get<HomeRepoImpl>(),
-                getIt.get<AppPreferences>(),
-              )..fetchQuran(),
-              child: const QuranReadingView(),
-            ),
-          ),
-        ),
-      ),
-      _SectionTile(
-        title: 'متابعة أعمال الحاج',
-        subtitle: 'سجل المناسك',
-        icon: Icons.checklist_rtl_rounded,
-        color: _primaryGreen,
-        onTap: () {
-          final prefs = getIt<AppPreferences>();
-          final steps = prefs.getHajjStepsSync(kHajjTrackerStepCount);
-          final hasProgress = steps.any((e) => e);
-          if (hasProgress) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => BlocProvider(
-                  create: (_) => HajjTrackerCubit(prefs),
-                  child: const HajjTrackerScrollView(),
-                ),
-              ),
-            );
-          } else {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const HajjTrackerWelcomeView(),
-              ),
-            );
-          }
-        },
       ),
     ];
 
@@ -109,7 +50,11 @@ class AdminViewBody extends StatelessWidget {
               const SliverToBoxAdapter(child: _SectionHeader()),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(
-                    AppPadding.p16, 4, AppPadding.p16, AppPadding.p100),
+                  AppPadding.p16,
+                  4,
+                  AppPadding.p16,
+                  AppPadding.p100,
+                ),
                 sliver: SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -149,10 +94,6 @@ class AdminViewBody extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Section header (small intro above the grid)
-// ─────────────────────────────────────────────────────────────────────────────
-
 class _SectionHeader extends StatelessWidget {
   const _SectionHeader();
 
@@ -160,7 +101,11 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          AppPadding.p20, AppPadding.p20, AppPadding.p20, AppPadding.p14),
+        AppPadding.p20,
+        AppPadding.p20,
+        AppPadding.p20,
+        AppPadding.p14,
+      ),
       child: Row(
         children: [
           Container(
@@ -175,7 +120,7 @@ class _SectionHeader extends StatelessWidget {
               ),
             ),
             child: const Icon(
-              Icons.dashboard_customize_rounded,
+              Icons.medical_information_rounded,
               color: AdminViewBody._darkGreen,
               size: 22,
             ),
@@ -187,7 +132,7 @@ class _SectionHeader extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'خدمات الحاج',
+                  'تعليمات وإرشادات',
                   style: TextStyle(
                     color: AdminViewBody._darkGreen,
                     fontSize: 18,
@@ -198,7 +143,7 @@ class _SectionHeader extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  'اختر القسم المطلوب',
+                  'إدارية وطبية',
                   style: TextStyle(
                     color: AdminViewBody._muted,
                     fontSize: 12.5,
@@ -214,10 +159,6 @@ class _SectionHeader extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Single grid tile
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _SectionTile extends StatelessWidget {
   const _SectionTile({
@@ -262,7 +203,6 @@ class _SectionTile extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // Decorative corner accent
               Positioned(
                 top: -18,
                 left: -18,
@@ -277,7 +217,11 @@ class _SectionTile extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                    AppPadding.p14, AppPadding.p16, AppPadding.p14, AppPadding.p14),
+                  AppPadding.p14,
+                  AppPadding.p16,
+                  AppPadding.p14,
+                  AppPadding.p14,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

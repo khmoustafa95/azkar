@@ -1,57 +1,107 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holly_quran/core/di/service_locator.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
-import 'package:holly_quran/features/common_widgets/state_renderer/state_render.dart';
+import 'package:holly_quran/core/shared_preferences/app_preferences.dart';
+import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_steps.dart';
+import 'package:holly_quran/features/hajj_tracker/presentation/cubit/hajj_tracker_cubit.dart';
+import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracker_scroll_view.dart';
+import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracker_welcome_view.dart';
 import 'package:holly_quran/features/home/data/models/duaa/duaa_model.dart';
+import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/duaa/duaa/duaa_cubit.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/duaa_category_list_view.dart';
+import 'package:holly_quran/features/quran/presentation/cubit/quran_cubit.dart';
+import 'package:holly_quran/features/quran/presentation/views/quran_reading_view.dart';
 
-/// One tile on the duaa / Hajj content grid ([DuaaModel.category] key + labels).
-class DuaaCategoryTileSpec {
-  final String category;
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final Color color;
+/// نوع بلاطة في شبكة «القرآن والمحتوى».
+enum DuaaHomeTileKind {
+  quran,
+  hajjTracker,
+  categoryFiqhHajj,
+  categoryAdiya,
+  categoryFiqhMessages,
+  categoryPilgrimAdvice,
+}
 
-  const DuaaCategoryTileSpec({
-    required this.category,
+/// بلاطة واحدة: قرآن، متابعة الحاج، أو قسم محتوى (دعاء/فيديو…).
+class DuaaHomeTileSpec {
+  const DuaaHomeTileSpec({
+    required this.kind,
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.color,
   });
+
+  final DuaaHomeTileKind kind;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+
+  /// مفتاح [DuaaModel.category] عند فتح قائمة المحتوى.
+  String? get categoryKey {
+    switch (kind) {
+      case DuaaHomeTileKind.categoryFiqhHajj:
+        return DuaaContentCategory.fiqhHajj;
+      case DuaaHomeTileKind.categoryAdiya:
+        return DuaaContentCategory.audioDuas;
+      case DuaaHomeTileKind.categoryFiqhMessages:
+        return DuaaContentCategory.fiqhMessages;
+      case DuaaHomeTileKind.categoryPilgrimAdvice:
+        return DuaaContentCategory.pilgrimAdvice;
+      case DuaaHomeTileKind.quran:
+      case DuaaHomeTileKind.hajjTracker:
+        return null;
+    }
+  }
 }
 
-const List<DuaaCategoryTileSpec> kDuaaCategoryTiles = [
-  DuaaCategoryTileSpec(
-    category: DuaaContentCategory.fiqhHajj,
-    title: 'فقه الحج',
-    subtitle: 'فيديوهات وإرشادات',
+/// ترتيب البلاطات كما طُلب: قرآن، متابعة الحاج، ثم أقسام المحتوى.
+const List<DuaaHomeTileSpec> kDuaaHomeTiles = [
+  DuaaHomeTileSpec(
+    kind: DuaaHomeTileKind.quran,
+    title: 'القرآن الكريم',
+    subtitle: 'تلاوة وقراءة',
     icon: Icons.menu_book_rounded,
-    color: Color(0xFF1E5A7A),
+    color: Color(0xFFC9A961),
   ),
-  DuaaCategoryTileSpec(
-    category: DuaaContentCategory.audioDuas,
-    title: 'أدعية صوتية',
-    subtitle: 'استماع وتلاوة',
-    icon: Icons.graphic_eq_rounded,
+  DuaaHomeTileSpec(
+    kind: DuaaHomeTileKind.hajjTracker,
+    title: 'متابعة أعمال الحاج',
+    subtitle: 'سجل المناسك',
+    icon: Icons.checklist_rtl_rounded,
     color: Color(0xFF0F5847),
   ),
-  DuaaCategoryTileSpec(
-    category: DuaaContentCategory.fiqhMessages,
+  DuaaHomeTileSpec(
+    kind: DuaaHomeTileKind.categoryFiqhHajj,
+    title: 'فقه الحج',
+    subtitle: 'فيديوهات وإرشادات',
+    icon: Icons.school_rounded,
+    color: Color(0xFF1E5A7A),
+  ),
+  DuaaHomeTileSpec(
+    kind: DuaaHomeTileKind.categoryAdiya,
+    title: 'أدعية',
+    subtitle: 'استماع وتلاوة',
+    icon: Icons.graphic_eq_rounded,
+    color: Color(0xFF2D6A4F),
+  ),
+  DuaaHomeTileSpec(
+    kind: DuaaHomeTileKind.categoryFiqhMessages,
     title: 'رسائل فقهية',
     subtitle: 'مواد مختصرة',
     icon: Icons.article_rounded,
     color: Color(0xFFB85A33),
   ),
-  DuaaCategoryTileSpec(
-    category: DuaaContentCategory.pilgrimAdvice,
+  DuaaHomeTileSpec(
+    kind: DuaaHomeTileKind.categoryPilgrimAdvice,
     title: 'وصايا الحاج',
     subtitle: 'نصائح للحاج',
     icon: Icons.volunteer_activism_rounded,
-    color: Color(0xFFC9A961),
+    color: Color(0xFF8B6914),
   ),
 ];
 
@@ -62,6 +112,83 @@ class DuaaViewBody extends StatelessWidget {
   static const Color _gold = Color(0xFFC9A961);
   static const Color _ink = Color(0xFF1A2421);
   static const Color _muted = Color(0xFF6B7570);
+
+  static void _openQuran(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BlocProvider(
+          create: (_) => QuranCubit(
+            getIt.get<HomeRepoImpl>(),
+            getIt.get<AppPreferences>(),
+          )..fetchQuran(),
+          child: const QuranReadingView(),
+        ),
+      ),
+    );
+  }
+
+  static void _openHajjTracker(BuildContext context) {
+    final prefs = getIt<AppPreferences>();
+    final steps = prefs.getHajjStepsSync(kHajjTrackerStepCount);
+    final hasProgress = steps.any((e) => e);
+    if (hasProgress) {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => BlocProvider(
+            create: (_) => HajjTrackerCubit(prefs),
+            child: const HajjTrackerScrollView(),
+          ),
+        ),
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => const HajjTrackerWelcomeView(),
+        ),
+      );
+    }
+  }
+
+  static void _handleTileTap(BuildContext context, DuaaHomeTileSpec spec) {
+    switch (spec.kind) {
+      case DuaaHomeTileKind.quran:
+        _openQuran(context);
+        return;
+      case DuaaHomeTileKind.hajjTracker:
+        _openHajjTracker(context);
+        return;
+      case DuaaHomeTileKind.categoryFiqhHajj:
+      case DuaaHomeTileKind.categoryAdiya:
+      case DuaaHomeTileKind.categoryFiqhMessages:
+      case DuaaHomeTileKind.categoryPilgrimAdvice:
+        final cat = spec.categoryKey!;
+        final cubitState = context.read<DuaaCubit>().state;
+        if (cubitState is! DuaaSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              behavior: SnackBarBehavior.floating,
+              content: Text(
+                'يرجى الانتظار، جاري تحميل المحتوى…',
+                style: TextStyle(
+                  fontFamily: 'Cairo',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          );
+          return;
+        }
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => DuaaCategoryListView(
+              category: cat,
+              title: spec.title,
+            ),
+          ),
+        );
+        return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,53 +202,36 @@ class DuaaViewBody extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: BlocBuilder<DuaaCubit, DuaaState>(
-            builder: (context, state) {
-              if (state is! DuaaSuccess) {
-                return StateRender.fullLoadingScreenImage;
-              }
-              return CustomScrollView(
-                slivers: [
-                  const SliverToBoxAdapter(child: _DuaaSectionHeader()),
-                  SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(
-                      AppPadding.p16,
-                      4,
-                      AppPadding.p16,
-                      AppPadding.p100,
-                    ),
-                    sliver: SliverGrid(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: AppSize.s14,
-                        mainAxisSpacing: AppSize.s14,
-                        childAspectRatio: 0.95,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, i) {
-                          final spec = kDuaaCategoryTiles[i];
-                          return _DuaaCategoryTile(
-                            spec: spec,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute<void>(
-                                  builder: (_) => DuaaCategoryListView(
-                                    category: spec.category,
-                                    title: spec.title,
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        childCount: kDuaaCategoryTiles.length,
-                      ),
-                    ),
+          child: CustomScrollView(
+            slivers: [
+              const SliverToBoxAdapter(child: _DuaaSectionHeader()),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppPadding.p16,
+                  4,
+                  AppPadding.p16,
+                  AppPadding.p100,
+                ),
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: AppSize.s14,
+                    mainAxisSpacing: AppSize.s14,
+                    childAspectRatio: 0.95,
                   ),
-                ],
-              );
-            },
+                  delegate: SliverChildBuilderDelegate(
+                    (context, i) {
+                      final spec = kDuaaHomeTiles[i];
+                      return _DuaaGridTile(
+                        spec: spec,
+                        onTap: () => _handleTileTap(context, spec),
+                      );
+                    },
+                    childCount: kDuaaHomeTiles.length,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -167,7 +277,7 @@ class _DuaaSectionHeader extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'الأدعية والمحتوى',
+                  'القرآن والمحتوى',
                   style: TextStyle(
                     color: DuaaViewBody._darkGreen,
                     fontSize: 18,
@@ -195,13 +305,13 @@ class _DuaaSectionHeader extends StatelessWidget {
   }
 }
 
-class _DuaaCategoryTile extends StatelessWidget {
-  const _DuaaCategoryTile({
+class _DuaaGridTile extends StatelessWidget {
+  const _DuaaGridTile({
     required this.spec,
     required this.onTap,
   });
 
-  final DuaaCategoryTileSpec spec;
+  final DuaaHomeTileSpec spec;
   final VoidCallback onTap;
 
   @override

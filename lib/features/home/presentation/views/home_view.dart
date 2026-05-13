@@ -17,8 +17,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navBarWidgets = <Widget>[
-      const AdminViewBody(),
       const DuaaViewBody(),
+      const AdminViewBody(),
       const GroupViewBody(),
       const ContactUsViewBody(),
     ];
@@ -100,9 +100,10 @@ class HomeView extends StatelessWidget {
   String getText(int index) {
     switch (index) {
       case 0:
-        return "الأدعية";
+        return "القرآن والمحتوى";
+
       case 1:
-        return "خدمات الحاج";
+        return "تعليمات";
       case 2:
         return "مجموعات التكتل";
       case 3:
