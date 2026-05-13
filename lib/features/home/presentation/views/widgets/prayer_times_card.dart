@@ -9,7 +9,8 @@ import 'package:holly_quran/core/resources/values_manager.dart';
 ///
 /// Renders an elegant header with the current Hijri date, a pill-style toggle
 /// to switch between Mecca and Medina, a live next-prayer banner with a 1s
-/// countdown, and a list of the six daily prayer events with their times.
+/// countdown, and a **horizontal** strip of the six daily prayer times
+/// (equal columns on wide layouts; horizontal scroll on narrow screens).
 ///
 /// All times are calculated locally via [adhan_dart] using the Umm al-Qura
 /// method, so the widget works fully offline. Wall-clock times are always
@@ -136,8 +137,8 @@ class _PrayerTimesCardState extends State<PrayerTimesCard> {
       if (r.utcTime.isAfter(now)) return r;
     }
     // After Isha → next day's Fajr.
-    return _SalahRow('الفجر', Icons.nightlight_round,
-        const Color(0xFF335B8A), _times.fajrAfter, true);
+    return _SalahRow('الفجر', Icons.nightlight_round, const Color(0xFF335B8A),
+        _times.fajrAfter, true);
   }
 
   @override
@@ -154,7 +155,8 @@ class _PrayerTimesCardState extends State<PrayerTimesCard> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: _goldSoft.withValues(alpha: 0.7), width: 1),
+            border:
+                Border.all(color: _goldSoft.withValues(alpha: 0.7), width: 1),
             boxShadow: [
               BoxShadow(
                 color: _primaryGreen.withValues(alpha: 0.10),
@@ -176,7 +178,7 @@ class _PrayerTimesCardState extends State<PrayerTimesCard> {
               const SizedBox(height: AppSize.s14),
               _NextPrayerBanner(next: next),
               const SizedBox(height: AppSize.s10),
-              _PrayerList(rows: rows, nextUtc: next.utcTime),
+              _HorizontalPrayerStrip(rows: rows, nextUtc: next.utcTime),
               const _MethodFooter(),
             ],
           ),
@@ -248,32 +250,32 @@ class _Header extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSize.s10, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(AppSize.s10),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.cloud_off_rounded,
-                    size: 14, color: Colors.white),
-                const SizedBox(width: 4),
-                Text(
-                  'بدون اتصال',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.95),
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Cairo',
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(
+          //       horizontal: AppSize.s10, vertical: 6),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white.withValues(alpha: 0.12),
+          //     borderRadius: BorderRadius.circular(AppSize.s10),
+          //     border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+          //   ),
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       const Icon(Icons.cloud_off_rounded,
+          //           size: 14, color: Colors.white),
+          //       const SizedBox(width: 4),
+          //       Text(
+          //         'بدون اتصال',
+          //         style: TextStyle(
+          //           color: Colors.white.withValues(alpha: 0.95),
+          //           fontSize: 10.5,
+          //           fontWeight: FontWeight.w700,
+          //           fontFamily: 'Cairo',
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -526,127 +528,186 @@ class _NextPrayerBanner extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Prayer list (the six rows)
+// Prayer times — horizontal strip (scrolls on narrow widths)
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _PrayerList extends StatelessWidget {
-  const _PrayerList({required this.rows, required this.nextUtc});
+class _HorizontalPrayerStrip extends StatelessWidget {
+  const _HorizontalPrayerStrip({required this.rows, required this.nextUtc});
+
   final List<_SalahRow> rows;
   final DateTime nextUtc;
 
+  static const double _minSlotWidth = 50;
+  static const double _horizontalPadding = AppSize.s14 * 2;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppSize.s14, vertical: 6),
-      child: Column(
-        children: [
-          for (var i = 0; i < rows.length; i++) ...[
-            _PrayerRow(
-              row: rows[i],
-              isNext: rows[i].isMain && rows[i].utcTime == nextUtc,
-            ),
-            if (i != rows.length - 1)
-              Divider(
-                height: 1,
-                thickness: 1,
-                color: const Color(0xFFEFEFEF).withValues(alpha: 0.9),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final innerW = constraints.maxWidth - _horizontalPadding;
+        final dividerBudget = (rows.length - 1) * 5.0;
+        final slotIfExpanded = (innerW - dividerBudget) / rows.length;
+        final useExpanded = slotIfExpanded >= _minSlotWidth;
+
+        final rowChildren = <Widget>[];
+        for (var i = 0; i < rows.length; i++) {
+          final r = rows[i];
+          final isNext = r.isMain && r.utcTime == nextUtc;
+          if (i > 0) {
+            rowChildren.add(
+              Container(
+                width: 1,
+                height: 44,
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                color: const Color(0xFFEFEFEF).withValues(alpha: 0.95),
               ),
-          ],
-        ],
-      ),
+            );
+          }
+          final slot = _PrayerTimeSlot(
+            row: r,
+            isNext: isNext,
+            compact: !useExpanded,
+          );
+          if (useExpanded) {
+            rowChildren.add(Expanded(child: slot));
+          } else {
+            rowChildren.add(slot);
+          }
+        }
+
+        final content = Row(
+          textDirection: TextDirection.rtl,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: rowChildren,
+        );
+
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppSize.s14,
+            6,
+            AppSize.s14,
+            AppSize.s10,
+          ),
+          child: useExpanded
+              ? content
+              : SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  physics: const BouncingScrollPhysics(),
+                  child: content,
+                ),
+        );
+      },
     );
   }
 }
 
-class _PrayerRow extends StatelessWidget {
-  const _PrayerRow({required this.row, required this.isNext});
+class _PrayerTimeSlot extends StatelessWidget {
+  const _PrayerTimeSlot({
+    required this.row,
+    required this.isNext,
+    required this.compact,
+  });
+
   final _SalahRow row;
   final bool isNext;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
     final time = arTime(_formatTime(row.meccaTime));
+    final iconSize = compact ? 16.0 : 18.0;
+    final nameSize = compact ? 10.5 : 11.5;
+    final timeSize = compact ? 12.0 : 13.5;
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppSize.s4, vertical: AppSize.s10),
+      width: compact ? 56 : null,
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 4 : 2,
+        vertical: compact ? 8 : 10,
+      ),
       decoration: isNext
           ? BoxDecoration(
-              color: _primaryGreen.withValues(alpha: 0.06),
+              color: _primaryGreen.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(AppSize.s12),
+              border: Border.all(
+                color: _primaryGreen.withValues(alpha: 0.35),
+                width: 1,
+              ),
             )
           : null,
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 34,
-            height: 34,
+            width: compact ? 30 : 34,
+            height: compact ? 30 : 34,
             decoration: BoxDecoration(
-              color: row.color.withValues(alpha: 0.12),
+              color: row.color.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(AppSize.s10),
             ),
-            child: Icon(row.icon, color: row.color, size: 18),
+            child: Icon(row.icon, color: row.color, size: iconSize),
           ),
-          const SizedBox(width: AppSize.s12),
-          Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  row.name,
-                  style: TextStyle(
-                    color: _ink,
-                    fontSize: 14.5,
-                    fontWeight: row.isMain ? FontWeight.w800 : FontWeight.w600,
-                    fontFamily: 'Cairo',
-                  ),
-                ),
-                if (!row.isMain) ...[
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 1),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE0962D).withValues(alpha: 0.12),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      'فلكي',
-                      style: TextStyle(
-                        color: Color(0xFFC8771C),
-                        fontSize: 9.5,
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-                if (isNext) ...[
-                  const SizedBox(width: 6),
-                  const Icon(Icons.circle, size: 6, color: _primaryGreen),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'القادمة',
-                    style: TextStyle(
-                      color: _primaryGreen,
-                      fontSize: 10.5,
-                      fontFamily: 'Cairo',
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ],
-              ],
+          SizedBox(height: compact ? 4 : 6),
+          Text(
+            row.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: _ink,
+              fontSize: nameSize,
+              fontWeight: row.isMain ? FontWeight.w800 : FontWeight.w600,
+              fontFamily: 'Cairo',
+              height: 1.05,
             ),
           ),
-          Text(
-            time,
-            style: TextStyle(
-              color: isNext ? _primaryGreen : _ink,
-              fontSize: 15.5,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'Cairo',
-              letterSpacing: 0.3,
+          // if (!row.isMain) ...[
+          //   const SizedBox(height: 2),
+          //   Text(
+          //     'فلكي',
+          //     style: TextStyle(
+          //       color: const Color(0xFFC8771C).withValues(alpha: 0.9),
+          //       fontSize: compact ? 8 : 8.5,
+          //       fontFamily: 'Cairo',
+          //       fontWeight: FontWeight.w700,
+          //     ),
+          //   ),
+          // ],
+          if (isNext) ...[
+            const SizedBox(height: 2),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.circle, size: compact ? 4 : 5, color: _primaryGreen),
+                const SizedBox(width: 3),
+                Text(
+                  'القادمة',
+                  style: TextStyle(
+                    color: _primaryGreen,
+                    fontSize: compact ? 8 : 9,
+                    fontFamily: 'Cairo',
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ],
+          SizedBox(height: compact ? 3 : 4),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              time,
+              maxLines: 1,
+              style: TextStyle(
+                color: isNext ? _primaryGreen : _ink,
+                fontSize: timeSize,
+                fontWeight: FontWeight.w800,
+                fontFamily: 'Cairo',
+                letterSpacing: 0.2,
+              ),
             ),
           ),
         ],
@@ -680,7 +741,7 @@ class _MethodFooter extends StatelessWidget {
           const Icon(Icons.verified_rounded, size: 14, color: _gold),
           const SizedBox(width: 6),
           Text(
-            'حسابات أم القرى · تُحسب محلياً بدون إنترنت',
+            'حسابات أم القرى ·',
             style: TextStyle(
               color: _ink.withValues(alpha: 0.7),
               fontSize: 11,

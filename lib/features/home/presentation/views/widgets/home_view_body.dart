@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/prayer_times_card.dart';
@@ -377,12 +376,12 @@ class _QuickAccessCard extends StatelessWidget {
         child: Ink(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: color.withOpacity(0.35), width: 1.4),
+            border: Border.all(color: color.withAlpha(35), width: 1.4),
             gradient: LinearGradient(
               begin: AlignmentDirectional.centerStart,
               end: AlignmentDirectional.centerEnd,
               colors: [
-                color.withOpacity(0.08),
+                color.withAlpha(8),
                 Colors.white,
               ],
             ),
@@ -399,10 +398,10 @@ class _QuickAccessCard extends StatelessWidget {
                   height: 52,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: color.withOpacity(0.12),
+                    color: color.withAlpha(12),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: color.withOpacity(0.55),
+                      color: color.withAlpha(55),
                       width: 1.4,
                     ),
                   ),
@@ -455,233 +454,9 @@ class _QuickAccessCard extends StatelessWidget {
 // 3) Primary details button
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _DetailsButton extends StatelessWidget {
-  const _DetailsButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-      child: SizedBox(
-        width: double.infinity,
-        height: 52,
-        child: ElevatedButton(
-          onPressed: () {
-            // Placeholder for future navigation (e.g. hotel details screen).
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: HomeViewBody._gold,
-            foregroundColor: HomeViewBody._darkGreen,
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu_book_rounded, size: 20),
-              SizedBox(width: 8),
-              Text(
-                'عرض التفاصيل',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BrandHeader extends StatelessWidget {
-  const _BrandHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(
-        AppPadding.p16,
-        AppPadding.p12,
-        AppPadding.p16,
-        AppPadding.p20,
-      ),
-      decoration: const BoxDecoration(
-        // Soft cream wash that fades into white — echoes the parchment look.
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0x22C9A961), Colors.white],
-        ),
-        border: Border(
-          bottom: BorderSide(color: Color(0x40C9A961), width: 2),
-        ),
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 84,
-            child: Row(
-              children: const [
-                // RTL: visual right = logical start.
-                _HajjBadge(),
-                Spacer(),
-                _CoalitionLogo(),
-              ],
-            ),
-          ),
-          const SizedBox(height: AppSize.s16),
-          const Text(
-            'حجاج سوريا',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w900,
-              color: HomeViewBody._darkGreen,
-              height: 1.1,
-              letterSpacing: 0.5,
-            ),
-          ),
-          const SizedBox(height: AppSize.s8),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.p12,
-              vertical: AppPadding.p4,
-            ),
-            decoration: BoxDecoration(
-              color: const Color(0x14C9A961),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text(
-              'تكتل الماسي لخدمات الحج',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: HomeViewBody._goldText,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _HajjBadge extends StatelessWidget {
-  const _HajjBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 68,
-      height: 84,
-      decoration: const BoxDecoration(
-        color: HomeViewBody._primaryGreen,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x33000000),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'حج',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 19,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          SizedBox(height: 2),
-          Text(
-            '1447',
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.w900,
-              letterSpacing: 1.0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CoalitionLogo extends StatelessWidget {
-  const _CoalitionLogo();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 84,
-      height: 84,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x22000000),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(4),
-      child: ClipOval(
-        child: SvgPicture.asset(
-          GroupSvgAssets.almasi,
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-}
-
 // ─────────────────────────────────────────────────────────────────────────────
 // 4) Footer
 // ─────────────────────────────────────────────────────────────────────────────
-
-class _YearFooter extends StatelessWidget {
-  const _YearFooter();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p14,
-          vertical: AppPadding.p6,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(color: const Color(0x80C9A961), width: 1),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: const Text(
-          'حج 1447 - 2026',
-          textDirection: TextDirection.ltr,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w800,
-            color: HomeViewBody._goldText,
-            letterSpacing: 1.6,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _GoldRule extends StatelessWidget {
   const _GoldRule();
