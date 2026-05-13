@@ -1,0 +1,116 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/home/data/models/duaa/duaa_model.dart';
+import 'package:holly_quran/features/home/presentation/view_models/duaa/duaa/duaa_cubit.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/duaa_widget.dart';
+
+/// Lists all [DuaaModel] items for one [DuaaContentCategory] after the user
+/// picks a tile on the main duaa grid.
+class DuaaCategoryListView extends StatefulWidget {
+  const DuaaCategoryListView({
+    super.key,
+    required this.category,
+    required this.title,
+  });
+
+  final String category;
+  final String title;
+
+  @override
+  State<DuaaCategoryListView> createState() => _DuaaCategoryListViewState();
+}
+
+class _DuaaCategoryListViewState extends State<DuaaCategoryListView> {
+  String _searchQuery = '';
+
+  List<DuaaModel> _filtered(List<DuaaModel> all) {
+    final q = _searchQuery.trim().toLowerCase();
+    return all.where((duaa) {
+      final matchesSearch =
+          q.isEmpty || duaa.name.toLowerCase().contains(q);
+      return matchesSearch && duaa.category == widget.category;
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.title,
+            style: const TextStyle(
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        body: BlocBuilder<DuaaCubit, DuaaState>(
+          builder: (context, state) {
+            if (state is! DuaaSuccess) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final items = _filtered(state.duaas);
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppPadding.p16,
+                    AppPadding.p12,
+                    AppPadding.p16,
+                    AppPadding.p8,
+                  ),
+                  child: TextField(
+                    onChanged: (value) {
+                      setState(() => _searchQuery = value);
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'بحث..',
+                      suffixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(),
+                      labelStyle: TextStyle(fontFamily: 'Cairo'),
+                    ),
+                    style: const TextStyle(
+                      fontFamily: 'Cairo',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: items.isEmpty
+                      ? const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(AppPadding.p16),
+                            child: Text(
+                              'لا توجد نتائج',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Cairo',
+                              ),
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: const EdgeInsets.fromLTRB(
+                            AppPadding.p8,
+                            0,
+                            AppPadding.p8,
+                            AppPadding.p20,
+                          ),
+                          itemCount: items.length,
+                          itemBuilder: (context, index) =>
+                              DuaaWidget(duaa: items[index]),
+                        ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
