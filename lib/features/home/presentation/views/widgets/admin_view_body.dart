@@ -5,6 +5,10 @@ import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/shared_preferences/app_preferences.dart';
 import 'package:holly_quran/features/admin_instructions/presentation/views/admin_instructions_view.dart';
+import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_steps.dart';
+import 'package:holly_quran/features/hajj_tracker/presentation/cubit/hajj_tracker_cubit.dart';
+import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracker_scroll_view.dart';
+import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracker_welcome_view.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/quran/presentation/cubit/quran_cubit.dart';
 import 'package:holly_quran/features/quran/presentation/views/quran_reading_view.dart';
@@ -66,7 +70,27 @@ class AdminViewBody extends StatelessWidget {
         subtitle: 'سجل المناسك',
         icon: Icons.checklist_rtl_rounded,
         color: _primaryGreen,
-        onTap: () => _showComingSoon(context, 'متابعة أعمال الحاج'),
+        onTap: () {
+          final prefs = getIt<AppPreferences>();
+          final steps = prefs.getHajjStepsSync(kHajjTrackerStepCount);
+          final hasProgress = steps.any((e) => e);
+          if (hasProgress) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => BlocProvider(
+                  create: (_) => HajjTrackerCubit(prefs),
+                  child: const HajjTrackerScrollView(),
+                ),
+              ),
+            );
+          } else {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const HajjTrackerWelcomeView(),
+              ),
+            );
+          }
+        },
       ),
     ];
 
