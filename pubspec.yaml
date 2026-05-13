@@ -15,6 +15,7 @@ dependencies:
 
   flutter_bloc: ^9.1.0
   get_it: ^8.0.3
+  shared_preferences: ^2.5.3
   animated_bottom_navigation_bar: ^1.1.0+1
   lottie: ^3.3.1
   flutter_native_splash: ^2.2.16
@@ -35,6 +36,7 @@ dependencies:
   adhan_dart: ^2.0.1
   timezone: ^0.10.0
   intl: ^0.20.2
+  wakelock_plus: ^1.3.1
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,9 @@ flutter:
     - assets/members/
     - assets/media/
     - assets/videos/
+    - assets/admin_instructions/
+    - assets/admin_advices/
+    - assets/quran_data/
 
   fonts:
     - family: Cairo

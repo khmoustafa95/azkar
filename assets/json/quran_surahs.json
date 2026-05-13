@@ -1,0 +1,800 @@
+[
+  {
+    "id": 1,
+    "name": "سُورَةُ ٱلْفَاتِحَةِ",
+    "type": "مكية",
+    "ayatNumber": 7,
+    "pageNumber": 1
+  },
+  {
+    "id": 2,
+    "name": "سُورَةُ البَقَرَةِ",
+    "type": "مدنية",
+    "ayatNumber": 286,
+    "pageNumber": 2
+  },
+  {
+    "id": 3,
+    "name": "سُورَةُ آلِ عِمۡرَانَ",
+    "type": "مدنية",
+    "ayatNumber": 200,
+    "pageNumber": 50
+  },
+  {
+    "id": 4,
+    "name": "سُورَةُ النِّسَاءِ",
+    "type": "مدنية",
+    "ayatNumber": 176,
+    "pageNumber": 77
+  },
+  {
+    "id": 5,
+    "name": "سُورَةُ المَائـِدَةِ",
+    "type": "مدنية",
+    "ayatNumber": 120,
+    "pageNumber": 107
+  },
+  {
+    "id": 6,
+    "name": "سُورَةُ الأَنۡعَامِ",
+    "type": "مكية",
+    "ayatNumber": 165,
+    "pageNumber": 128
+  },
+  {
+    "id": 7,
+    "name": "سُورَةُ الأَعۡرَافِ",
+    "type": "مكية",
+    "ayatNumber": 206,
+    "pageNumber": 151
+  },
+  {
+    "id": 8,
+    "name": "سُورَةُ الأَنفَالِ",
+    "type": "مدنية",
+    "ayatNumber": 75,
+    "pageNumber": 177
+  },
+  {
+    "id": 9,
+    "name": "سُورَةُ التَّوۡبَةِ",
+    "type": "مدنية",
+    "ayatNumber": 129,
+    "pageNumber": 187
+  },
+  {
+    "id": 10,
+    "name": "سُورَةُ يُونُسَ",
+    "type": "مكية",
+    "ayatNumber": 109,
+    "pageNumber": 208
+  },
+  {
+    "id": 11,
+    "name": "سُورَةُ هُودٍ",
+    "type": "مكية",
+    "ayatNumber": 123,
+    "pageNumber": 222
+  },
+  {
+    "id": 12,
+    "name": "سُورَةُ يُوسُفَ",
+    "type": "مكية",
+    "ayatNumber": 111,
+    "pageNumber": 236
+  },
+  {
+    "id": 13,
+    "name": "سُورَةُ الرَّعۡدِ",
+    "type": "مدنية",
+    "ayatNumber": 43,
+    "pageNumber": 249
+  },
+  {
+    "id": 14,
+    "name": "سُورَةُ إِبۡرَاهِيمَ",
+    "type": "مكية",
+    "ayatNumber": 52,
+    "pageNumber": 256
+  },
+  {
+    "id": 15,
+    "name": "سُورَةُ الحِجۡرِ",
+    "type": "مكية",
+    "ayatNumber": 99,
+    "pageNumber": 262
+  },
+  {
+    "id": 16,
+    "name": "سُورَةُ النَّحۡلِ",
+    "type": "مكية",
+    "ayatNumber": 128,
+    "pageNumber": 268
+  },
+  {
+    "id": 17,
+    "name": "سُورَةُ الإِسۡرَاءِ",
+    "type": "مكية",
+    "ayatNumber": 111,
+    "pageNumber": 282
+  },
+  {
+    "id": 18,
+    "name": "سُورَةُ الكَهۡفِ",
+    "type": "مكية",
+    "ayatNumber": 110,
+    "pageNumber": 294
+  },
+  {
+    "id": 19,
+    "name": "سُورَةُ مَرۡيَمَ",
+    "type": "مكية",
+    "ayatNumber": 98,
+    "pageNumber": 305
+  },
+  {
+    "id": 20,
+    "name": "سُورَةُ طه",
+    "type": "مكية",
+    "ayatNumber": 135,
+    "pageNumber": 313
+  },
+  {
+    "id": 21,
+    "name": "سُورَةُ الأَنبِيَاءِ",
+    "type": "مكية",
+    "ayatNumber": 112,
+    "pageNumber": 322
+  },
+  {
+    "id": 22,
+    "name": "سُورَةُ الحَجِّ",
+    "type": "مدنية",
+    "ayatNumber": 78,
+    "pageNumber": 332
+  },
+  {
+    "id": 23,
+    "name": "سُورَةُ المُؤۡمِنُونَ",
+    "type": "مكية",
+    "ayatNumber": 118,
+    "pageNumber": 342
+  },
+  {
+    "id": 24,
+    "name": "سُورَةُ النُّورِ",
+    "type": "مدنية",
+    "ayatNumber": 64,
+    "pageNumber": 350
+  },
+  {
+    "id": 25,
+    "name": "سُورَةُ الفُرۡقَانِ",
+    "type": "مكية",
+    "ayatNumber": 77,
+    "pageNumber": 360
+  },
+  {
+    "id": 26,
+    "name": "سُورَةُ الشُّعَرَاءِ",
+    "type": "مكية",
+    "ayatNumber": 227,
+    "pageNumber": 367
+  },
+  {
+    "id": 27,
+    "name": "سُورَةُ النَّمۡلِ",
+    "type": "مكية",
+    "ayatNumber": 93,
+    "pageNumber": 377
+  },
+  {
+    "id": 28,
+    "name": "سُورَةُ القَصَصِ",
+    "type": "مكية",
+    "ayatNumber": 88,
+    "pageNumber": 386
+  },
+  {
+    "id": 29,
+    "name": "سُورَةُ العَنكَبُوتِ",
+    "type": "مكية",
+    "ayatNumber": 69,
+    "pageNumber": 397
+  },
+  {
+    "id": 30,
+    "name": "سُورَةُ الرُّومِ",
+    "type": "مكية",
+    "ayatNumber": 60,
+    "pageNumber": 405
+  },
+  {
+    "id": 31,
+    "name": "سُورَةُ لُقۡمَانَ",
+    "type": "مكية",
+    "ayatNumber": 34,
+    "pageNumber": 411
+  },
+  {
+    "id": 32,
+    "name": "سُورَةُ السَّجۡدَةِ",
+    "type": "مكية",
+    "ayatNumber": 30,
+    "pageNumber": 415
+  },
+  {
+    "id": 33,
+    "name": "سُورَةُ الأَحۡزَابِ",
+    "type": "مدنية",
+    "ayatNumber": 73,
+    "pageNumber": 418
+  },
+  {
+    "id": 34,
+    "name": "سُورَةُ سَبَإٍ",
+    "type": "مكية",
+    "ayatNumber": 54,
+    "pageNumber": 428
+  },
+  {
+    "id": 35,
+    "name": "سُورَةُ فَاطِرٍ",
+    "type": "مكية",
+    "ayatNumber": 45,
+    "pageNumber": 435
+  },
+  {
+    "id": 36,
+    "name": "سُورَةُ يسٓ",
+    "type": "مكية",
+    "ayatNumber": 83,
+    "pageNumber": 441
+  },
+  {
+    "id": 37,
+    "name": "سُورَةُ الصَّافَّاتِ",
+    "type": "مكية",
+    "ayatNumber": 182,
+    "pageNumber": 446
+  },
+  {
+    "id": 38,
+    "name": "سُورَةُ صٓ",
+    "type": "مكية",
+    "ayatNumber": 88,
+    "pageNumber": 453
+  },
+  {
+    "id": 39,
+    "name": "سُورَةُ الزُّمَرِ",
+    "type": "مكية",
+    "ayatNumber": 75,
+    "pageNumber": 459
+  },
+  {
+    "id": 40,
+    "name": "سُورَةُ غَافِرٍ",
+    "type": "مكية",
+    "ayatNumber": 85,
+    "pageNumber": 468
+  },
+  {
+    "id": 41,
+    "name": "سُورَةُ فُصِّلَتۡ",
+    "type": "مكية",
+    "ayatNumber": 54,
+    "pageNumber": 477
+  },
+  {
+    "id": 42,
+    "name": "سُورَةُ الشُّورَىٰ",
+    "type": "مكية",
+    "ayatNumber": 53,
+    "pageNumber": 483
+  },
+  {
+    "id": 43,
+    "name": "سُورَةُ الزُّخۡرُفِ",
+    "type": "مكية",
+    "ayatNumber": 89,
+    "pageNumber": 490
+  },
+  {
+    "id": 44,
+    "name": "سُورَةُ الدُّخَانِ",
+    "type": "مكية",
+    "ayatNumber": 59,
+    "pageNumber": 496
+  },
+  {
+    "id": 45,
+    "name": "سُورَةُ الجَاثِيَةِ",
+    "type": "مكية",
+    "ayatNumber": 37,
+    "pageNumber": 499
+  },
+  {
+    "id": 46,
+    "name": "سُورَةُ الأَحۡقَافِ",
+    "type": "مكية",
+    "ayatNumber": 35,
+    "pageNumber": 503
+  },
+  {
+    "id": 47,
+    "name": "سُورَةُ مُحَمَّدٍ",
+    "type": "مدنية",
+    "ayatNumber": 38,
+    "pageNumber": 507
+  },
+  {
+    "id": 48,
+    "name": "سُورَةُ الفَتۡحِ",
+    "type": "مدنية",
+    "ayatNumber": 29,
+    "pageNumber": 511
+  },
+  {
+    "id": 49,
+    "name": "سُورَةُ الحُجُرَاتِ",
+    "type": "مدنية",
+    "ayatNumber": 18,
+    "pageNumber": 516
+  },
+  {
+    "id": 50,
+    "name": "سُورَةُ قٓ",
+    "type": "مكية",
+    "ayatNumber": 45,
+    "pageNumber": 518
+  },
+  {
+    "id": 51,
+    "name": "سُورَةُ الذَّارِيَاتِ",
+    "type": "مكية",
+    "ayatNumber": 60,
+    "pageNumber": 521
+  },
+  {
+    "id": 52,
+    "name": "سُورَةُ الطُّورِ",
+    "type": "مكية",
+    "ayatNumber": 49,
+    "pageNumber": 524
+  },
+  {
+    "id": 53,
+    "name": "سُورَةُ النَّجۡمِ",
+    "type": "مكية",
+    "ayatNumber": 62,
+    "pageNumber": 526
+  },
+  {
+    "id": 54,
+    "name": "سُورَةُ القَمَرِ",
+    "type": "مكية",
+    "ayatNumber": 55,
+    "pageNumber": 529
+  },
+  {
+    "id": 55,
+    "name": "سُورَةُ الرَّحۡمَٰن",
+    "type": "مدنية",
+    "ayatNumber": 78,
+    "pageNumber": 532
+  },
+  {
+    "id": 56,
+    "name": "سُورَةُ الوَاقِعَةِ",
+    "type": "مكية",
+    "ayatNumber": 96,
+    "pageNumber": 535
+  },
+  {
+    "id": 57,
+    "name": "سُورَةُ الحَدِيدِ",
+    "type": "مدنية",
+    "ayatNumber": 29,
+    "pageNumber": 538
+  },
+  {
+    "id": 58,
+    "name": "سُورَةُ المُجَادلَةِ",
+    "type": "مدنية",
+    "ayatNumber": 22,
+    "pageNumber": 542
+  },
+  {
+    "id": 59,
+    "name": "سُورَةُ الحَشۡرِ",
+    "type": "مدنية",
+    "ayatNumber": 24,
+    "pageNumber": 546
+  },
+  {
+    "id": 60,
+    "name": "سُورَةُ المُمۡتَحنَةِ",
+    "type": "مدنية",
+    "ayatNumber": 13,
+    "pageNumber": 549
+  },
+  {
+    "id": 61,
+    "name": "سُورَةُ الصَّفِّ",
+    "type": "مدنية",
+    "ayatNumber": 14,
+    "pageNumber": 552
+  },
+  {
+    "id": 62,
+    "name": "سُورَةُ الجُمُعَةِ",
+    "type": "مدنية",
+    "ayatNumber": 11,
+    "pageNumber": 553
+  },
+  {
+    "id": 63,
+    "name": "سُورَةُ المُنَافِقُونَ",
+    "type": "مدنية",
+    "ayatNumber": 11,
+    "pageNumber": 555
+  },
+  {
+    "id": 64,
+    "name": "سُورَةُ التَّغَابُنِ",
+    "type": "مدنية",
+    "ayatNumber": 18,
+    "pageNumber": 556
+  },
+  {
+    "id": 65,
+    "name": "سُورَةُ الطَّلَاقِ",
+    "type": "مدنية",
+    "ayatNumber": 12,
+    "pageNumber": 558
+  },
+  {
+    "id": 66,
+    "name": "سُورَةُ التَّحۡرِيمِ",
+    "type": "مدنية",
+    "ayatNumber": 12,
+    "pageNumber": 560
+  },
+  {
+    "id": 67,
+    "name": "سُورَةُ المُلۡكِ",
+    "type": "مكية",
+    "ayatNumber": 30,
+    "pageNumber": 562
+  },
+  {
+    "id": 68,
+    "name": "سُورَةُ القَلَمِ",
+    "type": "مكية",
+    "ayatNumber": 52,
+    "pageNumber": 565
+  },
+  {
+    "id": 69,
+    "name": "سُورَةُ الحَاقَّةِ",
+    "type": "مكية",
+    "ayatNumber": 52,
+    "pageNumber": 567
+  },
+  {
+    "id": 70,
+    "name": "سُورَةُ المَعَارِجِ",
+    "type": "مكية",
+    "ayatNumber": 44,
+    "pageNumber": 569
+  },
+  {
+    "id": 71,
+    "name": "سُورَةُ نُوحٍ",
+    "type": "مكية",
+    "ayatNumber": 28,
+    "pageNumber": 571
+  },
+  {
+    "id": 72,
+    "name": "سُورَةُ الجِنِّ",
+    "type": "مكية",
+    "ayatNumber": 28,
+    "pageNumber": 572
+  },
+  {
+    "id": 73,
+    "name": "سُورَةُ المُزَّمِّلِ",
+    "type": "مكية",
+    "ayatNumber": 20,
+    "pageNumber": 574
+  },
+  {
+    "id": 74,
+    "name": "سُورَةُ المُدَّثِّرِ",
+    "type": "مكية",
+    "ayatNumber": 56,
+    "pageNumber": 576
+  },
+  {
+    "id": 75,
+    "name": "سُورَةُ القِيَامَةِ",
+    "type": "مكية",
+    "ayatNumber": 40,
+    "pageNumber": 578
+  },
+  {
+    "id": 76,
+    "name": "سُورَةُ الإِنسَانِ",
+    "type": "مدنية",
+    "ayatNumber": 31,
+    "pageNumber": 579
+  },
+  {
+    "id": 77,
+    "name": "سُورَةُ المُرۡسَلَاتِ",
+    "type": "مكية",
+    "ayatNumber": 50,
+    "pageNumber": 581
+  },
+  {
+    "id": 78,
+    "name": "سُورَةُ النَّبَإِ",
+    "type": "مكية",
+    "ayatNumber": 40,
+    "pageNumber": 582
+  },
+  {
+    "id": 79,
+    "name": "سُورَةُ النَّازِعَاتِ",
+    "type": "مكية",
+    "ayatNumber": 46,
+    "pageNumber": 584
+  },
+  {
+    "id": 80,
+    "name": "سُورَةُ عَبَسَ",
+    "type": "مكية",
+    "ayatNumber": 42,
+    "pageNumber": 585
+  },
+  {
+    "id": 81,
+    "name": "سُورَةُ التَّكۡوِيرِ",
+    "type": "مكية",
+    "ayatNumber": 29,
+    "pageNumber": 586
+  },
+  {
+    "id": 82,
+    "name": "سُورَةُ الانفِطَارِ",
+    "type": "مكية",
+    "ayatNumber": 19,
+    "pageNumber": 587
+  },
+  {
+    "id": 83,
+    "name": "سُورَةُ المُطَفِّفِينَ",
+    "type": "مكية",
+    "ayatNumber": 36,
+    "pageNumber": 588
+  },
+  {
+    "id": 84,
+    "name": "سُورَةُ الانشِقَاقِ",
+    "type": "مكية",
+    "ayatNumber": 25,
+    "pageNumber": 589
+  },
+  {
+    "id": 85,
+    "name": "سُورَةُ البُرُوجِ",
+    "type": "مكية",
+    "ayatNumber": 22,
+    "pageNumber": 590
+  },
+  {
+    "id": 86,
+    "name": "سُورَةُ الطَّارِقِ",
+    "type": "مكية",
+    "ayatNumber": 17,
+    "pageNumber": 591
+  },
+  {
+    "id": 87,
+    "name": "سُورَةُ الأَعۡلَىٰ",
+    "type": "مكية",
+    "ayatNumber": 19,
+    "pageNumber": 592
+  },
+  {
+    "id": 88,
+    "name": "سُورَةُ الغَاشِيَةِ",
+    "type": "مكية",
+    "ayatNumber": 26,
+    "pageNumber": 592
+  },
+  {
+    "id": 89,
+    "name": "سُورَةُ الفَجۡرِ",
+    "type": "مكية",
+    "ayatNumber": 30,
+    "pageNumber": 593
+  },
+  {
+    "id": 90,
+    "name": "سُورَةُ البَلَدِ",
+    "type": "مكية",
+    "ayatNumber": 20,
+    "pageNumber": 594
+  },
+  {
+    "id": 91,
+    "name": "سُورَةُ الشَّمۡسِ",
+    "type": "مكية",
+    "ayatNumber": 15,
+    "pageNumber": 595
+  },
+  {
+    "id": 92,
+    "name": "سُورَةُ اللَّيۡلِ",
+    "type": "مكية",
+    "ayatNumber": 21,
+    "pageNumber": 596
+  },
+  {
+    "id": 93,
+    "name": "سُورَةُ الضُّحَىٰ",
+    "type": "مكية",
+    "ayatNumber": 11,
+    "pageNumber": 596
+  },
+  {
+    "id": 94,
+    "name": "سُورَةُ الشَّرۡحِ",
+    "type": "مكية",
+    "ayatNumber": 8,
+    "pageNumber": 596
+  },
+  {
+    "id": 95,
+    "name": "سُورَةُ التِّينِ",
+    "type": "مكية",
+    "ayatNumber": 8,
+    "pageNumber": 597
+  },
+  {
+    "id": 96,
+    "name": "سُورَةُ العَلَقِ",
+    "type": "مكية",
+    "ayatNumber": 19,
+    "pageNumber": 597
+  },
+  {
+    "id": 97,
+    "name": "سُورَةُ القَدۡرِ",
+    "type": "مكية",
+    "ayatNumber": 5,
+    "pageNumber": 598
+  },
+  {
+    "id": 98,
+    "name": "سُورَةُ البَيِّنَةِ",
+    "type": "مدنية",
+    "ayatNumber": 8,
+    "pageNumber": 599
+  },
+  {
+    "id": 99,
+    "name": "سُورَةُ الزَّلۡزَلَةِ",
+    "type": "مدنية",
+    "ayatNumber": 8,
+    "pageNumber": 599
+  },
+  {
+    "id": 100,
+    "name": "سُورَةُ العَادِيَاتِ",
+    "type": "مكية",
+    "ayatNumber": 11,
+    "pageNumber": 600
+  },
+  {
+    "id": 101,
+    "name": "سُورَةُ القَارِعَةِ",
+    "type": "مكية",
+    "ayatNumber": 11,
+    "pageNumber": 600
+  },
+  {
+    "id": 102,
+    "name": "سُورَةُ التَّكَاثُرِ",
+    "type": "مكية",
+    "ayatNumber": 8,
+    "pageNumber": 600
+  },
+  {
+    "id": 103,
+    "name": "سُورَةُ العَصۡرِ",
+    "type": "مكية",
+    "ayatNumber": 3,
+    "pageNumber": 601
+  },
+  {
+    "id": 104,
+    "name": "سُورَةُ الهُمَزَةِ",
+    "type": "مكية",
+    "ayatNumber": 9,
+    "pageNumber": 601
+  },
+  {
+    "id": 105,
+    "name": "سُورَةُ الفِيلِ",
+    "type": "مكية",
+    "ayatNumber": 5,
+    "pageNumber": 601
+  },
+  {
+    "id": 106,
+    "name": "سُورَةُ قُرَيۡشٍ",
+    "type": "مكية",
+    "ayatNumber": 4,
+    "pageNumber": 602
+  },
+  {
+    "id": 107,
+    "name": "سُورَةُ المَاعُونِ",
+    "type": "مكية",
+    "ayatNumber": 7,
+    "pageNumber": 602
+  },
+  {
+    "id": 108,
+    "name": "سُورَةُ الكَوۡثَرِ",
+    "type": "مكية",
+    "ayatNumber": 3,
+    "pageNumber": 602
+  },
+  {
+    "id": 109,
+    "name": "سُورَةُ الكَافِرُونَ",
+    "type": "مكية",
+    "ayatNumber": 6,
+    "pageNumber": 603
+  },
+  {
+    "id": 110,
+    "name": "سُورَةُ النَّصۡرِ",
+    "type": "مدنية",
+    "ayatNumber": 3,
+    "pageNumber": 603
+  },
+  {
+    "id": 111,
+    "name": "سُورَةُ المَسَدِ",
+    "type": "مكية",
+    "ayatNumber": 5,
+    "pageNumber": 603
+  },
+  {
+    "id": 112,
+    "name": "سُورَةُ الإِخۡلَاصِ",
+    "type": "مكية",
+    "ayatNumber": 4,
+    "pageNumber": 604
+  },
+  {
+    "id": 113,
+    "name": "سُورَةُ الفَلَقِ",
+    "type": "مكية",
+    "ayatNumber": 5,
+    "pageNumber": 604
+  },
+  {
+    "id": 114,
+    "name": "سُورَةُ النَّاسِ",
+    "type": "مكية",
+    "ayatNumber": 6,
+    "pageNumber": 604
+  }
+]

@@ -58,9 +58,122 @@ class VideoAssets {
   static const String whoWeAre = "$videosAssetPath/who_we_are.mp4";
 }
 
+/// Madinah mushaf page raster images (`1.png` … `604.png`) under [quranData].
+class QuranMushafPageAssets {
+  QuranMushafPageAssets._();
+
+  /// Single page path, [page] in `1…604`.
+  static String pathForPage(int page) {
+    assert(page >= 1 && page <= 604, 'Mushaf page must be 1–604');
+    return '$quranData$page.png';
+  }
+
+  /// All 604 asset paths — built once, unmodifiable (avoid rebuilding in cubit).
+  static final List<String> allPaths = List<String>.unmodifiable(
+    List.generate(604, (i) => '$quranData${i + 1}.png'),
+  );
+}
+
 const String membersAssetPath = "assets/members";
 const String groupsAssetPath = "assets/groups";
 const String groupsSvgAssetPath = "assets/groups/svg";
+
+/// Administrative instruction images (Hajj coalition slides).
+const String adminInstructionsAssetPath = "assets/admin_instructions";
+
+/// Administrative advice images (numbered advice cards).
+const String adminAdvicesAssetPath = "assets/admin_advices";
+
+/// Typed paths for files under [adminInstructionsAssetPath].
+///
+/// Filenames match the assets on disk exactly (including spelling such as
+/// `resturant.jpeg` and `mousque.jpeg`).
+class AdminInstructionImageAssets {
+  AdminInstructionImageAssets._();
+
+  static const String _b = adminInstructionsAssetPath;
+
+  static const String beforeTravel = "$_b/before_travel.jpeg";
+  static const String airport = "$_b/airport.jpeg";
+  static const String arrivingAirport = "$_b/arriving_airport.jpeg";
+  static const String arrivingHotel = "$_b/arriving_hotel.jpeg";
+  static const String insidePlane = "$_b/inside_plane.jpeg";
+  /// Disk filename is `resturant.jpeg`.
+  static const String restaurant = "$_b/resturant.jpeg";
+  /// Disk filename is `mousque.jpeg`.
+  static const String mosque = "$_b/mousque.jpeg";
+  static const String washing = "$_b/washing.jpeg";
+  static const String arafatCamp = "$_b/arafat_camp.jpeg";
+  static const String walking = "$_b/walking.jpeg";
+  static const String loss = "$_b/loss.jpeg";
+  static const String backMadinah = "$_b/back_madinah.jpeg";
+  static const String leavingMakkah = "$_b/leaving_makkah.jpeg";
+  static const String elevator = "$_b/elevator.jpeg";
+  static const String drugs = "$_b/drugs.jpeg";
+  static const String contentBug = "$_b/content_bug.jpeg";
+  static const String generalAdvice = "$_b/general_advice.jpg";
+
+  static List<String> get bundledPaths => [
+        beforeTravel,
+        airport,
+        arrivingAirport,
+        arrivingHotel,
+        insidePlane,
+        restaurant,
+        mosque,
+        washing,
+        arafatCamp,
+        walking,
+        loss,
+        backMadinah,
+        leavingMakkah,
+        elevator,
+        drugs,
+        contentBug,
+        generalAdvice,
+      ];
+}
+
+/// Typed paths for files under [adminAdvicesAssetPath] (`advice1.jpeg` … `advice15.jpeg`).
+class AdminAdviceImageAssets {
+  AdminAdviceImageAssets._();
+
+  static const String _b = adminAdvicesAssetPath;
+
+  static const String advice1 = "$_b/advice1.jpeg";
+  static const String advice2 = "$_b/advice2.jpeg";
+  static const String advice3 = "$_b/advice3.jpeg";
+  static const String advice4 = "$_b/advice4.jpeg";
+  static const String advice5 = "$_b/advice5.jpeg";
+  static const String advice6 = "$_b/advice6.jpeg";
+  static const String advice7 = "$_b/advice7.jpeg";
+  static const String advice8 = "$_b/advice8.jpeg";
+  static const String advice9 = "$_b/advice9.jpeg";
+  static const String advice10 = "$_b/advice10.jpeg";
+  static const String advice11 = "$_b/advice11.jpeg";
+  static const String advice12 = "$_b/advice12.jpeg";
+  static const String advice13 = "$_b/advice13.jpeg";
+  static const String advice14 = "$_b/advice14.jpeg";
+  static const String advice15 = "$_b/advice15.jpeg";
+
+  static List<String> get bundledPaths => [
+        advice1,
+        advice2,
+        advice3,
+        advice4,
+        advice5,
+        advice6,
+        advice7,
+        advice8,
+        advice9,
+        advice10,
+        advice11,
+        advice12,
+        advice13,
+        advice14,
+        advice15,
+      ];
+}
 
 /// Member headshots under [membersAssetPath]. Prefer these over raw paths
 /// so typos are caught at compile time.

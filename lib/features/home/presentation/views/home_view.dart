@@ -102,7 +102,7 @@ class HomeView extends StatelessWidget {
       case 0:
         return "الأدعية";
       case 1:
-        return "إداريي التكتل";
+        return "خدمات الحاج";
       case 2:
         return "مجموعات التكتل";
       case 3:

@@ -12,10 +12,9 @@ import 'features/home/presentation/view_models/duaa/duaa/duaa_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //
-
+  await setupServiceLocator();
   //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: []);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  setupServiceLocator();
   runApp(const HajApp());
 }
 

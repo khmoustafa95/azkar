@@ -44,9 +44,10 @@ class HomeViewBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
             SizedBox(height: AppSize.s16),
-            PrayerTimesCard(),
-            SizedBox(height: AppSize.s20),
+
             _FlippingCard(),
+            SizedBox(height: AppSize.s20),
+            PrayerTimesCard(),
             SizedBox(height: AppSize.s20),
             _QuickAccessSection(),
             SizedBox(height: AppSize.s20),
