@@ -84,6 +84,159 @@ const String adminInstructionsAssetPath = "assets/admin_instructions";
 /// Administrative advice images (numbered advice cards).
 const String adminAdvicesAssetPath = "assets/admin_advices";
 
+/// Audio duas for Hajj & Umrah (`assets/sound_prayers/*.mp3`).
+const String soundPrayersAssetPath = "assets/sound_prayers";
+
+/// Text dua cards as WebP images (`assets/text_prayers/1.webp` … `10.webp`).
+const String textPrayersAssetPath = "assets/text_prayers";
+
+/// «مع الحاج» educational videos (`with_hajj1.mp4` … `with_hajj41.mp4`).
+const String withHajjAssetPath = "assets/with_hajj";
+
+/// «هل تعلم» short videos (`do_you_know1.mp4` … `do_you_know11.mp4`).
+const String doYouKnowAssetPath = "assets/do_you_know";
+
+/// Fiqh of Hajj — part 2 videos (`figh_hajj13.mp4` … `figh_hajj19.mp4`).
+const String fighHajj2AssetPath = "assets/figh_hajj2";
+
+/// Fiqh of Hajj — part 1 videos (`figh_hajj1.mp4` … `figh_hajj12.mp4`).
+const String fiqhHajj1AssetPath = "assets/fiqh_hajj1";
+
+/// Typed paths for MP3 files under [soundPrayersAssetPath].
+class SoundPrayerAudioAssets {
+  SoundPrayerAudioAssets._();
+
+  static const String _b = soundPrayersAssetPath;
+
+  static const String leavingHomeDua = "$_b/leaving_home_dua.mp3";
+  static const String travel = "$_b/travel.mp3";
+  static const String enterMasjed = "$_b/enter_masjed.mp3";
+  static const String seeKaabeh = "$_b/see_kaabeh.mp3";
+  static const String ihramTalbia = "$_b/ihram_talbia.mp3";
+  static const String startTawaf = "$_b/start_tawaf.mp3";
+  static const String startHejjer = "$_b/start_hejjer.mp3";
+  static const String raknYamani = "$_b/rakn_yamani.mp3";
+  static const String mailain = "$_b/mailain.mp3";
+  static const String drinkZamzam = "$_b/drink_zamzam.mp3";
+  static const String tawaf1Dua = "$_b/tawaf1_dua.mp3";
+  static const String tawaf2Dua = "$_b/tawaf2_dua.mp3";
+  static const String tawaf3Dua = "$_b/tawaf3_dua.mp3";
+  static const String safaMarwa = "$_b/safa_marwa.mp3";
+  static const String saai1Dua = "$_b/saai1_dua.mp3";
+  static const String saai2Dua = "$_b/saai2_dua.mp3";
+  static const String saai3Dua = "$_b/saai3_dua.mp3";
+  static const String tawafEfada = "$_b/tawaf_efada.mp3";
+  static const String tarwia = "$_b/tarwia.mp3";
+  static const String walkingArafa = "$_b/walking_arafa.mp3";
+  static const String yaumArafa = "$_b/yaum_arafa.mp3";
+  static const String yaumArafa1 = "$_b/yaum_arafa1.mp3";
+  static const String arafa1Dua = "$_b/arafa1_dua.mp3";
+  static const String arafa2Dua = "$_b/arafa2_dua.mp3";
+  static const String selected1Dua = "$_b/selected1_dua.mp3";
+  static const String selected2Dua = "$_b/selected2_dua.mp3";
+
+  static List<String> get bundledPaths => [
+        leavingHomeDua,
+        travel,
+        enterMasjed,
+        seeKaabeh,
+        ihramTalbia,
+        startTawaf,
+        startHejjer,
+        raknYamani,
+        mailain,
+        drinkZamzam,
+        tawaf1Dua,
+        tawaf2Dua,
+        tawaf3Dua,
+        safaMarwa,
+        saai1Dua,
+        saai2Dua,
+        saai3Dua,
+        tawafEfada,
+        tarwia,
+        walkingArafa,
+        yaumArafa,
+        yaumArafa1,
+        arafa1Dua,
+        arafa2Dua,
+        selected1Dua,
+        selected2Dua,
+      ];
+}
+
+/// Text dua WebP cards under [textPrayersAssetPath] (`1.webp` … `10.webp`).
+class TextPrayerImageAssets {
+  TextPrayerImageAssets._();
+
+  static String pathForPage(int page) {
+    assert(page >= 1 && page <= 10, 'Text prayer page must be 1–10');
+    return '$textPrayersAssetPath/$page.webp';
+  }
+
+  static final List<String> bundledPaths = List<String>.unmodifiable(
+    List.generate(10, (i) => pathForPage(i + 1)),
+  );
+}
+
+/// «مع الحاج» videos under [withHajjAssetPath] (`with_hajj1.mp4` … `with_hajj41.mp4`).
+class WithHajjVideoAssets {
+  WithHajjVideoAssets._();
+
+  static String pathForIndex(int index) {
+    assert(index >= 1 && index <= 41, 'With-hajj video index must be 1–41');
+    return '$withHajjAssetPath/with_hajj$index.mp4';
+  }
+
+  static final List<String> bundledPaths = List<String>.unmodifiable(
+    List.generate(41, (i) => pathForIndex(i + 1)),
+  );
+}
+
+/// «هل تعلم» videos under [doYouKnowAssetPath].
+class DoYouKnowVideoAssets {
+  DoYouKnowVideoAssets._();
+
+  static String pathForIndex(int index) {
+    assert(index >= 1 && index <= 11, 'Do-you-know video index must be 1–11');
+    return '$doYouKnowAssetPath/do_you_know$index.mp4';
+  }
+
+  static final List<String> bundledPaths = List<String>.unmodifiable(
+    List.generate(11, (i) => pathForIndex(i + 1)),
+  );
+}
+
+/// Fiqh of Hajj part 2 — disk filenames use `figh_hajj13` … `figh_hajj19`.
+class FighHajj2VideoAssets {
+  FighHajj2VideoAssets._();
+
+  static const List<int> indices = [13, 14, 15, 16, 17, 18, 19];
+
+  static String pathForIndex(int index) {
+    assert(indices.contains(index), 'Fiqh hajj2 index must be 13–19');
+    return '$fighHajj2AssetPath/figh_hajj$index.mp4';
+  }
+
+  static final List<String> bundledPaths = List<String>.unmodifiable(
+    indices.map(pathForIndex).toList(growable: false),
+  );
+}
+
+/// Fiqh of Hajj part 1 — disk filenames use `figh_hajj1` … `figh_hajj12`.
+class FiqhHajj1VideoAssets {
+  FiqhHajj1VideoAssets._();
+
+  static String pathForIndex(int index) {
+    assert(index >= 1 && index <= 12, 'Fiqh hajj1 index must be 1–12');
+    return '$fiqhHajj1AssetPath/figh_hajj$index.mp4';
+  }
+
+  static final List<String> bundledPaths = List<String>.unmodifiable(
+    List.generate(12, (i) => pathForIndex(i + 1)),
+  );
+}
+
 /// Typed paths for files under [adminInstructionsAssetPath].
 ///
 /// Filenames match the assets on disk exactly (including spelling such as
@@ -98,8 +251,10 @@ class AdminInstructionImageAssets {
   static const String arrivingAirport = "$_b/arriving_airport.jpeg";
   static const String arrivingHotel = "$_b/arriving_hotel.jpeg";
   static const String insidePlane = "$_b/inside_plane.jpeg";
+
   /// Disk filename is `resturant.jpeg`.
   static const String restaurant = "$_b/resturant.jpeg";
+
   /// Disk filename is `mousque.jpeg`.
   static const String mosque = "$_b/mousque.jpeg";
   static const String washing = "$_b/washing.jpeg";

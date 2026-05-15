@@ -76,6 +76,12 @@ flutter:
     - assets/videos/
     - assets/admin_instructions/
     - assets/admin_advices/
+    - assets/sound_prayers/
+    - assets/text_prayers/
+    - assets/with_hajj/
+    - assets/do_you_know/
+    - assets/figh_hajj2/
+    - assets/fiqh_hajj1/
     - assets/quran_data/
 
   fonts:

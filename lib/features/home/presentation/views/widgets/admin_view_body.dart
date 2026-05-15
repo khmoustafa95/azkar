@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/features/admin_advices/presentation/views/admin_advices_view.dart';
 import 'package:holly_quran/features/admin_instructions/presentation/views/admin_instructions_view.dart';
 
 /// صفحة التعليمات الإدارية والطبية (بلاطتان).
@@ -27,11 +28,15 @@ class AdminViewBody extends StatelessWidget {
         ),
       ),
       _SectionTile(
-        title: 'تعليمات طبية',
-        subtitle: 'صحة وسلامة الحاج',
+        title: 'نصائح إدارة الحج و العمرة ',
+        subtitle: 'يمكنك الاستفادة منها لتحقيق حج و عمرة سليمة',
         icon: Icons.health_and_safety_rounded,
         color: const Color(0xFFB85A33),
-        onTap: () => _showComingSoon(context, 'تعليمات طبية'),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => const AdminAdvicesView(),
+          ),
+        ),
       ),
     ];
 
@@ -75,23 +80,6 @@ class AdminViewBody extends StatelessWidget {
     );
   }
 
-  static void _showComingSoon(BuildContext context, String section) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: _darkGreen,
-        content: Text(
-          'قسم «$section» سيتوفر قريباً',
-          style: const TextStyle(
-            color: Colors.white,
-            fontFamily: 'Cairo',
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
 }
 
 class _SectionHeader extends StatelessWidget {
