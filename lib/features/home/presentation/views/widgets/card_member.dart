@@ -137,12 +137,12 @@ class CardMember extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: GroupLogoImage(
                 logo,
-                height: AppSize.s100,
+                height: AppSize.s80,
               ),
             ),
 
             // Phone Number
-            PhoneWidget(phone: member.syPhone)
+            PhoneWidget(phone: member.syPhone, saPhone: member.saPhone)
           ],
         ),
       ),

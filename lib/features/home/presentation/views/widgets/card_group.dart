@@ -6,8 +6,10 @@ import 'package:holly_quran/features/home/data/models/duaa/group_model.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/phone_widget.dart';
 
 class CardGroup extends StatelessWidget {
-  const CardGroup({super.key, required this.group, required this.onTap});
+  const CardGroup(
+      {super.key, required this.group, required this.onTap, this.saPhone});
   final GroupModel group;
+  final String? saPhone;
   final void Function() onTap;
 
   List<Color> getColorsFromValue(int value) {
@@ -124,7 +126,7 @@ class CardGroup extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Text(
                   group.name,
                   style: const TextStyle(
@@ -136,15 +138,15 @@ class CardGroup extends StatelessWidget {
               ),
               // Logo
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 child: GroupLogoImage(
                   group.logo,
-                  height: AppSize.s100,
+                  height: AppSize.s80,
                 ),
               ),
 
               // Phone Number
-              PhoneWidget(phone: group.phone)
+              PhoneWidget(phone: group.phone, saPhone: group.saPhone)
             ],
           ),
         ),

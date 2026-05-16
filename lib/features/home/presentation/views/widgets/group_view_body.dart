@@ -371,6 +371,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.almasi,
           officer: "محمود رضوان الحداد",
           phone: adminMembers.first.syPhone,
+          saPhone: adminMembers.first.saPhone,
           members: adminMembers,
           photo: MemberImageAssets.almasiMahmoudHaddad),
       GroupModel(
@@ -379,6 +380,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.enaya,
           officer: "محمد ياسر أبو كشة",
           phone: enayaMembers.first.syPhone,
+          saPhone: enayaMembers.first.saPhone,
           members: enayaMembers,
           photo: MemberImageAssets.enayaYasserKesheh),
       GroupModel(
@@ -387,6 +389,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.ishraq,
           officer: "محمد اسماعيل الأحمد",
           phone: ishraqMembers.first.syPhone,
+          saPhone: ishraqMembers.first.saPhone,
           members: ishraqMembers,
           photo: MemberImageAssets.ishraqMohammadIsmail),
       GroupModel(
@@ -395,6 +398,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.nema,
           officer: "عبد الكريم يحيى البدر",
           phone: nemaMembers.first.syPhone,
+          saPhone: nemaMembers.first.saPhone,
           members: nemaMembers,
           photo: MemberImageAssets.nemaaAbdoBadr),
       GroupModel(
@@ -403,6 +407,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.mawasem,
           officer: "محمد محمود الحجي",
           phone: mawasemMembers.first.syPhone,
+          saPhone: mawasemMembers.first.saPhone,
           members: mawasemMembers,
           photo: MemberImageAssets.mawasemMohammadHajji),
       GroupModel(
@@ -411,6 +416,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.alnour,
           officer: "أنس محمد الخلف",
           phone: alnourMembers.first.syPhone,
+          saPhone: alnourMembers.first.saPhone,
           members: alnourMembers,
           photo: MemberImageAssets.alnourAnasKhalaf),
       GroupModel(
@@ -419,6 +425,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.azaem,
           officer: "عبد الرحمن حياني",
           phone: azaaemMembers.first.syPhone,
+          saPhone: azaaemMembers.first.saPhone,
           members: azaaemMembers,
           photo: MemberImageAssets.azaemAbdulrahmanHayani),
       GroupModel(
@@ -427,6 +434,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.maalem,
           officer: "عبد الرحمن محمد نداف",
           phone: ma3alemMembers.first.syPhone,
+          saPhone: ma3alemMembers.first.saPhone,
           members: ma3alemMembers,
           photo: MemberImageAssets.maalemAbdulrahmanNadaf),
       GroupModel(
@@ -435,6 +443,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.tahrir,
           officer: "محمد مصطفى خندقاني",
           phone: tahrirMembers.first.syPhone,
+          saPhone: tahrirMembers.first.saPhone,
           members: tahrirMembers,
           photo: MemberImageAssets.tahrirMohammadKhandakani),
       GroupModel(
@@ -443,6 +452,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.shaqrouq,
           officer: "محمد حسن شقروق",
           phone: shaqrouqMembers.first.syPhone,
+          saPhone: shaqrouqMembers.first.saPhone,
           members: shaqrouqMembers,
           photo: MemberImageAssets.shaqrouqMohammadShaqrouq),
       GroupModel(
@@ -451,6 +461,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.wais,
           officer: "محمد الأمين محمد ويس",
           phone: waisMembers.first.syPhone,
+          saPhone: waisMembers.first.saPhone,
           members: waisMembers,
           photo: MemberImageAssets.waisMohammadWais),
       GroupModel(
@@ -459,6 +470,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           logo: GroupSvgAssets.haram,
           officer: "عبد الله ابو النور عدنان الكردي",
           phone: haramMembers.first.syPhone,
+          saPhone: haramMembers.first.saPhone,
           members: haramMembers,
           photo: MemberImageAssets.haramAbdKurdi),
     ];
@@ -483,6 +495,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
               itemBuilder: (ctx, index, realIdx) {
                 return CardGroup(
                     group: groups[index],
+                    saPhone: groups[index].saPhone,
                     onTap: () => GoRouter.of(context).pushNamed(
                           Routes.groupDetailsRoute,
                           pathParameters: {
@@ -493,7 +506,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
               },
               options: CarouselOptions(
                 initialPage: Random().nextInt(10),
-                height: context.height * 0.54,
+                height: context.height * 0.60,
                 viewportFraction: 0.6,
                 enableInfiniteScroll: false,
                 autoPlayCurve: Curves.fastOutSlowIn,

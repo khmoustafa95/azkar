@@ -61,7 +61,7 @@ class _GroupDetailsViewState extends State<GroupDetailsView> {
                     options: CarouselOptions(
                       initialPage:
                           Random().nextInt(widget.group.members.length),
-                      height: context.height * 0.54,
+                      height: context.height * 0.65,
                       viewportFraction: 0.6,
                       enableInfiniteScroll: false,
                       autoPlayCurve: Curves.fastOutSlowIn,

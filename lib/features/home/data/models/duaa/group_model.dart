@@ -5,6 +5,7 @@ class GroupModel {
   final String logo;
   final String photo;
   final String phone;
+  final String? saPhone;
   final List<MemberModel> members;
 
   GroupModel(
@@ -14,7 +15,8 @@ class GroupModel {
       required this.phone,
       required this.photo,
       required this.officer,
-      required this.members});
+      required this.members,
+      this.saPhone});
 
   factory GroupModel.fromJson(Map<String, dynamic> json) => GroupModel(
       id: json['id'],
@@ -24,7 +26,8 @@ class GroupModel {
       photo: json['photo'],
       officer: json['officer'],
       members: List<MemberModel>.from(
-          json['members'].map((x) => MemberModel.fromJson(x))));
+          json['members'].map((x) => MemberModel.fromJson(x))),
+      saPhone: json['saPhone']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -35,7 +38,8 @@ class GroupModel {
         'officer': officer,
         'members':
             List<Map<String, dynamic>>.from(members.map((x) => x.toJson())),
-      };
+        'saPhone': saPhone,
+        };
 }
 
 class MemberModel {
