@@ -9,6 +9,7 @@ class HajjTrackerCubit extends Cubit<HajjTrackerState> {
           HajjTrackerState(
             pilgrimName: _prefs.getHajjPilgrimNameSync(),
             steps: _prefs.getHajjStepsSync(kHajjTrackerStepCount),
+            umrahCount: _prefs.getHajjUmrahCountSync(),
           ),
         );
 
@@ -19,6 +20,7 @@ class HajjTrackerCubit extends Cubit<HajjTrackerState> {
       HajjTrackerState(
         pilgrimName: _prefs.getHajjPilgrimNameSync(),
         steps: _prefs.getHajjStepsSync(kHajjTrackerStepCount),
+        umrahCount: _prefs.getHajjUmrahCountSync(),
       ),
     );
   }
@@ -46,12 +48,33 @@ class HajjTrackerCubit extends Cubit<HajjTrackerState> {
     emit(
       state.copyWith(
         steps: List<bool>.filled(kHajjTrackerStepCount, false),
+        umrahCount: 0,
       ),
     );
     await _persist();
   }
 
+  /// Saves the finished umrah cycle and clears the first five steps only.
+  Future<bool> startNewUmrah() async {
+    if (!state.allUmrahStepsDone) return false;
+
+    final cleared = List<bool>.from(state.steps);
+    for (var i = 0; i < kHajjUmrahRepeatableStepCount; i++) {
+      cleared[i] = false;
+    }
+
+    emit(
+      state.copyWith(
+        steps: cleared,
+        umrahCount: state.umrahCount + 1,
+      ),
+    );
+    await _persist();
+    return true;
+  }
+
   Future<void> _persist() async {
     await _prefs.setHajjSteps(state.steps);
+    await _prefs.setHajjUmrahCount(state.umrahCount);
   }
 }

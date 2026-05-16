@@ -12,6 +12,7 @@ class AppPreferences {
 
   static const _kHajjPilgrimName = 'hajj_pilgrim_name';
   static const _kHajjStepBits = 'hajj_step_bits';
+  static const _kHajjUmrahCount = 'hajj_umrah_count';
 
   /// Returns `[surahId, page, surahName]` as strings (defaults: 1, 1, الفاتحة).
   Future<List<String>> getStopReading() async {
@@ -60,9 +61,16 @@ class AppPreferences {
     );
   }
 
+  int getHajjUmrahCountSync() => _prefs.getInt(_kHajjUmrahCount) ?? 0;
+
+  Future<void> setHajjUmrahCount(int count) async {
+    await _prefs.setInt(_kHajjUmrahCount, count < 0 ? 0 : count);
+  }
+
   /// Clears pilgrim name and all ritual checkboxes (full «ابدأ من جديد»).
   Future<void> clearHajjTrackerFully() async {
     await _prefs.remove(_kHajjPilgrimName);
     await _prefs.remove(_kHajjStepBits);
+    await _prefs.remove(_kHajjUmrahCount);
   }
 }

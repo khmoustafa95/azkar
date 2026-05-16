@@ -1,4 +1,5 @@
 const String imagePath = "assets/images";
+const String iconPath = "assets/icon";
 const String jsonPath = "assets/json";
 const String quranData = "assets/quran_data/";
 
@@ -42,6 +43,50 @@ class ImageAssets {
 
   /// Back face of the printed Hajj card (hotel info, leader, address).
   static const String backCard = "$imagePath/back_card.png";
+}
+
+/// App launcher / branding icons under [iconPath].
+class IconAssets {
+  static const String appIcon = "$iconPath/icon.png";
+  static const String mawasemLogo = "$iconPath/mawasem_logo.png";
+
+  static const String icon1 = "$iconPath/icon1.png";
+  static const String icon2 = "$iconPath/icon2.png";
+  static const String icon3 = "$iconPath/icon3.png";
+  static const String icon4 = "$iconPath/icon4.png";
+  static const String icon5 = "$iconPath/icon5.png";
+  static const String icon6 = "$iconPath/icon6.png";
+  static const String icon7 = "$iconPath/icon7.png";
+  static const String icon8 = "$iconPath/icon8.png";
+  static const String icon9 = "$iconPath/icon9.png";
+  static const String icon10 = "$iconPath/icon10.png";
+  static const String icon11 = "$iconPath/icon11.png";
+  static const String icon12 = "$iconPath/icon12.png";
+  static const String icon13 = "$iconPath/icon13.png";
+  static const String icon14 = "$iconPath/icon14.png";
+  static const String icon15 = "$iconPath/icon15.png";
+  static const String icon16 = "$iconPath/icon16.png";
+
+  static const List<String> all = [
+    appIcon,
+    mawasemLogo,
+    icon1,
+    icon2,
+    icon3,
+    icon4,
+    icon5,
+    icon6,
+    icon7,
+    icon8,
+    icon9,
+    icon10,
+    icon11,
+    icon12,
+    icon13,
+    icon14,
+    icon15,
+    icon16,
+  ];
 }
 
 class JsonAssets {

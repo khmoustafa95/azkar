@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_step_icon_map.dart';
 import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_steps.dart';
 import 'package:holly_quran/features/hajj_tracker/presentation/cubit/hajj_tracker_cubit.dart';
 import 'package:holly_quran/features/hajj_tracker/presentation/cubit/hajj_tracker_state.dart';
@@ -61,21 +62,13 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
             backgroundColor: const Color(0xFF0F5847),
             foregroundColor: Colors.white,
             elevation: 0,
-            title: BlocBuilder<HajjTrackerCubit, HajjTrackerState>(
-              buildWhen: (a, b) => a.pilgrimName != b.pilgrimName,
-              builder: (context, state) {
-                final n = state.pilgrimName.trim();
-                return Text(
-                  n.isEmpty ? 'متابعة أعمال الحاج' : 'متابعة أعمال الحاج — $n',
-                  style: const TextStyle(
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                );
-              },
+            title: const Text(
+              'متابعة أعمال الحاج',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+              ),
             ),
             actions: [
               TextButton(
@@ -99,7 +92,18 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                     sliver: SliverToBoxAdapter(
-                      child: _IntroHeader(pilgrimName: state.pilgrimName.trim()),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (state.pilgrimName.trim().isNotEmpty)
+                            _PilgrimNameBanner(
+                              pilgrimName: state.pilgrimName.trim(),
+                            ),
+                          if (state.pilgrimName.trim().isNotEmpty)
+                            const SizedBox(height: 12),
+                          const _IntroHeader(),
+                        ],
+                      ),
                     ),
                   ),
                   SliverPadding(
@@ -142,10 +146,17 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
                                   ),
                                 _HajjStepCard(
                                   definition: def,
+                                  stepIndex: index,
                                   done: state.isDone(index),
                                   locked: !state.isDone(index) && !state.canTurnOn(index),
                                   onToggle: () => _onStepTap(context, index),
                                 ),
+                                if (index == kHajjUmrahRepeatableStepCount - 1)
+                                  _UmrahCyclePanel(
+                                    displayCount: state.displayUmrahCount,
+                                    canStartNew: state.allUmrahStepsDone,
+                                    onStartNew: () => _onStartNewUmrah(context),
+                                  ),
                               ],
                             ),
                           );
@@ -190,12 +201,281 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
     }
     await cubit.toggleStep(index);
   }
+
+  Future<void> _onStartNewUmrah(BuildContext context) async {
+    final cubit = context.read<HajjTrackerCubit>();
+    if (!cubit.state.allUmrahStepsDone) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            'أكمل خطوات العمرة الخمس أولاً',
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+      return;
+    }
+
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          title: const Text(
+            'بدء عمرة جديدة',
+            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+          ),
+          content: const Text(
+            'سيتم حفظ العمرة الحالية في العداد وإعادة تعيين خطوات العمرة الخمس لتبدأ من جديد. هل تريد المتابعة؟',
+            style: TextStyle(
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w600,
+              height: 1.45,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text(
+                'إلغاء',
+                style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w700),
+              ),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              style: FilledButton.styleFrom(
+                backgroundColor: const Color(0xFF0F5847),
+              ),
+              child: const Text(
+                'بدء عمرة جديدة',
+                style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (ok != true || !context.mounted) return;
+    await cubit.startNewUmrah();
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text(
+          'تم بدء عمرة جديدة — بالتوفيق',
+          style: TextStyle(
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _UmrahCyclePanel extends StatelessWidget {
+  const _UmrahCyclePanel({
+    required this.displayCount,
+    required this.canStartNew,
+    required this.onStartNew,
+  });
+
+  final int displayCount;
+  final bool canStartNew;
+  final VoidCallback onStartNew;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: const Color(0xFF0F5847).withValues(alpha: 0.2),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.06),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF0F5847).withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.repeat_rounded,
+                    color: Color(0xFF0F5847),
+                    size: 26,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'عمرات التمتع',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                          color: Color(0xFF0F5847),
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        canStartNew
+                            ? 'يمكنك تكرار خطوات العمرة الخمس'
+                            : 'أكمل الخطوات الخمس أعلاه لتسجيل العمرة',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Colors.grey.shade700,
+                          height: 1.35,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF2D9596),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        '$displayCount',
+                        style: const TextStyle(
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w900,
+                          fontSize: 22,
+                          color: Colors.white,
+                          height: 1,
+                        ),
+                      ),
+                      Text(
+                        displayCount == 1 ? 'عمرة' : 'عمرات',
+                        style: TextStyle(
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 11,
+                          color: Colors.white.withValues(alpha: 0.95),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            SizedBox(
+              width: double.infinity,
+              height: 46,
+              child: FilledButton.icon(
+                onPressed: canStartNew ? onStartNew : null,
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color(0xFF0F5847),
+                  disabledBackgroundColor: Colors.grey.shade300,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                icon: const Icon(Icons.add_circle_outline_rounded, size: 22),
+                label: const Text(
+                  'بدء عمرة جديدة',
+                  style: TextStyle(
+                    fontFamily: 'Cairo',
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PilgrimNameBanner extends StatelessWidget {
+  const _PilgrimNameBanner({required this.pilgrimName});
+
+  final String pilgrimName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0F5847),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            'اللهم بارك لك يا',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.9),
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
+              height: 1.3,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            pilgrimName,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'Cairo',
+              fontWeight: FontWeight.w900,
+              fontSize: 20,
+              height: 1.35,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _IntroHeader extends StatelessWidget {
-  const _IntroHeader({required this.pilgrimName});
-
-  final String pilgrimName;
+  const _IntroHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -215,12 +495,10 @@ class _IntroHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            pilgrimName.isEmpty
-                ? 'رحلة الإيمان تبدأ من النية الصادقة وتنتهي بالمغفرة والرضوان'
-                : 'اللهم بارك لك يا $pilgrimName — رحلة الإيمان تبدأ من النية الصادقة وتنتهي بالمغفرة والرضوان',
+          const Text(
+            'رحلة الإيمان تبدأ من النية الصادقة وتنتهي بالمغفرة والرضوان',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontFamily: 'Cairo',
               fontWeight: FontWeight.w800,
@@ -250,12 +528,14 @@ class _IntroHeader extends StatelessWidget {
 class _HajjStepCard extends StatelessWidget {
   const _HajjStepCard({
     required this.definition,
+    required this.stepIndex,
     required this.done,
     required this.locked,
     required this.onToggle,
   });
 
   final HajjStepDefinition definition;
+  final int stepIndex;
   final bool done;
   final bool locked;
   final VoidCallback onToggle;
@@ -273,19 +553,18 @@ class _HajjStepCard extends StatelessWidget {
         ? Border.all(color: Colors.white.withValues(alpha: 0.85), width: 2)
         : Border.all(color: Colors.black12);
 
-    return Material(
-      color: definition.background,
+    return ClipRRect(
       borderRadius: BorderRadius.circular(18),
-      elevation: locked ? 0 : 2,
-      shadowColor: Colors.black26,
-      child: InkWell(
-        onTap: onToggle,
-        borderRadius: BorderRadius.circular(18),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
-            border: border,
-          ),
+      child: Material(
+        color: definition.background,
+        elevation: locked ? 0 : 2,
+        shadowColor: Colors.black26,
+        child: InkWell(
+          onTap: onToggle,
+          child: Container(
+            decoration: BoxDecoration(
+              border: border,
+            ),
           padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,11 +577,9 @@ class _HajjStepCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: onBg.withValues(alpha: 0.15),
-                          foregroundColor: onBg,
-                          radius: 22,
-                          child: Icon(definition.icon, size: 24),
+                        _StepIconImage(
+                          assetPath: hajjTrackerStepIcon(stepIndex),
+                          background: definition.background,
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -335,6 +612,38 @@ class _HajjStepCard extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    ),
+    );
+  }
+}
+
+/// Step illustration blended into the card (images include their own fill).
+class _StepIconImage extends StatelessWidget {
+  const _StepIconImage({
+    required this.assetPath,
+    required this.background,
+  });
+
+  final String assetPath;
+  final Color background;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        width: 52,
+        height: 52,
+        color: background,
+        alignment: Alignment.center,
+        child: Image.asset(
+          assetPath,
+          width: 52,
+          height: 52,
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.medium,
         ),
       ),
     );
