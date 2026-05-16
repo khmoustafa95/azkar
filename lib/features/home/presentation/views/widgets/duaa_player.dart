@@ -23,7 +23,6 @@ class DuaaAudioPlayer extends StatefulWidget {
 
 class _DuaaAudioPlayerState extends State<DuaaAudioPlayer> {
   static const Color _darkGreen = Color(0xFF083A30);
-  static const Color _primary = Color(0xFF2D6A4F);
   static const Color _gold = Color(0xFFC9A961);
 
   late final AudioPlayer _player;

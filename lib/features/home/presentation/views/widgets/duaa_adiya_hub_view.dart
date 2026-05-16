@@ -10,7 +10,6 @@ class DuaaAdiyaHubView extends StatelessWidget {
 
   static const Color _darkGreen = Color(0xFF083A30);
   static const Color _accent = Color(0xFF2D6A4F);
-  static const Color _gold = Color(0xFFC9A961);
 
   @override
   Widget build(BuildContext context) {

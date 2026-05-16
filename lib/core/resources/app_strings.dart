@@ -56,8 +56,13 @@ class AppStrings {
   static const String rateUs = 'تقييمنا';
   static const String settings = 'الإعدادات';
   static const String contactTitle =
-      'مواسم الماسي للحج والعمرة تطبيق إسلامي لتقديم  بعض الخدمات والمميزات الدينية لمساعدتك';
-  static const String sendWhats = 'قم بإرسال أي مقترح أو شكوي عبر الواتساب:';
+      'تطبيق ماسة القلوب للحج والعمرة من تكتل الماسي — يجمع الأدعية والأذكار وتعليمات المناسك وخدمات الحجّاج لمرافقتك في رحلتك المباركة';
+  static const String contactPartnershipNotice =
+      'تم إنجاز هذا التطبيق بالتعاون بين تكتل الماسي ومجموعة مواسم';
+  static const String contactPartnerAlmasi = 'تكتل الماسي';
+  static const String contactPartnerMawasem = 'مجموعة مواسم';
+  static const String sendWhats =
+      'شاركنا مقترحك أو ملاحظتك أو استفسارك عبر واتساب:';
   static const String contactMessage = 'رسالتك';
   static const String sendNow = 'إرسال الآن';
   // ihdaa
