@@ -11,6 +11,7 @@ import 'package:holly_quran/features/hajj_tracker/presentation/views/hajj_tracke
 import 'package:holly_quran/features/home/data/models/duaa/duaa_model.dart';
 import 'package:holly_quran/features/home/data/repos/home_repo_impl.dart';
 import 'package:holly_quran/features/home/presentation/view_models/duaa/duaa/duaa_cubit.dart';
+import 'package:holly_quran/features/home/presentation/views/widgets/duaa_adiya_hub_view.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/duaa_category_list_view.dart';
 import 'package:holly_quran/features/quran/presentation/cubit/quran_cubit.dart';
 import 'package:holly_quran/features/quran/presentation/views/quran_reading_view.dart';
@@ -157,8 +158,14 @@ class DuaaViewBody extends StatelessWidget {
       case DuaaHomeTileKind.hajjTracker:
         _openHajjTracker(context);
         return;
-      case DuaaHomeTileKind.categoryFiqhHajj:
       case DuaaHomeTileKind.categoryAdiya:
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => const DuaaAdiyaHubView(),
+          ),
+        );
+        return;
+      case DuaaHomeTileKind.categoryFiqhHajj:
       case DuaaHomeTileKind.categoryFiqhMessages:
       case DuaaHomeTileKind.categoryPilgrimAdvice:
         final cat = spec.categoryKey!;

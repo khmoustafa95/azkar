@@ -1,27 +1,29 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/extension/extensions.dart';
+import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
-import '../../../../../core/resources/values_manager.dart';
-import '../../../../common_widgets/app_bar.dart';
-
+/// Full-screen video player for bundled MP4 assets.
 class DuaaVideoPlayer extends StatefulWidget {
-  final String assetPath; // Example: 'assets/videos/duaa.mp4'
-  final String videoTitle;
-
   const DuaaVideoPlayer({
     super.key,
     required this.assetPath,
     required this.videoTitle,
   });
 
+  final String assetPath;
+  final String videoTitle;
+
   @override
   State<DuaaVideoPlayer> createState() => _DuaaVideoPlayerState();
 }
 
 class _DuaaVideoPlayerState extends State<DuaaVideoPlayer> {
-  late VideoPlayerController _videoPlayerController;
+  static const Color _darkGreen = Color(0xFF083A30);
+  static const Color _gold = Color(0xFFC9A961);
+
+  late VideoPlayerController _videoController;
   ChewieController? _chewieController;
   bool _isLoading = true;
   String? _errorMessage;
@@ -29,115 +31,127 @@ class _DuaaVideoPlayerState extends State<DuaaVideoPlayer> {
   @override
   void initState() {
     super.initState();
+    WakelockPlus.enable();
     _initializePlayer();
   }
 
   Future<void> _initializePlayer() async {
     try {
-      _videoPlayerController = VideoPlayerController.asset(widget.assetPath);
-      await _videoPlayerController.initialize();
+      _videoController = VideoPlayerController.asset(widget.assetPath);
+      await _videoController.initialize();
 
       _chewieController = ChewieController(
-        videoPlayerController: _videoPlayerController,
+        videoPlayerController: _videoController,
         autoPlay: false,
         looping: false,
         allowFullScreen: true,
         allowMuting: true,
         showControlsOnInitialize: true,
-        aspectRatio: _videoPlayerController.value.aspectRatio,
+        aspectRatio: _videoController.value.aspectRatio,
         materialProgressColors: ChewieProgressColors(
-          playedColor: Colors.deepPurple,
-          handleColor: Colors.deepPurpleAccent,
-          backgroundColor: Colors.grey,
-          bufferedColor: Colors.lightGreen,
+          playedColor: _gold,
+          handleColor: _gold,
+          backgroundColor: Colors.white24,
+          bufferedColor: Colors.white38,
         ),
-        errorBuilder: (context, errorMessage) {
-          return Center(
-            child: Text(
-              errorMessage,
-              style: const TextStyle(color: Colors.red),
-              textDirection: TextDirection.rtl,
-            ),
-          );
-        },
+        placeholder: const ColoredBox(color: Colors.black),
+        errorBuilder: (context, message) => Center(
+          child: Text(
+            message,
+            textDirection: TextDirection.rtl,
+            style: const TextStyle(color: Colors.white70, fontFamily: 'Cairo'),
+          ),
+        ),
       );
 
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) setState(() => _isLoading = false);
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _errorMessage = "فشل في تحميل الفيديو: $e";
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'فشل في تحميل الفيديو';
+        });
+      }
     }
   }
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
+    WakelockPlus.disable();
     _chewieController?.dispose();
+    _videoController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(AppSize.s50),
-        child: MyAppBar(title: widget.videoTitle),
-      ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFF5F5F5), Color(0xFFFFFFFF)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(
-                  height: context.height * 0.35,
-                  child: Image.asset(
-                    // "assets/images/icon.png",
-                    "assets/images/mawasem_logo.png",
-                    width: MediaQuery.sizeOf(context).width,
-                  ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: ColoredBox(
+        color: Colors.black,
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () => Navigator.of(context).maybePop(),
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  color: Colors.white,
                 ),
-                AspectRatio(
-                  aspectRatio: _chewieController?.aspectRatio ?? 16 / 9,
+              ),
+              Expanded(
+                child: Center(
                   child: _isLoading
-                      ? const Center(child: CircularProgressIndicator())
+                      ? const CircularProgressIndicator(color: _gold)
                       : _errorMessage != null
-                          ? Center(
+                          ? Padding(
+                              padding: const EdgeInsets.all(AppPadding.p20),
                               child: Text(
                                 _errorMessage!,
-                                style: const TextStyle(color: Colors.red),
-                              ),
-                            )
-                          : Card(
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Stack(
-                                  children: [
-                                    Chewie(controller: _chewieController!),
-                                  ],
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontFamily: 'Cairo',
                                 ),
                               ),
-                            ),
+                            )
+                          : Chewie(controller: _chewieController!),
                 ),
-              ],
-            ),
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(
+                  AppPadding.p16,
+                  AppPadding.p12,
+                  AppPadding.p16,
+                  AppPadding.p16,
+                ),
+                decoration: BoxDecoration(
+                  color: _darkGreen,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.4),
+                      blurRadius: 12,
+                      offset: const Offset(0, -4),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  widget.videoTitle,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Cairo',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    height: 1.3,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

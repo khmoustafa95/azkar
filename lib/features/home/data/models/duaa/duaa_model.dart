@@ -8,8 +8,15 @@ abstract class DuaaContentCategory {
   static const pilgrimAdvice = 'pilgrim_advice';
 
   /// Older payloads without [category] map legacy [type] to a default tab.
-  static String inferFromLegacyType(String type) =>
-      type == 'audio' ? audioDuas : fiqhHajj;
+  static String inferFromLegacyType(String type) {
+    switch (type) {
+      case 'audio':
+      case 'slideshow':
+        return audioDuas;
+      default:
+        return fiqhHajj;
+    }
+  }
 }
 
 class DuaaModel {

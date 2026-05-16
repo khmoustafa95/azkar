@@ -3,63 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/data/models/duaa/duaa_model.dart';
 import 'package:holly_quran/features/home/presentation/view_models/duaa/duaa/duaa_cubit.dart';
-import 'package:holly_quran/features/home/presentation/views/widgets/duaa_video_grid_view.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/duaa_widget.dart';
 
-/// Lists content for one [DuaaContentCategory] (videos in grid, legacy list otherwise).
-class DuaaCategoryListView extends StatefulWidget {
-  const DuaaCategoryListView({
-    super.key,
-    required this.category,
-    required this.title,
-  });
-
-  final String category;
-  final String title;
-
-  static bool usesVideoGrid(String category) =>
-      category == DuaaContentCategory.fiqhHajj ||
-      category == DuaaContentCategory.fiqhMessages ||
-      category == DuaaContentCategory.pilgrimAdvice;
+/// Searchable list of audio duas only (from [DuaaAdiyaHubView]).
+class DuaaAudioListView extends StatefulWidget {
+  const DuaaAudioListView({super.key});
 
   @override
-  State<DuaaCategoryListView> createState() => _DuaaCategoryListViewState();
+  State<DuaaAudioListView> createState() => _DuaaAudioListViewState();
 }
 
-class _DuaaCategoryListViewState extends State<DuaaCategoryListView> {
+class _DuaaAudioListViewState extends State<DuaaAudioListView> {
   String _searchQuery = '';
 
   List<DuaaModel> _filtered(List<DuaaModel> all) {
     final q = _searchQuery.trim().toLowerCase();
     return all
-        .where((duaa) {
-          final matchesSearch =
-              q.isEmpty || duaa.name.toLowerCase().contains(q);
-          final matchesCategory = duaa.category == widget.category;
-          final matchesType = DuaaCategoryListView.usesVideoGrid(widget.category)
-              ? duaa.type == 'video'
-              : true;
-          return matchesSearch && matchesCategory && matchesType;
-        })
+        .where((d) =>
+            d.category == DuaaContentCategory.audioDuas &&
+            d.type == 'audio' &&
+            (q.isEmpty || d.name.toLowerCase().contains(q)))
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isVideoGrid = DuaaCategoryListView.usesVideoGrid(widget.category);
-
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF083A30),
           foregroundColor: Colors.white,
-          title: Text(
-            widget.title,
-            style: const TextStyle(
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w800,
-            ),
+          title: const Text(
+            'أدعية مسموعة',
+            style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w800),
           ),
           centerTitle: true,
         ),
@@ -69,15 +46,6 @@ class _DuaaCategoryListViewState extends State<DuaaCategoryListView> {
               return const Center(child: CircularProgressIndicator());
             }
             final items = _filtered(state.duaas);
-
-            if (isVideoGrid) {
-              return DuaaVideoGridView(
-                items: items,
-                searchQuery: _searchQuery,
-                onSearchChanged: (v) => setState(() => _searchQuery = v),
-              );
-            }
-
             return Column(
               children: [
                 Padding(
@@ -107,9 +75,9 @@ class _DuaaCategoryListViewState extends State<DuaaCategoryListView> {
                           child: Text(
                             'لا توجد نتائج',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
                               fontFamily: 'Cairo',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
                         )
