@@ -129,8 +129,10 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
                                           vertical: 6,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: def.background.withValues(alpha: 0.9),
-                                          borderRadius: BorderRadius.circular(10),
+                                          color: def.background
+                                              .withValues(alpha: 0.9),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Text(
                                           def.sideLabel!,
@@ -148,7 +150,8 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
                                   definition: def,
                                   stepIndex: index,
                                   done: state.isDone(index),
-                                  locked: !state.isDone(index) && !state.canTurnOn(index),
+                                  locked: !state.isDone(index) &&
+                                      !state.canTurnOn(index),
                                   onToggle: () => _onStepTap(context, index),
                                 ),
                                 if (index == kHajjUmrahRepeatableStepCount - 1)
@@ -242,7 +245,8 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
               onPressed: () => Navigator.pop(ctx, false),
               child: const Text(
                 'إلغاء',
-                style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w700),
+                style:
+                    TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w700),
               ),
             ),
             FilledButton(
@@ -252,7 +256,8 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
               ),
               child: const Text(
                 'بدء عمرة جديدة',
-                style: TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w800),
+                style:
+                    TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w800),
               ),
             ),
           ],
@@ -565,56 +570,56 @@ class _HajjStepCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: border,
             ),
-          padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _CheckColumn(done: done, locked: locked),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        _StepIconImage(
-                          assetPath: hajjTrackerStepIcon(stepIndex),
-                          background: definition.background,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            definition.title,
-                            style: TextStyle(
-                              color: onBg,
-                              fontFamily: 'Cairo',
-                              fontWeight: FontWeight.w900,
-                              fontSize: 15,
-                              height: 1.25,
+            padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _CheckColumn(done: done, locked: locked),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          _StepIconImage(
+                            assetPath: hajjTrackerStepIcon(stepIndex),
+                            background: definition.background,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              definition.title,
+                              style: TextStyle(
+                                color: onBg,
+                                fontFamily: 'Cairo',
+                                fontWeight: FontWeight.w900,
+                                fontSize: 15,
+                                height: 1.25,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      definition.body,
-                      style: TextStyle(
-                        color: onBg.withValues(alpha: 0.92),
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                        height: 1.45,
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      Text(
+                        definition.body,
+                        style: TextStyle(
+                          color: onBg.withValues(alpha: 0.92),
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                          height: 1.45,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-    ),
     );
   }
 }
