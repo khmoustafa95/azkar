@@ -14,104 +14,88 @@ import 'package:holly_quran/features/home/presentation/views/widgets/home_view_b
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
+  static const _tabTitles = [
+    'زاد المناسك',
+    'تعليمات و إرشادات',
+    'مجموعات التكتل',
+    'من نحن ؟',
+    'الصفحة الرئيسية',
+  ];
+
+  static const _tabBodies = [
+    DuaaViewBody(),
+    AdminViewBody(),
+    GroupViewBody(),
+    ContactUsViewBody(),
+    HomeViewBody(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final navBarWidgets = <Widget>[
-      const DuaaViewBody(),
-      const AdminViewBody(),
-      const GroupViewBody(),
-      const ContactUsViewBody(),
-    ];
-
-    // Determine if the keyboard is open
-    bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+    final isKeyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
+        buildWhen: (prev, curr) => prev.currentIndex != curr.currentIndex,
         builder: (context, state) {
-          BottomNavBarCubit cubit = BlocProvider.of<BottomNavBarCubit>(context);
+          final cubit = context.read<BottomNavBarCubit>();
+          final index = state.currentIndex;
+          final isHomeTab = index >= BottomNavBarCubit.allItemsCount;
+          final stackIndex =
+              isHomeTab ? BottomNavBarCubit.allItemsCount - 1 : index;
+          final titleIndex = isHomeTab ? 4 : index;
+
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text(getText(cubit.currentIndex)),
+              title: Text(_tabTitles[titleIndex.clamp(0, _tabTitles.length - 1)]),
               elevation: 5,
               leading: Container(
-                margin: EdgeInsets.all(AppPadding.p2),
-                padding: EdgeInsets.all(AppPadding.p2),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/icon.png"),
+                margin: const EdgeInsets.all(AppPadding.p2),
+                padding: const EdgeInsets.all(AppPadding.p2),
+                child: const CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/icon.png'),
                 ),
               ),
-              titleTextStyle:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              titleTextStyle: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            // PreferredSize(
-            //   preferredSize: Size.fromHeight(AppSize.s60),
-            //   child: Container(
-            //     padding: EdgeInsets.all(AppPadding.p8),
-            //     height: AppSize.s60,
-            //     alignment:
-            //         Alignment.bottomCenter, // Center the text horizontaly),
-            //     decoration: BoxDecoration(
-            //       color: AppColors.primary,
-            //     ),
-            //     child: Text(
-            //       getText(cubit.currentIndex),
-            //       style: TextStyle(
-            //           fontSize: 20,
-            //           color: Colors.white,
-            //           fontWeight: FontWeight.bold),
-            //     ),
-            //   ),
-            // ),
-            //
-            body: cubit.currentIndex < cubit.allItemsCount
-                ? navBarWidgets[cubit.currentIndex]
-                : HomeViewBody(),
+            body: IndexedStack(
+              index: stackIndex,
+              children: _tabBodies,
+            ),
             floatingActionButton: isKeyboardOpen
-                ? null // Don't show the FAB when the keyboard is open
+                ? null
                 : SizedBox(
                     height: AppSize.s80,
                     width: AppSize.s80,
                     child: FloatingActionButton(
                       backgroundColor: AppColors.primary,
                       shape: const CircleBorder(),
+                      onPressed: () {
+                        cubit.changeIndex(
+                          index: BottomNavBarCubit.allItemsCount,
+                        );
+                      },
                       child: Image.asset(
                         ImageAssets.home,
                         fit: BoxFit.cover,
                         width: AppSize.s50,
                       ),
-                      onPressed: () {
-                        cubit.changeIndex(index: cubit.allItemsCount);
-                      },
                     ),
                   ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar:
-                AppBottomNavigationBar(cubit: cubit, state: state),
+            bottomNavigationBar: AppBottomNavigationBar(
+              cubit: cubit,
+              currentIndex: index.clamp(0, BottomNavBarCubit.allItemsCount - 1),
+            ),
           );
         },
       ),
     );
-  }
-
-  String getText(int index) {
-    switch (index) {
-      case 0:
-        return "زاد المناسك";
-
-      case 1:
-        return "تعليمات و إرشادات";
-      case 2:
-        return "مجموعات التكتل";
-      case 3:
-        return "من نحن ؟";
-      case 5:
-        return "الصفحة الرئيسية";
-      default:
-        return "";
-    }
   }
 }

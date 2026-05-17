@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/widgets/slideshow/slide_show.dart';
@@ -17,17 +18,9 @@ class DuaaAdiyaHubView extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
+        appBar: const AppNavigationBar(
+          title: 'أدعية',
           backgroundColor: _darkGreen,
-          foregroundColor: Colors.white,
-          title: const Text(
-            'أدعية',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          centerTitle: true,
         ),
         body: Padding(
           padding: const EdgeInsets.all(AppPadding.p16),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_step_icon_map.dart';
 import 'package:holly_quran/features/hajj_tracker/data/hajj_tracker_steps.dart';
 import 'package:holly_quran/features/hajj_tracker/presentation/cubit/hajj_tracker_cubit.dart';
@@ -58,18 +59,9 @@ class _HajjTrackerScrollViewState extends State<HajjTrackerScrollView> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: const Color(0xFFF2F4F3),
-          appBar: AppBar(
+          appBar: AppNavigationBar(
+            title: 'متابعة أعمال الحاج',
             backgroundColor: const Color(0xFF0F5847),
-            foregroundColor: Colors.white,
-            elevation: 0,
-            title: const Text(
-              'متابعة أعمال الحاج',
-              style: TextStyle(
-                fontFamily: 'Cairo',
-                fontWeight: FontWeight.w800,
-                fontSize: 16,
-              ),
-            ),
             actions: [
               TextButton(
                 onPressed: () => confirmRestartHajjToWelcome(context),

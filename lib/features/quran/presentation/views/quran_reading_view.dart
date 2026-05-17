@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
 import 'package:holly_quran/features/quran/data/quran_juz_list.dart';
 import 'package:holly_quran/features/quran/presentation/cubit/quran_cubit.dart';
@@ -51,26 +52,17 @@ class _QuranReadingViewState extends State<QuranReadingView> {
 
           return Scaffold(
             backgroundColor: const Color(0xFFF5F0E6),
-            appBar: AppBar(
-              title: Text(
-                surahName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15,
-                ),
-              ),
+            appBar: AppNavigationBar(
+              title: surahName,
               actions: [
                 IconButton(
                   tooltip: 'الأجزاء',
-                  icon: const Icon(Icons.view_list_rounded),
+                  icon: const Icon(Icons.view_list_rounded, color: Colors.white),
                   onPressed: () => _showJuzPicker(context, cubit),
                 ),
                 IconButton(
                   tooltip: 'السور',
-                  icon: const Icon(Icons.menu_book_outlined),
+                  icon: const Icon(Icons.menu_book_outlined, color: Colors.white),
                   onPressed: () => _showSurahPicker(context, s.surahs, cubit),
                 ),
               ],

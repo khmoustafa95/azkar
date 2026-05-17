@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/widgets/slideshow/slide_show.dart';
-import 'package:holly_quran/features/common_widgets/quran_app_bar.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/features/home/data/duaa_content_data.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/duaa_player.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/duaa_video_player.dart';
@@ -26,9 +25,9 @@ class DuaaView extends StatelessWidget {
         backgroundColor: isVideo ? Colors.black : _darkGreen,
         appBar: isVideo
             ? null
-            : PreferredSize(
-                preferredSize: const Size.fromHeight(AppSize.s0),
-                child: QuranAppBar(title: ' ${duaa.name}'),
+            : AppNavigationBar(
+                title: duaa.name,
+                backgroundColor: _darkGreen,
               ),
         body: _buildBody(),
       ),

@@ -4,7 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
-import 'package:holly_quran/features/common_widgets/quran_app_bar.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/features/home/data/models/duaa/group_model.dart';
 
 import '../../../../../core/resources/app_assets.dart';
@@ -28,10 +28,7 @@ class _GroupDetailsViewState extends State<GroupDetailsView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(AppSize.s50),
-          child: QuranAppBar(title: " ${widget.group.name}"),
-        ),
+        appBar: AppNavigationBar(title: widget.group.name),
         body: Container(
           height: context.height,
           alignment: Alignment.center,

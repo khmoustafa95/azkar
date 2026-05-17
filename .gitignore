@@ -31,6 +31,9 @@ migrate_working_dir/
 # -------------------------
 # 🐦 Flutter / Dart / Pub
 # -------------------------
+assets/_backup_videos/
+assets/_backup_audio/
+assets/_backup_images/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies

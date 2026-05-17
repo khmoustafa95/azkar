@@ -6,56 +6,25 @@ const String quranData = "assets/quran_data/";
 class ImageAssets {
   static const String background = "$imagePath/background.jpeg";
   static const String icon = "$imagePath/icon.jpg";
-  static const String border = "$imagePath/border2.jpeg";
-  static const String tasbih = "$imagePath/tasbih.png";
   static const String dua = "$imagePath/dua2.png";
-  static const String sadqat = "$imagePath/sadqat.png";
-  static const String salah = "$imagePath/salah.png";
-  static const String quran = "$imagePath/quran.png";
   static const String home = "$imagePath/home.png";
   static const String arrow = "$imagePath/arrow.png";
-  static const String azkarSabah = "$imagePath/azkarSabah.png";
   static const String azkarMasaa = "$imagePath/azkarMasaa.png";
-  static const String hadith = "$imagePath/hadith.png";
   static const String hesnMuslim = "$imagePath/hesnMuslim.png";
-  static const String tasbihCounter = "$imagePath/tasbihCounter.png";
-  static const String star = "$imagePath/star.png";
-  static const String quranStop = "$imagePath/quranStop.png";
-  static const String sadaqatLogo = "$imagePath/sadaqatLogo.png";
-  static const String werdLogo = "$imagePath/imam.png";
-  static const String mosque = "$imagePath/mosque.png";
-  static const String loading = "$imagePath/dua.png";
-  static const String dayWheel = "$imagePath/infaq.png";
-  static const String dayWheelBorder = "$imagePath/wheel-border.png";
   static const String dayWheelMark = "$imagePath/label.png";
   static const String generalIhdaa = "$imagePath/ihdaa_back2.jpeg";
-  static const String ramadanIhdaa = "$imagePath/ihdaa_back.jpeg";
-  static const String ihdaa = "$imagePath/moon.png";
-  static const String agzaa = "$imagePath/agzaa.png";
-  static const String settings = "$imagePath/settings.png";
   static const String about = "$imagePath/about.png";
-  static const String rating = "$imagePath/rating.png";
   static const String share = "$imagePath/share.png";
-  static const String werd = "$imagePath/werd.png";
-
-  /// Front face of the printed Hajj card (branding + partner logos).
   static const String frontCard = "$imagePath/front_card.png";
-
-  /// Back face of the printed Hajj card (hotel info, leader, address).
   static const String backCard = "$imagePath/back_card.png";
 }
 
 /// App launcher / branding icons under [iconPath].
 class IconAssets {
-  static const String appIcon = "$iconPath/icon.png";
-  static const String mawasemLogo = "$iconPath/mawasem_logo.png";
-
   static const String icon1 = "$iconPath/icon1.png";
   static const String icon2 = "$iconPath/icon2.png";
   static const String icon3 = "$iconPath/icon3.png";
   static const String icon4 = "$iconPath/icon4.png";
-  static const String icon5 = "$iconPath/icon5.png";
-  static const String icon6 = "$iconPath/icon6.png";
   static const String icon7 = "$iconPath/icon7.png";
   static const String icon8 = "$iconPath/icon8.png";
   static const String icon9 = "$iconPath/icon9.png";
@@ -69,27 +38,15 @@ class IconAssets {
   static const String doknow = "$iconPath/do_know.png";
   static const String duaaText = "$iconPath/duaa_text.png";
   static const String steps = "$iconPath/steps.png";
-  static const String manask = "$iconPath/manask.png";
   static const String mareiat = "$iconPath/mareiat.png";
   static const String quran = "$iconPath/quran.png";
   static const String duaaVoice = "$iconPath/duaa_voice.png";
   static const String duaa = "$iconPath/duaa1.png";
 
-  // /// Home grid tiles in [DuaaViewBody] (زاد المناسك).
-  // static const String tileQuran = quran;
-  // static const String tileHajjTracker = steps;
-  // static const String tileFiqhHajj = mareiat;
-  // static const String tileAdiya = duaaVoice;
-  // static const String tileFiqhMessages = duaaText;
-  // static const String tilePilgrimAdvice = doknow;
-
   static const List<String> all = [
-    appIcon,
-    mawasemLogo,
     doknow,
     duaaText,
     steps,
-    manask,
     mareiat,
     quran,
     duaaVoice,
@@ -98,8 +55,6 @@ class IconAssets {
     icon2,
     icon3,
     icon4,
-    icon5,
-    icon6,
     icon7,
     icon8,
     icon9,
@@ -111,11 +66,6 @@ class IconAssets {
     icon15,
     icon16,
   ];
-}
-
-class JsonAssets {
-  static const String homeAvatar = "$jsonPath/home_avatar.json";
-  static const String salahAvatar = "$jsonPath/salah.json";
 }
 
 const String videosAssetPath = "assets/videos";
@@ -315,27 +265,27 @@ class AdminInstructionImageAssets {
 
   static const String _b = adminInstructionsAssetPath;
 
-  static const String beforeTravel = "$_b/before_travel.jpeg";
-  static const String airport = "$_b/airport.jpeg";
-  static const String arrivingAirport = "$_b/arriving_airport.jpeg";
-  static const String arrivingHotel = "$_b/arriving_hotel.jpeg";
-  static const String insidePlane = "$_b/inside_plane.jpeg";
+  static const String beforeTravel = "$_b/before_travel.webp";
+  static const String airport = "$_b/airport.webp";
+  static const String arrivingAirport = "$_b/arriving_airport.webp";
+  static const String arrivingHotel = "$_b/arriving_hotel.webp";
+  static const String insidePlane = "$_b/inside_plane.webp";
 
-  /// Disk filename is `resturant.jpeg`.
-  static const String restaurant = "$_b/resturant.jpeg";
+  /// Disk filename is `resturant.webp`.
+  static const String restaurant = "$_b/resturant.webp";
 
-  /// Disk filename is `mousque.jpeg`.
-  static const String mosque = "$_b/mousque.jpeg";
-  static const String washing = "$_b/washing.jpeg";
-  static const String arafatCamp = "$_b/arafat_camp.jpeg";
-  static const String walking = "$_b/walking.jpeg";
-  static const String loss = "$_b/loss.jpeg";
-  static const String backMadinah = "$_b/back_madinah.jpeg";
-  static const String leavingMakkah = "$_b/leaving_makkah.jpeg";
-  static const String elevator = "$_b/elevator.jpeg";
-  static const String drugs = "$_b/drugs.jpeg";
-  static const String contentBug = "$_b/content_bug.jpeg";
-  static const String generalAdvice = "$_b/general_advice.jpg";
+  /// Disk filename is `mousque.webp`.
+  static const String mosque = "$_b/mousque.webp";
+  static const String washing = "$_b/washing.webp";
+  static const String arafatCamp = "$_b/arafat_camp.webp";
+  static const String walking = "$_b/walking.webp";
+  static const String loss = "$_b/loss.webp";
+  static const String backMadinah = "$_b/back_madinah.webp";
+  static const String leavingMakkah = "$_b/leaving_makkah.webp";
+  static const String elevator = "$_b/elevator.webp";
+  static const String drugs = "$_b/drugs.webp";
+  static const String contentBug = "$_b/content_bug.webp";
+  static const String generalAdvice = "$_b/general_advice.webp";
 
   static List<String> get bundledPaths => [
         beforeTravel,
@@ -364,21 +314,21 @@ class AdminAdviceImageAssets {
 
   static const String _b = adminAdvicesAssetPath;
 
-  static const String advice1 = "$_b/advice1.jpeg";
-  static const String advice2 = "$_b/advice2.jpeg";
-  static const String advice3 = "$_b/advice3.jpeg";
-  static const String advice4 = "$_b/advice4.jpeg";
-  static const String advice5 = "$_b/advice5.jpeg";
-  static const String advice6 = "$_b/advice6.jpeg";
-  static const String advice7 = "$_b/advice7.jpeg";
-  static const String advice8 = "$_b/advice8.jpeg";
-  static const String advice9 = "$_b/advice9.jpeg";
-  static const String advice10 = "$_b/advice10.jpeg";
-  static const String advice11 = "$_b/advice11.jpeg";
-  static const String advice12 = "$_b/advice12.jpeg";
-  static const String advice13 = "$_b/advice13.jpeg";
-  static const String advice14 = "$_b/advice14.jpeg";
-  static const String advice15 = "$_b/advice15.jpeg";
+  static const String advice1 = "$_b/advice1.webp";
+  static const String advice2 = "$_b/advice2.webp";
+  static const String advice3 = "$_b/advice3.webp";
+  static const String advice4 = "$_b/advice4.webp";
+  static const String advice5 = "$_b/advice5.webp";
+  static const String advice6 = "$_b/advice6.webp";
+  static const String advice7 = "$_b/advice7.webp";
+  static const String advice8 = "$_b/advice8.webp";
+  static const String advice9 = "$_b/advice9.webp";
+  static const String advice10 = "$_b/advice10.webp";
+  static const String advice11 = "$_b/advice11.webp";
+  static const String advice12 = "$_b/advice12.webp";
+  static const String advice13 = "$_b/advice13.webp";
+  static const String advice14 = "$_b/advice14.webp";
+  static const String advice15 = "$_b/advice15.webp";
 
   static List<String> get bundledPaths => [
         advice1,
@@ -406,50 +356,7 @@ class MemberImageAssets {
 
   static const String _b = membersAssetPath;
 
-  static const String almasi0 = "$_b/almasi0.png";
-  static const String almasi1 = "$_b/almasi1.png";
-  static const String almasi2 = "$_b/almasi2.png";
-  static const String almasi3 = "$_b/almasi3.png";
-  static const String almasi4 = "$_b/almasi4.png";
-  static const String almasi5 = "$_b/almasi5.png";
-  static const String almasi6 = "$_b/almasi6.png";
-  static const String almasi7 = "$_b/almasi7.png";
   static const String almasi8 = "$_b/almasi8.png";
-
-  static const String othman1 = "$_b/othman1.png";
-  static const String othman2 = "$_b/othman2.png";
-  static const String othman3 = "$_b/othman3.png";
-
-  static const String tasnim1 = "$_b/tasnim1.png";
-  static const String tasnim2 = "$_b/tasnim2.png";
-  static const String tasnim3 = "$_b/tasnim3.png";
-
-  static const String alnour1 = "$_b/alnour1.png";
-  static const String alnour2 = "$_b/alnour2.png";
-  static const String alnour3 = "$_b/alnour3.png";
-
-  static const String rohama1 = "$_b/rohama1.png";
-  static const String rohama2 = "$_b/rohama2.png";
-  static const String rohama3 = "$_b/rohama3.png";
-
-  static const String awn1 = "$_b/awn1.png";
-  static const String awn2 = "$_b/awn2.png";
-  static const String awn3 = "$_b/awn3.png";
-
-  static const String dura1 = "$_b/dura1.png";
-  static const String dura2 = "$_b/dura2.png";
-
-  static const String enaya1 = "$_b/enaya1.png";
-  static const String enaya2 = "$_b/enaya2.png";
-
-  static const String nema1 = "$_b/nema1.png";
-  static const String nema2 = "$_b/nema2.png";
-
-  static const String ishraq1 = "$_b/ishraq1.png";
-  static const String ishraq2 = "$_b/ishraq2.png";
-
-  static const String mawasem1 = "$_b/mawasem1.png";
-  static const String mawasem2 = "$_b/mawasem2.png";
 
   // ---------- Named member portraits (jpg) ----------
 
@@ -524,40 +431,7 @@ class MemberImageAssets {
   /// All [MemberImageAssets] paths — keep in sync when adding a new field above.
   /// Used by [allBundledMemberAndGroupImagePaths] and `tool/verify_assets.dart`.
   static List<String> get bundledPaths => [
-        almasi0,
-        almasi1,
-        almasi2,
-        almasi3,
-        almasi4,
-        almasi5,
-        almasi6,
-        almasi7,
         almasi8,
-        othman1,
-        othman2,
-        othman3,
-        tasnim1,
-        tasnim2,
-        tasnim3,
-        alnour1,
-        alnour2,
-        alnour3,
-        rohama1,
-        rohama2,
-        rohama3,
-        awn1,
-        awn2,
-        awn3,
-        dura1,
-        dura2,
-        enaya1,
-        enaya2,
-        nema1,
-        nema2,
-        ishraq1,
-        ishraq2,
-        mawasem1,
-        mawasem2,
         // Named portraits
         almasiIbrahimBadran,
         almasiKhaledOlabi,
@@ -597,81 +471,6 @@ class MemberImageAssets {
         waisAbdulrahmanAzizi,
         waisAbdulrahmanDoukha,
         waisMohammadWais,
-      ];
-}
-
-/// Group logos and cover photos under [groupsAssetPath].
-class GroupImageAssets {
-  GroupImageAssets._();
-
-  static const String _b = groupsAssetPath;
-
-  static const String almasiLogo = "$_b/almasi_logo.png";
-  static const String almasiPhoto = "$_b/almasi_photo.png";
-
-  static const String othmanLogo = "$_b/othman_logo.png";
-  static const String othmanPhoto = "$_b/othman_photo.png";
-
-  static const String tasnimLogo = "$_b/tasnim_logo.png";
-  static const String tasnimPhoto = "$_b/tasnim_photo.png";
-
-  static const String awnLogo = "$_b/awn_logo.png";
-  static const String awnPhoto = "$_b/awn_photo.png";
-
-  static const String alnourLogo = "$_b/alnour_logo.png";
-  static const String alnourPhoto = "$_b/alnour_photo.png";
-
-  static const String rohamaLogo = "$_b/rohama_logo.png";
-  static const String rohamaPhoto = "$_b/rohama_photo.png";
-
-  static const String nemaLogo = "$_b/nema_logo.png";
-  static const String nemaPhoto = "$_b/nema_photo.png";
-
-  /// File on disk is `mawasm_logo.png` (see `assets/groups/`).
-  static const String mawasemLogo = "$_b/mawasm_logo.png";
-  static const String mawasemPhoto = "$_b/mawasem_photo.png";
-
-  static const String enayaLogo = "$_b/enaya_logo.png";
-  static const String enayaPhoto = "$_b/enaya_photo.png";
-
-  static const String duraLogo = "$_b/dura_logo.png";
-  static const String duraPhoto = "$_b/dura_photo.png";
-
-  static const String ishraqLogo = "$_b/ishraq_logo.png";
-  static const String ishraqPhoto = "$_b/ishraq_photo.png";
-
-  /// No PNG logo exists for Haram; falls back to the SVG logo.
-  /// See [GroupSvgAssets.haram].
-  static const String haramLogo = GroupSvgAssets.haram;
-
-  /// No dedicated cover photo for Haram; reuse the group leader's portrait.
-  static const String haramPhoto = MemberImageAssets.haramAbdKurdi;
-
-  /// All [GroupImageAssets] paths — keep in sync when adding a new field above.
-  static List<String> get bundledPaths => [
-        almasiLogo,
-        almasiPhoto,
-        othmanLogo,
-        othmanPhoto,
-        tasnimLogo,
-        tasnimPhoto,
-        awnLogo,
-        awnPhoto,
-        alnourLogo,
-        alnourPhoto,
-        rohamaLogo,
-        rohamaPhoto,
-        nemaLogo,
-        nemaPhoto,
-        mawasemLogo,
-        mawasemPhoto,
-        enayaLogo,
-        enayaPhoto,
-        duraLogo,
-        duraPhoto,
-        ishraqLogo,
-        ishraqPhoto,
-        haramPhoto,
       ];
 }
 
@@ -718,8 +517,7 @@ class GroupSvgAssets {
       ];
 }
 
-/// Registered member + group raster paths (for tests / asset verification).
+/// Registered member portrait paths (for tests / asset verification).
 List<String> allBundledMemberAndGroupImagePaths() => [
       ...MemberImageAssets.bundledPaths,
-      ...GroupImageAssets.bundledPaths,
     ];

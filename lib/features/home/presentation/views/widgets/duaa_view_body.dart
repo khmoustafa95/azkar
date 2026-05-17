@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
+import 'package:holly_quran/core/helper_functions/ui_feedback.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/shared_preferences/app_preferences.dart';
@@ -173,17 +174,9 @@ class DuaaViewBody extends StatelessWidget {
         final cat = spec.categoryKey!;
         final cubitState = context.read<DuaaCubit>().state;
         if (cubitState is! DuaaSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              behavior: SnackBarBehavior.floating,
-              content: Text(
-                'يرجى الانتظار، جاري تحميل المحتوى…',
-                style: TextStyle(
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+          showAppSnackBar(
+            context,
+            message: 'يرجى الانتظار، جاري تحميل المحتوى…',
           );
           return;
         }

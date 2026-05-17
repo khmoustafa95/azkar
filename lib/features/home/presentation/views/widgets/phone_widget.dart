@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
+import 'package:holly_quran/core/helper_functions/ui_feedback.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/resources/values_manager.dart';
@@ -9,18 +10,69 @@ class PhoneWidget extends StatelessWidget {
   const PhoneWidget({super.key, required this.phone, this.saPhone});
   final String phone;
   final String? saPhone;
+
+  Future<void> _launchWhatsApp(
+    BuildContext context,
+    String number,
+  ) async {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    final uri = Uri.parse('https://wa.me/$number');
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      } else {
+        showAppSnackBarFromMessenger(
+          messenger,
+          message: 'لا يمكن فتح واتساب على هذا الجهاز',
+          isError: true,
+        );
+      }
+    } catch (_) {
+      showAppSnackBarFromMessenger(
+        messenger,
+        message: 'تعذر فتح واتساب',
+        isError: true,
+      );
+    }
+  }
+
+  Future<void> _launchDialer(
+    BuildContext context,
+    String number,
+  ) async {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    final uri = Uri.parse('tel:$number');
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.platformDefault);
+      } else {
+        showAppSnackBarFromMessenger(
+          messenger,
+          message: 'لا يمكن فتح تطبيق الهاتف على هذا الجهاز',
+          isError: true,
+        );
+      }
+    } catch (_) {
+      showAppSnackBarFromMessenger(
+        messenger,
+        message: 'تعذر إجراء الاتصال',
+        isError: true,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: AppSize.s16),
+      padding: const EdgeInsets.only(bottom: AppSize.s16),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: AppSize.s8),
+            margin: const EdgeInsets.only(bottom: AppSize.s8),
             child: Text(
               "SY: ${phone.toFormattedPhone()}",
               textDirection: TextDirection.ltr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.2,
@@ -33,55 +85,29 @@ class PhoneWidget extends StatelessWidget {
               Column(
                 children: [
                   InkWell(
-                    onTap: () async {
-                      final url = 'https://wa.me/$phone';
-                      if (await canLaunchUrl(Uri.parse(url))) {
-                        await launchUrl(Uri.parse(url));
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  "لا يمكن فتح تطبيق الهاتف على هذا الجهاز")),
-                        );
-                        // Optional: Show error message
-                        print("Cannot launch whatsapp");
-                      }
-                    },
-                    child: const Icon(FontAwesomeIcons.whatsapp,
-                        color: Colors.green, size: 24),
+                    onTap: () => _launchWhatsApp(context, phone),
+                    child: const Icon(
+                      FontAwesomeIcons.whatsapp,
+                      color: Colors.green,
+                      size: 24,
+                    ),
                   ),
-                  Text(
-                    "مراسلة",
-                    style: TextStyle(fontSize: 10),
-                  )
+                  const Text('مراسلة', style: TextStyle(fontSize: 10)),
                 ],
               ),
               Column(
                 children: [
                   InkWell(
-                    onTap: () async {
-                      final uri = Uri.parse('tel:$phone');
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrl(uri, mode: LaunchMode.platformDefault);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  "لا يمكن فتح تطبيق الهاتف على هذا الجهاز")),
-                        );
-                        // Optional: Show error message
-                        print("Cannot launch dialer");
-                      }
-                    },
-                    child: const Icon(Icons.call_outlined,
-                        color: Colors.green, size: 24),
+                    onTap: () => _launchDialer(context, phone),
+                    child: const Icon(
+                      Icons.call_outlined,
+                      color: Colors.green,
+                      size: 24,
+                    ),
                   ),
-                  Text(
-                    "اتصال",
-                    style: TextStyle(fontSize: 10),
-                  ),
+                  const Text('اتصال', style: TextStyle(fontSize: 10)),
                 ],
-              )
+              ),
             ],
           ),
           if (saPhone != null) ...[
@@ -92,11 +118,11 @@ class PhoneWidget extends StatelessWidget {
               indent: context.width * 0.05,
             ),
             Container(
-              margin: EdgeInsets.only(bottom: AppSize.s8),
+              margin: const EdgeInsets.only(bottom: AppSize.s8),
               child: Text(
                 "SA: ${saPhone!.toFormattedPhone()}",
                 textDirection: TextDirection.ltr,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
@@ -109,59 +135,32 @@ class PhoneWidget extends StatelessWidget {
                 Column(
                   children: [
                     InkWell(
-                      onTap: () async {
-                        final url = 'https://wa.me/$saPhone';
-                        if (await canLaunchUrl(Uri.parse(url))) {
-                          await launchUrl(Uri.parse(url));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    "لا يمكن فتح تطبيق الهاتف على هذا الجهاز")),
-                          );
-                          // Optional: Show error message
-                          print("Cannot launch whatsapp");
-                        }
-                      },
-                      child: const Icon(FontAwesomeIcons.whatsapp,
-                          color: Colors.green, size: 24),
+                      onTap: () => _launchWhatsApp(context, saPhone!),
+                      child: const Icon(
+                        FontAwesomeIcons.whatsapp,
+                        color: Colors.green,
+                        size: 24,
+                      ),
                     ),
-                    Text(
-                      "مراسلة",
-                      style: TextStyle(fontSize: 10),
-                    )
+                    const Text('مراسلة', style: TextStyle(fontSize: 10)),
                   ],
                 ),
                 Column(
                   children: [
                     InkWell(
-                      onTap: () async {
-                        final uri = Uri.parse('tel:$saPhone');
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(uri,
-                              mode: LaunchMode.platformDefault);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    "لا يمكن فتح تطبيق الهاتف على هذا الجهاز")),
-                          );
-                          // Optional: Show error message
-                          print("Cannot launch dialer");
-                        }
-                      },
-                      child: const Icon(Icons.call_outlined,
-                          color: Colors.green, size: 24),
+                      onTap: () => _launchDialer(context, saPhone!),
+                      child: const Icon(
+                        Icons.call_outlined,
+                        color: Colors.green,
+                        size: 24,
+                      ),
                     ),
-                    Text(
-                      "اتصال",
-                      style: TextStyle(fontSize: 10),
-                    ),
+                    const Text('اتصال', style: TextStyle(fontSize: 10)),
                   ],
-                )
+                ),
               ],
             ),
-          ]
+          ],
         ],
       ),
     );

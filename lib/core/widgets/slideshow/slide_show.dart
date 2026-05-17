@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
+import 'package:holly_quran/features/common_widgets/app_bar.dart';
 import 'package:holly_quran/core/widgets/slideshow/immersive_slide_show.dart';
 import 'package:holly_quran/core/widgets/slideshow/slide_item.dart';
 import 'package:holly_quran/core/widgets/slideshow/widgets/slideshow_dots_indicator.dart';
@@ -115,21 +116,9 @@ class _SlideShowState extends State<SlideShow> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: widget.backdropColor,
-        appBar: AppBar(
+        appBar: AppNavigationBar(
+          title: widget.title ?? '',
           backgroundColor: widget.darkColor,
-          foregroundColor: Colors.white,
-          elevation: 2,
-          titleSpacing: 0,
-          title: widget.title == null
-              ? null
-              : Text(
-                  widget.title!,
-                  style: const TextStyle(
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w800,
-                    fontSize: 17,
-                  ),
-                ),
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
@@ -139,17 +128,14 @@ class _SlideShowState extends State<SlideShow> {
                 onChanged: (_) => _cycleDuration(),
               ),
             ),
-            const SizedBox(width: 6),
             IconButton(
               tooltip: _isPaused ? 'تشغيل' : 'إيقاف مؤقت',
               onPressed: _togglePause,
               icon: Icon(
-                _isPaused
-                    ? Icons.play_arrow_rounded
-                    : Icons.pause_rounded,
+                _isPaused ? Icons.play_arrow_rounded : Icons.pause_rounded,
+                color: Colors.white,
               ),
             ),
-            const SizedBox(width: 4),
           ],
         ),
         body: SafeArea(

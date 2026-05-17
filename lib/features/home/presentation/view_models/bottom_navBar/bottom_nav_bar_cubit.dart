@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'bottom_nav_bar_state.dart';
 
 class BottomNavBarCubit extends Cubit<BottomNavBarState> {
-  BottomNavBarCubit() : super(BottomNavBarInitial());
-  int currentIndex = 5;
-  int allItemsCount = 5;
-  // changeIndex function
+  BottomNavBarCubit() : super(const BottomNavBarState(5));
+
+  static const int allItemsCount = 5;
+
+  int get currentIndex => state.currentIndex;
+
   void changeIndex({required int index}) {
-    currentIndex = index;
-    emit(BottomNavBarInitial()); // to listen for change
+    if (state.currentIndex == index) return;
+    emit(BottomNavBarState(index));
   }
 }
