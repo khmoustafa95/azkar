@@ -7,7 +7,7 @@ class CommunicationWhatsAppNumbers {
   static const String fatwa = '963965061097';
 
   /// طوارئ
-  static const String emergency = '963965061097';
+  static const String emergency = '905527444239';
 
   /// شكاوى ومقترحات
   static const String complaintsAndSuggestions = '963965061097';

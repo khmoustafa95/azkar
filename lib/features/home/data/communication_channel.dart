@@ -31,7 +31,7 @@ extension CommunicationChannelX on CommunicationChannel {
       case CommunicationChannel.complaints:
         return 'شكوى أو مقترح — يُرسل عبر واتساب';
       case CommunicationChannel.hotel:
-        return 'طلب خدمة فندقية — يُرسل عبر واتساب';
+        return 'طلب أو الابلاغ خدمة فندقية — يُرسل عبر واتساب';
     }
   }
 
