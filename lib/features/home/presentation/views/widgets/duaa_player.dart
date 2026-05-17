@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
@@ -158,24 +157,10 @@ class _DuaaAudioPlayerState extends State<DuaaAudioPlayer> {
                   style: const TextStyle(color: Colors.white70, fontFamily: 'Cairo'),
                 )
               else ...[
-                ProgressBar(
-                  progress: _position,
-                  total: _duration.inMilliseconds > 0
-                      ? _duration
-                      : const Duration(seconds: 1),
+                _AudioProgressBar(
+                  position: _position,
+                  duration: _duration,
                   onSeek: (d) => _player.seek(d),
-                  barHeight: 5,
-                  baseBarColor: Colors.white24,
-                  progressBarColor: _gold,
-                  bufferedBarColor: Colors.white12,
-                  thumbColor: _gold,
-                  thumbRadius: 7,
-                  timeLabelTextStyle: const TextStyle(
-                    color: Colors.white70,
-                    fontFamily: 'Cairo',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
                 const SizedBox(height: AppSize.s20),
                 Row(
@@ -224,6 +209,78 @@ class _DuaaAudioPlayerState extends State<DuaaAudioPlayer> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AudioProgressBar extends StatelessWidget {
+  const _AudioProgressBar({
+    required this.position,
+    required this.duration,
+    required this.onSeek,
+  });
+
+  final Duration position;
+  final Duration duration;
+  final ValueChanged<Duration> onSeek;
+
+  static const Color _gold = Color(0xFFC9A961);
+
+  String _label(Duration d) {
+    final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$m:$s';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final maxMs = duration.inMilliseconds > 0 ? duration.inMilliseconds : 1;
+    final value = position.inMilliseconds.clamp(0, maxMs).toDouble();
+
+    return Column(
+      children: [
+        SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            trackHeight: 5,
+            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 7),
+            overlayShape: SliderComponentShape.noOverlay,
+            activeTrackColor: _gold,
+            inactiveTrackColor: Colors.white24,
+            thumbColor: _gold,
+          ),
+          child: Slider(
+            value: value,
+            max: maxMs.toDouble(),
+            onChanged: (v) => onSeek(Duration(milliseconds: v.round())),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                _label(position),
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontFamily: 'Cairo',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                _label(duration),
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontFamily: 'Cairo',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

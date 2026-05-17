@@ -9,19 +9,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  font_awesome_flutter: ^10.3.0
   go_router: ^15.0.0
   flutter_bloc: ^9.1.0
   get_it: ^8.0.3
   shared_preferences: ^2.5.3
-  animated_bottom_navigation_bar: ^1.1.0+1
   hijri: ^3.0.0
-  carousel_slider: ^5.0.0
   url_launcher: ^6.1.10
   audioplayers: ^6.4.0
   chewie: ^1.11.3
   video_player: ^2.9.5
-  audio_video_progress_bar: ^2.0.3
   flutter_svg: ^2.0.10+1
   adhan_dart: ^2.0.1
   wakelock_plus: ^1.3.1
@@ -77,8 +73,8 @@ flutter:
     - family: Cairo
       fonts:
         - asset: assets/fonts/Cairo/Cairo-Regular.ttf
-        - asset: assets/fonts/Cairo/Cairo-Light.ttf
+          weight: 400
         - asset: assets/fonts/Cairo/Cairo-SemiBold.ttf
-        - asset: assets/fonts/Cairo/Cairo-Black.ttf
-        - asset: assets/fonts/Cairo/Cairo-ExtraLight.ttf
+          weight: 600
         - asset: assets/fonts/Cairo/Cairo-Bold.ttf
+          weight: 700

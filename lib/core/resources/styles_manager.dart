@@ -21,12 +21,6 @@ TextStyle getMediumStyle(
   return _getTextStyle(fontSize, FontWeightManager.medium, color);
 }
 
-// light style
-TextStyle getLightStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
-  return _getTextStyle(fontSize, FontWeightManager.light, color);
-}
-
 // bold style
 TextStyle getBoldStyle(
     {double fontSize = FontSize.s12, required Color color}) {

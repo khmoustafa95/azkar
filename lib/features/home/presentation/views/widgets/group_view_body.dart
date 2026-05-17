@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
@@ -6,6 +5,7 @@ import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
+import 'package:holly_quran/core/widgets/app_page_carousel.dart';
 import 'package:holly_quran/features/home/data/group_catalog_data.dart';
 import 'package:holly_quran/features/home/data/models/duaa/group_model.dart';
 import 'card_group.dart';
@@ -43,9 +43,17 @@ class _GroupViewBodyState extends State<GroupViewBody> {
           children: [
             const SizedBox(height: AppSize.s1),
             RepaintBoundary(
-              child: CarouselSlider.builder(
+              child: AppPageCarousel(
                 itemCount: _groups.length,
-                itemBuilder: (ctx, index, realIdx) {
+                height: context.height * 0.60,
+                viewportFraction: 0.6,
+                autoPlay: true,
+                onPageChanged: (index) {
+                  if (_activeIndex != index) {
+                    setState(() => _activeIndex = index);
+                  }
+                },
+                itemBuilder: (ctx, index) {
                   final group = _groups[index];
                   return CardGroup(
                     group: group,
@@ -57,20 +65,6 @@ class _GroupViewBodyState extends State<GroupViewBody> {
                     ),
                   );
                 },
-                options: CarouselOptions(
-                  initialPage: 0,
-                  height: context.height * 0.60,
-                  viewportFraction: 0.6,
-                  enableInfiniteScroll: false,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  autoPlay: true,
-                  onPageChanged: (index, reason) {
-                    if (_activeIndex != index) {
-                      setState(() => _activeIndex = index);
-                    }
-                  },
-                ),
               ),
             ),
             const SizedBox(height: AppSize.s16),

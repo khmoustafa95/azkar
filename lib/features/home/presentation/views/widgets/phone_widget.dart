@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/helper_functions/ui_feedback.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -87,8 +86,8 @@ class PhoneWidget extends StatelessWidget {
                   InkWell(
                     onTap: () => _launchWhatsApp(context, phone),
                     child: const Icon(
-                      FontAwesomeIcons.whatsapp,
-                      color: Colors.green,
+                      Icons.chat_rounded,
+                      color: Color(0xFF25D366),
                       size: 24,
                     ),
                   ),
@@ -137,8 +136,8 @@ class PhoneWidget extends StatelessWidget {
                     InkWell(
                       onTap: () => _launchWhatsApp(context, saPhone!),
                       child: const Icon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Colors.green,
+                        Icons.chat_rounded,
+                        color: Color(0xFF25D366),
                         size: 24,
                       ),
                     ),

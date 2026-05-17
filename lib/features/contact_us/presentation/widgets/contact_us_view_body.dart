@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_constants.dart';
@@ -64,63 +63,24 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
               spacing: AppSize.s20,
               runSpacing: AppSize.s16,
               children: [
-                _buildSocialIcon("واتساب", FontAwesomeIcons.whatsapp,
-                    AppConstants.whatsPhone, context,
-                    isWhatsApp: true),
-                _buildSocialIcon("فيسبوك", FontAwesomeIcons.facebook,
-                    "https://www.facebook.com/maasi.hajj", context),
-                // _buildSocialIcon(
-                //     "تويتر", FontAwesomeIcons.twitter, "https://twitter.com/"),
-                // _buildSocialIcon("انستغرام", FontAwesomeIcons.instagram,
-                //     "https://instagram.com/"),
+                _buildSocialIcon(
+                  'واتساب',
+                  Icons.chat_rounded,
+                  AppConstants.whatsPhone,
+                  context,
+                  iconColor: const Color(0xFF25D366),
+                  isWhatsApp: true,
+                ),
+                _buildSocialIcon(
+                  'فيسبوك',
+                  Icons.facebook,
+                  'https://www.facebook.com/maasi.hajj',
+                  context,
+                  iconColor: const Color(0xFF1877F2),
+                ),
               ],
             ),
             const SizedBox(height: AppSize.s30),
-            // Align(
-            //   alignment: Alignment.centerRight,
-            //   child: Text(
-            //     AppStrings.sendWhats,
-            //     style: TextStyle(
-            //         fontSize: FontSize.s15,
-            //         color: AppColors.red,
-            //         decoration: TextDecoration.underline),
-            //   ),
-            // ),
-            // const SizedBox(height: AppSize.s8),
-            // TextField(
-            //   controller: _messageController,
-            //   keyboardType: TextInputType.multiline,
-            //   maxLines: 5,
-            //   decoration: const InputDecoration(
-            //     labelText: AppStrings.contactMessage,
-            //     border: OutlineInputBorder(),
-            //   ),
-            //   onChanged: (_) => _validateForm(),
-            // ),
-            // const SizedBox(height: AppSize.s8),
-            // SizedBox(
-            //   height: AppSize.s50,
-            //   width: double.infinity,
-            //   child: ElevatedButton(
-            //     onPressed: _formValid ? () => _submitForm(context) : null,
-            //     style: ButtonStyle(
-            //       backgroundColor: WidgetStateProperty.resolveWith<Color>(
-            //         (states) {
-            //           if (states.contains(WidgetState.disabled)) {
-            //             return AppColors.grey;
-            //           }
-            //           return AppColors.primary;
-            //         },
-            //       ),
-            //     ),
-            //     child: Text(
-            //       AppStrings.sendNow,
-            //       style: TextStyle(
-            //         color: AppColors.white,
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -274,10 +234,14 @@ class _PartnerLogoTile extends StatelessWidget {
   }
 }
 
-/// Build a social media contact icon
 Widget _buildSocialIcon(
-    String label, IconData fontAwesomeIcons, String url, BuildContext context,
-    {bool isWhatsApp = false}) {
+  String label,
+  IconData icon,
+  String url,
+  BuildContext context, {
+  bool isWhatsApp = false,
+  Color iconColor = Colors.green,
+}) {
   return GestureDetector(
     onTap: () async {
       final launchUrlStr = isWhatsApp ? 'https://wa.me/$url' : url;
@@ -301,7 +265,7 @@ Widget _buildSocialIcon(
             color: Colors.white,
             boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4)],
           ),
-          child: FaIcon(fontAwesomeIcons, color: Colors.green, size: 40),
+          child: Icon(icon, color: iconColor, size: 40),
         ),
         const SizedBox(height: 6),
         Text(label, style: TextStyle(fontSize: 13)),

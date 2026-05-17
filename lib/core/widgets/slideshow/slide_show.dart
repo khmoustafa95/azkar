@@ -1,4 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
 import 'package:holly_quran/features/common_widgets/app_bar.dart';
@@ -8,19 +9,6 @@ import 'package:holly_quran/core/widgets/slideshow/widgets/slideshow_dots_indica
 import 'package:holly_quran/core/widgets/slideshow/widgets/slideshow_speed_chip.dart';
 
 /// Generic auto-playing slideshow landing screen.
-///
-/// Drop-in widget that powers any image-based "PowerPoint show" inside the
-/// app. Pair with [SlideItem] lists, see usage in
-/// `lib/features/admin_instructions/presentation/views/admin_instructions_view.dart`.
-///
-/// Features on the landing surface:
-///   • Auto-carousel with adjustable per-slide duration (cycled via the
-///     speed chip in the AppBar — 8 / 12 / 15 sec by default).
-///   • Auto-pauses when the user manually swipes (per user choice).
-///   • Animated dots indicator + Arabic page counter at the bottom.
-///   • Prominent "عرض كامل" FAB → pushes an [ImmersiveSlideShow] (Stories-
-///     style fullscreen presentation with hold-to-pause, swipe-down close).
-///   • Returning from immersive view restores the carousel at the same slide.
 class SlideShow extends StatefulWidget {
   const SlideShow({
     super.key,
@@ -39,16 +27,11 @@ class SlideShow extends StatefulWidget {
     this.backdropColor = const Color(0xFF111B17),
   });
 
-  /// All slides to play.
   final List<SlideItem> slides;
-
-  /// Shown as the AppBar title. Leave null to hide.
   final String? title;
-
   final int initialIndex;
   final List<Duration> durations;
   final int initialDurationIndex;
-
   final Color primaryColor;
   final Color darkColor;
   final Color accentColor;
@@ -59,40 +42,72 @@ class SlideShow extends StatefulWidget {
 }
 
 class _SlideShowState extends State<SlideShow> {
-  late final CarouselSliderController _controller;
+  late final PageController _pageController;
   late int _currentIndex;
   late int _durationIndex;
   bool _isPaused = false;
+  Timer? _autoPlayTimer;
 
   Duration get _currentDuration => widget.durations[_durationIndex];
 
   @override
   void initState() {
     super.initState();
-    _controller = CarouselSliderController();
     _currentIndex =
         widget.initialIndex.clamp(0, widget.slides.length - 1).toInt();
     _durationIndex = widget.initialDurationIndex
         .clamp(0, widget.durations.length - 1)
         .toInt();
+    _pageController = PageController(initialPage: _currentIndex);
+    _scheduleAutoPlay();
   }
 
-  void _onPageChanged(int index, CarouselPageChangedReason reason) {
-    setState(() => _currentIndex = index);
-    // User manually swiped → auto-pause (per design choice).
-    if (reason == CarouselPageChangedReason.manual && !_isPaused) {
-      setState(() => _isPaused = true);
-    }
+  @override
+  void dispose() {
+    _autoPlayTimer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _scheduleAutoPlay() {
+    _autoPlayTimer?.cancel();
+    if (_isPaused || widget.slides.length <= 1) return;
+    _autoPlayTimer = Timer(_currentDuration, () {
+      if (!mounted || _isPaused) return;
+      final next = _currentIndex + 1;
+      if (next < widget.slides.length && _pageController.hasClients) {
+        _pageController
+            .animateToPage(
+              next,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOutCubic,
+            )
+            .then((_) => _scheduleAutoPlay());
+      }
+    });
+  }
+
+  void _onPageChanged(int index) {
+    final manual = index != _currentIndex;
+    setState(() {
+      _currentIndex = index;
+      if (manual && !_isPaused) {
+        _isPaused = true;
+      }
+    });
+    _scheduleAutoPlay();
   }
 
   void _togglePause() {
     setState(() => _isPaused = !_isPaused);
+    _scheduleAutoPlay();
   }
 
   void _cycleDuration() {
     setState(() {
       _durationIndex = (_durationIndex + 1) % widget.durations.length;
     });
+    _scheduleAutoPlay();
   }
 
   Future<void> _openImmersive() async {
@@ -105,7 +120,7 @@ class _SlideShowState extends State<SlideShow> {
     if (!mounted) return;
     if (result != null && result != _currentIndex) {
       setState(() => _currentIndex = result);
-      _controller.jumpToPage(result);
+      _pageController.jumpToPage(result);
     }
   }
 
@@ -145,13 +160,13 @@ class _SlideShowState extends State<SlideShow> {
               Expanded(
                 child: Container(
                   color: widget.backdropColor,
-                  child: _Carousel(
-                    controller: _controller,
-                    slides: widget.slides,
-                    initialIndex: _currentIndex,
-                    duration: _currentDuration,
-                    isPaused: _isPaused,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: widget.slides.length,
                     onPageChanged: _onPageChanged,
+                    itemBuilder: (context, index) {
+                      return _SlideTile(slide: widget.slides[index]);
+                    },
                   ),
                 ),
               ),
@@ -183,58 +198,6 @@ class _SlideShowState extends State<SlideShow> {
     );
   }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Inner carousel (kept separate so duration / pause changes rebuild only it)
-// ─────────────────────────────────────────────────────────────────────────────
-
-class _Carousel extends StatelessWidget {
-  const _Carousel({
-    required this.controller,
-    required this.slides,
-    required this.initialIndex,
-    required this.duration,
-    required this.isPaused,
-    required this.onPageChanged,
-  });
-
-  final CarouselSliderController controller;
-  final List<SlideItem> slides;
-  final int initialIndex;
-  final Duration duration;
-  final bool isPaused;
-  final void Function(int index, CarouselPageChangedReason reason)
-      onPageChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      carouselController: controller,
-      itemCount: slides.length,
-      itemBuilder: (context, index, realIdx) {
-        return _SlideTile(slide: slides[index]);
-      },
-      options: CarouselOptions(
-        // Force the carousel to fill the available height of its parent.
-        height: double.infinity,
-        viewportFraction: 1.0,
-        initialPage: initialIndex,
-        enableInfiniteScroll: false,
-        autoPlay: !isPaused,
-        autoPlayInterval: duration,
-        autoPlayAnimationDuration: const Duration(milliseconds: 600),
-        autoPlayCurve: Curves.easeInOutCubic,
-        pauseAutoPlayOnTouch: true,
-        scrollDirection: Axis.horizontal,
-        onPageChanged: onPageChanged,
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Individual slide tile with graceful fallback for missing assets
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _SlideTile extends StatelessWidget {
   const _SlideTile({required this.slide});
@@ -286,10 +249,6 @@ class _SlideTile extends StatelessWidget {
     );
   }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Bottom bar (dots + counter)
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _BottomBar extends StatelessWidget {
   const _BottomBar({

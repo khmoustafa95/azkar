@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/helper_functions/functions.dart';
@@ -6,7 +8,7 @@ import 'package:holly_quran/features/home/data/models/quran/surah_model.dart';
 import 'package:holly_quran/features/quran/data/quran_juz_list.dart';
 import 'package:holly_quran/features/quran/presentation/cubit/quran_cubit.dart';
 
-/// Full-screen mushaf reader (604 PNG pages) with جزء jump and resume.
+/// Full-screen mushaf reader (604 PNG pages, decode-sized for memory) with جزء jump and resume.
 class QuranReadingView extends StatefulWidget {
   const QuranReadingView({super.key});
 
@@ -17,11 +19,39 @@ class QuranReadingView extends StatefulWidget {
 class _QuranReadingViewState extends State<QuranReadingView> {
   PageController? _pageController;
   int _displayPage = 1;
+  Timer? _saveDebounce;
+  QuranCubit? _cubit;
 
   @override
   void dispose() {
+    _saveDebounce?.cancel();
+    _flushSave();
     _pageController?.dispose();
     super.dispose();
+  }
+
+  void _scheduleSave({
+    required int surahId,
+    required int page,
+    required String surahName,
+  }) {
+    _pendingSave = (surahId: surahId, page: page, surahName: surahName);
+    _saveDebounce?.cancel();
+    _saveDebounce = Timer(const Duration(milliseconds: 400), _flushSave);
+  }
+
+  ({int surahId, int page, String surahName})? _pendingSave;
+
+  void _flushSave() {
+    final pending = _pendingSave;
+    final cubit = _cubit;
+    if (pending == null || cubit == null) return;
+    _pendingSave = null;
+    cubit.saveReadingPosition(
+      surahId: pending.surahId,
+      page: pending.page,
+      surahName: pending.surahName,
+    );
   }
 
   @override
@@ -47,8 +77,11 @@ class _QuranReadingViewState extends State<QuranReadingView> {
           }
 
           final cubit = context.read<QuranCubit>();
+          _cubit = cubit;
           final s = state;
           final surahName = cubit.getCurrentSurahName(page: _displayPage);
+          final mq = MediaQuery.of(context);
+          final cacheWidth = (mq.size.width * mq.devicePixelRatio).round();
 
           return Scaffold(
             backgroundColor: const Color(0xFFF5F0E6),
@@ -74,7 +107,7 @@ class _QuranReadingViewState extends State<QuranReadingView> {
                 final page = index + 1;
                 final surah = cubit.surahForPage(page);
                 setState(() => _displayPage = page);
-                cubit.saveReadingPosition(
+                _scheduleSave(
                   surahId: surah.id,
                   page: page,
                   surahName: surah.name,
@@ -90,6 +123,7 @@ class _QuranReadingViewState extends State<QuranReadingView> {
                       fit: BoxFit.contain,
                       filterQuality: FilterQuality.high,
                       gaplessPlayback: true,
+                      cacheWidth: cacheWidth,
                       errorBuilder: (_, __, ___) => Padding(
                         padding: const EdgeInsets.all(24),
                         child: Text(
@@ -150,7 +184,7 @@ class _QuranReadingViewState extends State<QuranReadingView> {
               _pageController?.jumpToPage(j.startPage - 1);
               setState(() => _displayPage = j.startPage);
               final surah = cubit.surahForPage(j.startPage);
-              cubit.saveReadingPosition(
+              _scheduleSave(
                 surahId: surah.id,
                 page: j.startPage,
                 surahName: surah.name,
@@ -201,7 +235,7 @@ class _QuranReadingViewState extends State<QuranReadingView> {
                 final p = surah.pageNumber.clamp(1, 604);
                 _pageController?.jumpToPage(p - 1);
                 setState(() => _displayPage = p);
-                cubit.saveReadingPosition(
+                _scheduleSave(
                   surahId: surah.id,
                   page: p,
                   surahName: surah.name,
