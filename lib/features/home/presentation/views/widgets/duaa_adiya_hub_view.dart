@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/core/widgets/slideshow/slide_show.dart';
 import 'package:holly_quran/features/home/data/duaa_content_data.dart';
@@ -35,7 +36,7 @@ class DuaaAdiyaHubView extends StatelessWidget {
               _HubCard(
                 title: 'أدعية مسموعة',
                 subtitle: 'استمع إلى أدعية الحج والعمرة',
-                icon: Icons.mic_rounded,
+                imageAsset: IconAssets.duaaVoice,
                 color: _accent,
                 onTap: () {
                   Navigator.of(context).push(
@@ -49,7 +50,7 @@ class DuaaAdiyaHubView extends StatelessWidget {
               _HubCard(
                 title: 'أدعية مكتوبة',
                 subtitle: 'بطاقات دعاء للقراءة والتأمل',
-                icon: Icons.photo_library_rounded,
+                imageAsset: IconAssets.duaaText,
                 color: const Color(0xFF1E5A7A),
                 onTap: () {
                   Navigator.of(context).push(
@@ -71,18 +72,48 @@ class DuaaAdiyaHubView extends StatelessWidget {
   }
 }
 
+class _HubCardImage extends StatelessWidget {
+  const _HubCardImage({
+    required this.assetPath,
+    required this.accent,
+  });
+
+  final String assetPath;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        width: AppSize.s60,
+        height: AppSize.s60,
+        color: accent.withValues(alpha: 0.12),
+        alignment: Alignment.center,
+        child: Image.asset(
+          assetPath,
+          width: AppSize.s60,
+          height: AppSize.s60,
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.medium,
+        ),
+      ),
+    );
+  }
+}
+
 class _HubCard extends StatelessWidget {
   const _HubCard({
     required this.title,
     required this.subtitle,
-    required this.icon,
+    required this.imageAsset,
     required this.color,
     required this.onTap,
   });
 
   final String title;
   final String subtitle;
-  final IconData icon;
+  final String imageAsset;
   final Color color;
   final VoidCallback onTap;
 
@@ -99,7 +130,8 @@ class _HubCard extends StatelessWidget {
         child: Ink(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSize.s20),
-            border: Border.all(color: color.withValues(alpha: 0.35), width: 1.3),
+            border:
+                Border.all(color: color.withValues(alpha: 0.35), width: 1.3),
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
@@ -110,17 +142,7 @@ class _HubCard extends StatelessWidget {
             padding: const EdgeInsets.all(AppPadding.p20),
             child: Row(
               children: [
-                Container(
-                  width: AppSize.s60,
-                  height: AppSize.s60,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.14),
-                    shape: BoxShape.circle,
-                    border: Border.all(color: color.withValues(alpha: 0.5)),
-                  ),
-                  child: Icon(icon, color: color, size: 30),
-                ),
+                _HubCardImage(assetPath: imageAsset, accent: color),
                 const SizedBox(width: AppSize.s16),
                 Expanded(
                   child: Column(
@@ -142,7 +164,8 @@ class _HubCard extends StatelessWidget {
                           fontFamily: 'Cairo',
                           fontSize: 12.5,
                           fontWeight: FontWeight.w600,
-                          color: DuaaAdiyaHubView._darkGreen.withValues(alpha: 0.65),
+                          color: DuaaAdiyaHubView._darkGreen
+                              .withValues(alpha: 0.65),
                         ),
                       ),
                     ],

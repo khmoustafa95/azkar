@@ -66,10 +66,34 @@ class IconAssets {
   static const String icon14 = "$iconPath/icon14.png";
   static const String icon15 = "$iconPath/icon15.png";
   static const String icon16 = "$iconPath/icon16.png";
+  static const String doknow = "$iconPath/do_know.png";
+  static const String duaaText = "$iconPath/duaa_text.png";
+  static const String steps = "$iconPath/steps.png";
+  static const String manask = "$iconPath/manask.png";
+  static const String mareiat = "$iconPath/mareiat.png";
+  static const String quran = "$iconPath/quran.png";
+  static const String duaaVoice = "$iconPath/duaa_voice.png";
+  static const String duaa = "$iconPath/duaa1.png";
+
+  // /// Home grid tiles in [DuaaViewBody] (زاد المناسك).
+  // static const String tileQuran = quran;
+  // static const String tileHajjTracker = steps;
+  // static const String tileFiqhHajj = mareiat;
+  // static const String tileAdiya = duaaVoice;
+  // static const String tileFiqhMessages = duaaText;
+  // static const String tilePilgrimAdvice = doknow;
 
   static const List<String> all = [
     appIcon,
     mawasemLogo,
+    doknow,
+    duaaText,
+    steps,
+    manask,
+    mareiat,
+    quran,
+    duaaVoice,
+    duaa,
     icon1,
     icon2,
     icon3,

@@ -100,10 +100,10 @@ class HomeView extends StatelessWidget {
   String getText(int index) {
     switch (index) {
       case 0:
-        return "القرآن والمحتوى";
+        return "زاد المناسك";
 
       case 1:
-        return "تعليمات";
+        return "تعليمات و إرشادات";
       case 2:
         return "مجموعات التكتل";
       case 3:

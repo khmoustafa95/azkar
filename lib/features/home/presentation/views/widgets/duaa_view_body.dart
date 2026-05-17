@@ -32,14 +32,16 @@ class DuaaHomeTileSpec {
     required this.kind,
     required this.title,
     required this.subtitle,
-    required this.icon,
+    required this.imageAsset,
     required this.color,
   });
 
   final DuaaHomeTileKind kind;
   final String title;
   final String subtitle;
-  final IconData icon;
+
+  /// PNG under `assets/icon/` (see [IconAssets] tile* constants).
+  final String imageAsset;
   final Color color;
 
   /// مفتاح [DuaaModel.category] عند فتح قائمة المحتوى.
@@ -66,42 +68,42 @@ const List<DuaaHomeTileSpec> kDuaaHomeTiles = [
     kind: DuaaHomeTileKind.quran,
     title: 'القرآن الكريم',
     subtitle: 'تلاوة وقراءة',
-    icon: Icons.menu_book_rounded,
+    imageAsset: IconAssets.quran,
     color: Color(0xFFC9A961),
   ),
   DuaaHomeTileSpec(
     kind: DuaaHomeTileKind.hajjTracker,
     title: 'متابعة أعمال الحاج',
     subtitle: 'سجل المناسك',
-    icon: Icons.checklist_rtl_rounded,
+    imageAsset: IconAssets.steps,
     color: Color(0xFF0F5847),
   ),
   DuaaHomeTileSpec(
     kind: DuaaHomeTileKind.categoryFiqhHajj,
     title: 'فقه الحج',
     subtitle: 'فيديوهات وإرشادات',
-    icon: Icons.school_rounded,
+    imageAsset: IconAssets.mareiat,
     color: Color(0xFF1E5A7A),
   ),
   DuaaHomeTileSpec(
     kind: DuaaHomeTileKind.categoryAdiya,
     title: 'أدعية',
     subtitle: 'استماع وتلاوة',
-    icon: Icons.graphic_eq_rounded,
+    imageAsset: IconAssets.duaa,
     color: Color(0xFF2D6A4F),
   ),
   DuaaHomeTileSpec(
     kind: DuaaHomeTileKind.categoryFiqhMessages,
     title: 'رسائل فقهية',
     subtitle: 'مواد مختصرة',
-    icon: Icons.article_rounded,
+    imageAsset: IconAssets.mareiat,
     color: Color(0xFFB85A33),
   ),
   DuaaHomeTileSpec(
     kind: DuaaHomeTileKind.categoryPilgrimAdvice,
     title: 'وصايا الحاج',
     subtitle: 'نصائح للحاج',
-    icon: Icons.volunteer_activism_rounded,
+    imageAsset: IconAssets.doknow,
     color: Color(0xFF8B6914),
   ),
 ];
@@ -284,7 +286,7 @@ class _DuaaSectionHeader extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'القرآن والمحتوى',
+                  'زاد المناسك',
                   style: TextStyle(
                     color: DuaaViewBody._darkGreen,
                     fontSize: 18,
@@ -307,6 +309,37 @@ class _DuaaSectionHeader extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Tile illustration from `assets/icon/` (PNG may include its own plate color).
+class _DuaaTileImage extends StatelessWidget {
+  const _DuaaTileImage({
+    required this.assetPath,
+    required this.accent,
+  });
+
+  final String assetPath;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        width: 52,
+        height: 52,
+        color: accent.withValues(alpha: 0.12),
+        alignment: Alignment.center,
+        child: Image.asset(
+          assetPath,
+          width: 52,
+          height: 52,
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.medium,
+        ),
       ),
     );
   }
@@ -376,19 +409,9 @@ class _DuaaGridTile extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 52,
-                          height: 52,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: color.withValues(alpha: 0.14),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: color.withValues(alpha: 0.55),
-                              width: 1.4,
-                            ),
-                          ),
-                          child: Icon(spec.icon, color: color, size: 26),
+                        _DuaaTileImage(
+                          assetPath: spec.imageAsset,
+                          accent: color,
                         ),
                         Container(
                           width: 26,

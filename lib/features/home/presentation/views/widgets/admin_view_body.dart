@@ -79,7 +79,6 @@ class AdminViewBody extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class _SectionHeader extends StatelessWidget {
