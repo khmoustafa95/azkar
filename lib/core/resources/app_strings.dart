@@ -49,14 +49,14 @@ class AppStrings {
   static const String soura = 'سورة';
   static const String quranAgzaa = 'أجزاء القرآن';
   static const String werdDay = 'ورد اليوم';
-  static const String inviteShareApp = 'ادعوك لتحميل التطبيق الآن';
+  static const String inviteShareApp = 'ادعوك لتحميل تطبيق ماسة القلوب الآن';
   static const String shareApp = 'شارك التطبيق';
   static const String aboutApp = 'عن التطبيق';
   static const String who = 'من نحن؟';
   static const String rateUs = 'تقييمنا';
   static const String settings = 'الإعدادات';
   static const String contactTitle =
-      'تطبيق ماسة القلوب للحج والعمرة من تكتل الماسي — يجمع الأدعية والأذكار وتعليمات المناسك وخدمات الحجّاج لمرافقتك في رحلتك المباركة';
+      'تطبيق ماسة القلوب من تكتل الماسي — يجمع الأدعية والأذكار وتعليمات المناسك وخدمات الحجّاج لمرافقتك في رحلتك المباركة';
   static const String contactPartnershipNotice =
       'تم إنجاز هذا التطبيق بالتعاون بين تكتل الماسي ومجموعة مواسم';
   static const String contactPartnerAlmasi = 'تكتل الماسي';
