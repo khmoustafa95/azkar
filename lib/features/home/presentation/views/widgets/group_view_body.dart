@@ -68,7 +68,10 @@ class _GroupViewBodyState extends State<GroupViewBody> {
               ),
             ),
             const SizedBox(height: AppSize.s16),
-            _GroupCarouselDots(count: _groups.length, activeIndex: _activeIndex),
+            _GroupCarouselDots(
+              count: _groups.length,
+              activeIndex: _activeIndex,
+            ),
           ],
         ),
       ),
@@ -77,10 +80,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
 }
 
 class _GroupCarouselDots extends StatelessWidget {
-  const _GroupCarouselDots({
-    required this.count,
-    required this.activeIndex,
-  });
+  const _GroupCarouselDots({required this.count, required this.activeIndex});
 
   final int count;
   final int activeIndex;
@@ -97,9 +97,7 @@ class _GroupCarouselDots extends StatelessWidget {
           height: 10,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: activeIndex == index
-                ? AppColors.primary
-                : Colors.grey[400],
+            color: activeIndex == index ? AppColors.primary : Colors.grey[400],
           ),
         ),
       ),

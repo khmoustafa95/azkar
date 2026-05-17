@@ -75,22 +75,24 @@ class CardMember extends StatelessWidget {
                   width: double.infinity,
                   height: AppSize.s100,
                   decoration: BoxDecoration(
-                    gradient:
-                        LinearGradient(colors: getColorsFromValue(member.id)),
+                    gradient: LinearGradient(
+                      colors: getColorsFromValue(member.id),
+                    ),
                   ),
                 ),
                 Positioned(
-                    right: 0,
-                    left: 0,
-                    top: AppSize.s20,
+                  right: 0,
+                  left: 0,
+                  top: AppSize.s20,
+                  child: CircleAvatar(
+                    radius: AppSize.s70,
+                    backgroundColor: Colors.white,
                     child: CircleAvatar(
-                      radius: AppSize.s70,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                        radius: AppSize.s60,
-                        backgroundImage: AssetImage(member.photo),
-                      ),
-                    ))
+                      radius: AppSize.s60,
+                      backgroundImage: AssetImage(member.photo),
+                    ),
+                  ),
+                ),
               ],
             ),
             // Profile Image with spacing
@@ -135,14 +137,11 @@ class CardMember extends StatelessWidget {
             // Logo
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: GroupLogoImage(
-                logo,
-                height: AppSize.s80,
-              ),
+              child: GroupLogoImage(logo, height: AppSize.s80),
             ),
 
             // Phone Number
-            PhoneWidget(phone: member.syPhone, saPhone: member.saPhone)
+            PhoneWidget(phone: member.syPhone, saPhone: member.saPhone),
           ],
         ),
       ),

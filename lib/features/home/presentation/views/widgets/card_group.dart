@@ -6,8 +6,12 @@ import 'package:holly_quran/features/home/data/models/duaa/group_model.dart';
 import 'package:holly_quran/features/home/presentation/views/widgets/phone_widget.dart';
 
 class CardGroup extends StatelessWidget {
-  const CardGroup(
-      {super.key, required this.group, required this.onTap, this.saPhone});
+  const CardGroup({
+    super.key,
+    required this.group,
+    required this.onTap,
+    this.saPhone,
+  });
   final GroupModel group;
   final String? saPhone;
   final void Function() onTap;
@@ -79,22 +83,27 @@ class CardGroup extends StatelessWidget {
                     width: double.infinity,
                     height: AppSize.s100,
                     decoration: BoxDecoration(
-                      gradient:
-                          LinearGradient(colors: getColorsFromValue(group.id)),
+                      gradient: LinearGradient(
+                        colors: getColorsFromValue(group.id),
+                      ),
                     ),
                   ),
                   Positioned(
-                      right: 0,
-                      left: 0,
-                      top: AppSize.s20,
+                    right: 0,
+                    left: 0,
+                    top: AppSize.s20,
+                    child: CircleAvatar(
+                      radius: AppSize.s70,
+                      backgroundColor: Colors.white,
                       child: CircleAvatar(
-                        radius: AppSize.s70,
-                        backgroundColor: Colors.white,
-                        child: CircleAvatar(
-                          radius: AppSize.s60,
-                          backgroundImage: AssetImage(group.photo),
+                        radius: AppSize.s60,
+                        backgroundImage: AssetImage(
+                          group.photo,
+                          
                         ),
-                      ))
+                      ),
+                    ),
+                  ),
                 ],
               ),
               // Profile Image with spacing
@@ -139,14 +148,11 @@ class CardGroup extends StatelessWidget {
               // Logo
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                child: GroupLogoImage(
-                  group.logo,
-                  height: AppSize.s80,
-                ),
+                child: GroupLogoImage(group.logo, height: AppSize.s80),
               ),
 
               // Phone Number
-              PhoneWidget(phone: group.phone, saPhone: group.saPhone)
+              PhoneWidget(phone: group.phone, saPhone: group.saPhone),
             ],
           ),
         ),

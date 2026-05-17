@@ -97,14 +97,14 @@ const List<DuaaHomeTileSpec> kDuaaHomeTiles = [
     kind: DuaaHomeTileKind.categoryFiqhMessages,
     title: 'رسائل فقهية',
     subtitle: 'مواد مختصرة',
-    imageAsset: IconAssets.mareiat,
+    imageAsset: IconAssets.doknow,
     color: Color(0xFFB85A33),
   ),
   DuaaHomeTileSpec(
     kind: DuaaHomeTileKind.categoryPilgrimAdvice,
     title: 'وصايا الحاج',
     subtitle: 'نصائح للحاج',
-    imageAsset: IconAssets.doknow,
+    imageAsset: IconAssets.mareiat,
     color: Color(0xFF8B6914),
   ),
 ];
@@ -121,10 +121,9 @@ class DuaaViewBody extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => BlocProvider(
-          create: (_) => QuranCubit(
-            getIt.get<HomeRepoImpl>(),
-            getIt.get<AppPreferences>(),
-          )..fetchQuran(),
+          create: (_) =>
+              QuranCubit(getIt.get<HomeRepoImpl>(), getIt.get<AppPreferences>())
+                ..fetchQuran(),
           child: const QuranReadingView(),
         ),
       ),
@@ -146,9 +145,7 @@ class DuaaViewBody extends StatelessWidget {
       );
     } else {
       Navigator.of(context).push(
-        MaterialPageRoute<void>(
-          builder: (_) => const HajjTrackerWelcomeView(),
-        ),
+        MaterialPageRoute<void>(builder: (_) => const HajjTrackerWelcomeView()),
       );
     }
   }
@@ -163,9 +160,7 @@ class DuaaViewBody extends StatelessWidget {
         return;
       case DuaaHomeTileKind.categoryAdiya:
         Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) => const DuaaAdiyaHubView(),
-          ),
+          MaterialPageRoute<void>(builder: (_) => const DuaaAdiyaHubView()),
         );
         return;
       case DuaaHomeTileKind.categoryFiqhHajj:
@@ -182,10 +177,8 @@ class DuaaViewBody extends StatelessWidget {
         }
         Navigator.of(context).push(
           MaterialPageRoute<void>(
-            builder: (_) => DuaaCategoryListView(
-              category: cat,
-              title: spec.title,
-            ),
+            builder: (_) =>
+                DuaaCategoryListView(category: cat, title: spec.title),
           ),
         );
         return;
@@ -221,16 +214,13 @@ class DuaaViewBody extends StatelessWidget {
                     mainAxisSpacing: AppSize.s14,
                     childAspectRatio: 0.95,
                   ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) {
-                      final spec = kDuaaHomeTiles[i];
-                      return _DuaaGridTile(
-                        spec: spec,
-                        onTap: () => _handleTileTap(context, spec),
-                      );
-                    },
-                    childCount: kDuaaHomeTiles.length,
-                  ),
+                  delegate: SliverChildBuilderDelegate((context, i) {
+                    final spec = kDuaaHomeTiles[i];
+                    return _DuaaGridTile(
+                      spec: spec,
+                      onTap: () => _handleTileTap(context, spec),
+                    );
+                  }, childCount: kDuaaHomeTiles.length),
                 ),
               ),
             ],
@@ -309,10 +299,7 @@ class _DuaaSectionHeader extends StatelessWidget {
 
 /// Tile illustration from `assets/icon/` (PNG may include its own plate color).
 class _DuaaTileImage extends StatelessWidget {
-  const _DuaaTileImage({
-    required this.assetPath,
-    required this.accent,
-  });
+  const _DuaaTileImage({required this.assetPath, required this.accent});
 
   final String assetPath;
   final Color accent;
@@ -339,10 +326,7 @@ class _DuaaTileImage extends StatelessWidget {
 }
 
 class _DuaaGridTile extends StatelessWidget {
-  const _DuaaGridTile({
-    required this.spec,
-    required this.onTap,
-  });
+  const _DuaaGridTile({required this.spec, required this.onTap});
 
   final DuaaHomeTileSpec spec;
   final VoidCallback onTap;
@@ -368,10 +352,7 @@ class _DuaaGridTile extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [
-                color.withValues(alpha: 0.10),
-                Colors.white,
-              ],
+              colors: [color.withValues(alpha: 0.10), Colors.white],
             ),
           ),
           child: Stack(
