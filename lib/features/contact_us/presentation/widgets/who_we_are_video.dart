@@ -218,10 +218,10 @@ class _VideoHeader extends StatelessWidget {
             vertical: AppPadding.p4,
           ),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.10),
+            color: AppColors.primary.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppColors.primary.withOpacity(0.35),
+              color: AppColors.primary.withValues(alpha: 0.35),
               width: 1,
             ),
           ),

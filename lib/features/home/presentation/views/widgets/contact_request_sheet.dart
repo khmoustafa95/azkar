@@ -36,21 +36,21 @@ final List<DropdownMenuItem<CommunicationGroupOption>> _groupMenuItems =
         )
         .toList(growable: false);
 
-List<DropdownMenuItem<String>> _categoryMenuItems(CommunicationChannel ch) =>
-    ch.categoryOptions
-        .map(
-          (c) => DropdownMenuItem(
-            value: c,
-            child: Text(
-              c,
-              style: const TextStyle(
-                fontFamily: 'Cairo',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+List<DropdownMenuItem<String>> _categoryMenuItems(CommunicationChannel ch) => ch
+    .categoryOptions
+    .map(
+      (c) => DropdownMenuItem(
+        value: c,
+        child: Text(
+          c,
+          style: const TextStyle(
+            fontFamily: 'Cairo',
+            fontWeight: FontWeight.w600,
           ),
-        )
-        .toList(growable: false);
+        ),
+      ),
+    )
+    .toList(growable: false);
 
 class _ContactRequestSheetBody extends StatefulWidget {
   const _ContactRequestSheetBody({required this.channel});
@@ -200,7 +200,7 @@ class _ContactRequestSheetBodyState extends State<_ContactRequestSheetBody> {
                         ),
                         const SizedBox(height: 14),
                         DropdownButtonFormField<CommunicationGroupOption>(
-                          value: _group,
+                          initialValue: _group,
                           decoration: _fieldDecoration('اسم المجموعة'),
                           items: _groupMenuItems,
                           onChanged: (v) {
@@ -210,9 +210,8 @@ class _ContactRequestSheetBodyState extends State<_ContactRequestSheetBody> {
                         ),
                         const SizedBox(height: 14),
                         DropdownButtonFormField<String>(
-                          value: _category,
-                          decoration:
-                              _fieldDecoration(_ch.typeFieldLabel),
+                          initialValue: _category,
+                          decoration: _fieldDecoration(_ch.typeFieldLabel),
                           items: _categoryItems,
                           onChanged: (v) {
                             if (v != null) setState(() => _category = v);
@@ -227,13 +226,11 @@ class _ContactRequestSheetBodyState extends State<_ContactRequestSheetBody> {
                           textAlign: TextAlign.right,
                           minLines: 3,
                           maxLines: 5,
-                          decoration:
-                              _fieldDecoration('التفاصيل / الموضوع'),
+                          decoration: _fieldDecoration('التفاصيل / الموضوع'),
                           style: _fieldStyle,
-                          validator: (v) =>
-                              v == null || v.trim().length < 4
-                                  ? 'يرجى كتابة تفاصيل كافية (4 أحرف على الأقل)'
-                                  : null,
+                          validator: (v) => v == null || v.trim().length < 4
+                              ? 'يرجى كتابة تفاصيل كافية (4 أحرف على الأقل)'
+                              : null,
                         ),
                         const SizedBox(height: 18),
                         FilledButton.icon(
@@ -281,11 +278,11 @@ const _fieldStyle = TextStyle(
 );
 
 InputDecoration _fieldDecoration(String label) => InputDecoration(
-      labelText: label,
-      alignLabelWithHint: true,
-      border: const OutlineInputBorder(),
-      labelStyle: const TextStyle(fontFamily: 'Cairo'),
-    );
+  labelText: label,
+  alignLabelWithHint: true,
+  border: const OutlineInputBorder(),
+  labelStyle: const TextStyle(fontFamily: 'Cairo'),
+);
 
 class _SheetHeader extends StatelessWidget {
   const _SheetHeader({required this.channel});
