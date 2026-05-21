@@ -29,23 +29,30 @@ extension MediaQueryValue on BuildContext {
 
 extension PhoneFormatter on String {
   String toFormattedPhone() {
-    final clean = replaceAll(RegExp(r'[^\d+]'), ''); // Keep only digits and '+'
-
-    if (!clean.startsWith('+')) return clean;
-
-    if (clean.startsWith('+90') && clean.length == 13) {
-      // Turkish number: +90 XXX XXX XXXX
-      return '+90 ${clean.substring(3, 6)} ${clean.substring(6, 9)} ${clean.substring(9)}';
-    } else if (clean.startsWith('+963') && clean.length == 13) {
-      // Syrian number: +963 XXX XXX XXX
-      return '+963 ${clean.substring(4, 7)} ${clean.substring(7, 10)} ${clean.substring(10)}';
-    } else {
-      // Generic fallback: split every 3 digits after country code
-      final countryCode = clean.substring(0, 4);
-      final rest = clean.substring(4);
-      final chunks =
-          RegExp(r'.{1,3}').allMatches(rest).map((m) => m.group(0)).join(' ');
-      return '$countryCode $chunks';
+    final clean = replaceAll(RegExp(r'[^\d+]'), '');
+    var normalized = clean;
+    while (normalized.startsWith('++')) {
+      normalized = normalized.replaceFirst('++', '+');
     }
+
+    if (!normalized.startsWith('+')) return normalized;
+
+    if (normalized.startsWith('+90') && normalized.length >= 12) {
+      return '+90 ${normalized.substring(3, 6)} ${normalized.substring(6, 9)} ${normalized.substring(9)}';
+    }
+    if (normalized.startsWith('+963') && normalized.length >= 12) {
+      return '+963 ${normalized.substring(4, 7)} ${normalized.substring(7, 10)} ${normalized.substring(10)}';
+    }
+    if (normalized.startsWith('+966') && normalized.length >= 12) {
+      return '+966 ${normalized.substring(4, 6)} ${normalized.substring(6, 9)} ${normalized.substring(9)}';
+    }
+
+    final countryCode = normalized.length >= 4
+        ? normalized.substring(0, 4)
+        : normalized;
+    final rest = normalized.length >= 4 ? normalized.substring(4) : '';
+    final chunks =
+        RegExp(r'.{1,3}').allMatches(rest).map((m) => m.group(0)).join(' ');
+    return chunks.isEmpty ? countryCode : '$countryCode $chunks';
   }
 }

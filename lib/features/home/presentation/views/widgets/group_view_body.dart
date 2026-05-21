@@ -44,6 +44,7 @@ class _GroupViewBodyState extends State<GroupViewBody> {
             const SizedBox(height: AppSize.s1),
             RepaintBoundary(
               child: AppPageCarousel(
+                
                 itemCount: _groups.length,
                 height: context.height * 0.60,
                 viewportFraction: 0.6,

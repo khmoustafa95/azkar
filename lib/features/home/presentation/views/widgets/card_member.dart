@@ -141,7 +141,11 @@ class CardMember extends StatelessWidget {
             ),
 
             // Phone Number
-            PhoneWidget(phone: member.syPhone, saPhone: member.saPhone),
+            PhoneWidget(
+              phone: member.syPhone,
+              saPhone: member.saPhone,
+              // trPhone: member.trPhone,
+            ),
           ],
         ),
       ),

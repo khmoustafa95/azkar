@@ -97,10 +97,7 @@ class CardGroup extends StatelessWidget {
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
                         radius: AppSize.s60,
-                        backgroundImage: AssetImage(
-                          group.photo,
-                          
-                        ),
+                        backgroundImage: AssetImage(group.photo),
                       ),
                     ),
                   ),

@@ -42,6 +42,9 @@ class IconAssets {
   static const String quran = "$iconPath/quran.png";
   static const String duaaVoice = "$iconPath/duaa_voice.png";
   static const String duaa = "$iconPath/duaa1.png";
+  static const String sy = "$iconPath/syria_flag.svg";
+  static const String sa = "$iconPath/saudia_flag.svg";
+  static const String tur = "$iconPath/turkey_flag.svg";
 
   static const List<String> all = [
     doknow,
@@ -65,6 +68,9 @@ class IconAssets {
     icon14,
     icon15,
     icon16,
+    sy,
+    sa,
+    tur,
   ];
 }
 
@@ -155,33 +161,33 @@ class SoundPrayerAudioAssets {
   static const String selected2Dua = "$_b/selected2_dua.mp3";
 
   static List<String> get bundledPaths => [
-        leavingHomeDua,
-        travel,
-        enterMasjed,
-        seeKaabeh,
-        ihramTalbia,
-        startTawaf,
-        startHejjer,
-        raknYamani,
-        mailain,
-        drinkZamzam,
-        tawaf1Dua,
-        tawaf2Dua,
-        tawaf3Dua,
-        safaMarwa,
-        saai1Dua,
-        saai2Dua,
-        saai3Dua,
-        tawafEfada,
-        tarwia,
-        walkingArafa,
-        yaumArafa,
-        yaumArafa1,
-        arafa1Dua,
-        arafa2Dua,
-        selected1Dua,
-        selected2Dua,
-      ];
+    leavingHomeDua,
+    travel,
+    enterMasjed,
+    seeKaabeh,
+    ihramTalbia,
+    startTawaf,
+    startHejjer,
+    raknYamani,
+    mailain,
+    drinkZamzam,
+    tawaf1Dua,
+    tawaf2Dua,
+    tawaf3Dua,
+    safaMarwa,
+    saai1Dua,
+    saai2Dua,
+    saai3Dua,
+    tawafEfada,
+    tarwia,
+    walkingArafa,
+    yaumArafa,
+    yaumArafa1,
+    arafa1Dua,
+    arafa2Dua,
+    selected1Dua,
+    selected2Dua,
+  ];
 }
 
 /// Text dua WebP cards under [textPrayersAssetPath] (`1.webp` … `10.webp`).
@@ -288,24 +294,24 @@ class AdminInstructionImageAssets {
   static const String generalAdvice = "$_b/general_advice.webp";
 
   static List<String> get bundledPaths => [
-        beforeTravel,
-        airport,
-        arrivingAirport,
-        arrivingHotel,
-        insidePlane,
-        restaurant,
-        mosque,
-        washing,
-        arafatCamp,
-        walking,
-        loss,
-        backMadinah,
-        leavingMakkah,
-        elevator,
-        drugs,
-        contentBug,
-        generalAdvice,
-      ];
+    beforeTravel,
+    airport,
+    arrivingAirport,
+    arrivingHotel,
+    insidePlane,
+    restaurant,
+    mosque,
+    washing,
+    arafatCamp,
+    walking,
+    loss,
+    backMadinah,
+    leavingMakkah,
+    elevator,
+    drugs,
+    contentBug,
+    generalAdvice,
+  ];
 }
 
 /// Typed paths for files under [adminAdvicesAssetPath] (`advice1.jpeg` … `advice15.jpeg`).
@@ -331,22 +337,22 @@ class AdminAdviceImageAssets {
   static const String advice15 = "$_b/advice15.webp";
 
   static List<String> get bundledPaths => [
-        advice1,
-        advice2,
-        advice3,
-        advice4,
-        advice5,
-        advice6,
-        advice7,
-        advice8,
-        advice9,
-        advice10,
-        advice11,
-        advice12,
-        advice13,
-        advice14,
-        advice15,
-      ];
+    advice1,
+    advice2,
+    advice3,
+    advice4,
+    advice5,
+    advice6,
+    advice7,
+    advice8,
+    advice9,
+    advice10,
+    advice11,
+    advice12,
+    advice13,
+    advice14,
+    advice15,
+  ];
 }
 
 /// Member headshots under [membersAssetPath]. Prefer these over raw paths
@@ -427,51 +433,58 @@ class MemberImageAssets {
   static const String waisAbdulrahmanAzizi = "$_b/wais_abdulrahman_azizi.jpg";
   static const String waisAbdulrahmanDoukha = "$_b/wais_abdulrahman_doukha.jpg";
   static const String waisMohammadWais = "$_b/wais_mohammad_wais.jpg";
+  static const String safaYasserShabak = "$_b/safa_yeasser_shabak.jpg";
+  static const String safaMohammadJendAbdulrahmanShabak =
+      "$_b/safa_mohammad_shabak.jpg";
+  static const String safaAliKaj = "$_b/safa_ali_kaj.jpg";
 
   /// All [MemberImageAssets] paths — keep in sync when adding a new field above.
   /// Used by [allBundledMemberAndGroupImagePaths] and `tool/verify_assets.dart`.
   static List<String> get bundledPaths => [
-        almasi8,
-        // Named portraits
-        almasiIbrahimBadran,
-        almasiKhaledOlabi,
-        almasiMahmoudHaddad,
-        almasiMahmoudHajji,
-        almasiMohammadHannoura,
-        alnourAbdoulrahmanShabak,
-        alnourAnasKhalaf,
-        alnourMohammadAboud,
-        alnourOsamaMouri,
-        azaemAbdulbasetZaleq,
-        azaemAbdulrahmanHayani,
-        enayaMohammadNader,
-        enayaMohammadObaid,
-        enayaYasserKesheh,
-        haramAbdKurdi,
-        haramAdnanKurdi,
-        haramHussamHout,
-        haramKarimSawas,
-        ishraqAliOthman,
-        ishraqAmmarAliso,
-        ishraqMohammadAkil,
-        ishraqMohammadIsmail,
-        maalemAbdulrahmanNadaf,
-        maalemFaroukSaleh,
-        mawasemMohammadHajji,
-        mawasemOmarAbboud,
-        mawasemSafaBahlwan,
-        nemaaAbdoBadr,
-        nemaaMohammadDerbala,
-        nemaaMohannadHasan,
-        shaqrouqAliAli,
-        shaqrouqMohammadShaqrouq,
-        tahrirHazemHaddad,
-        tahrirMohammadKhandakani,
-        waisAbdulhamidMahfouz,
-        waisAbdulrahmanAzizi,
-        waisAbdulrahmanDoukha,
-        waisMohammadWais,
-      ];
+    almasi8,
+    // Named portraits
+    almasiIbrahimBadran,
+    almasiKhaledOlabi,
+    almasiMahmoudHaddad,
+    almasiMahmoudHajji,
+    almasiMohammadHannoura,
+    alnourAbdoulrahmanShabak,
+    alnourAnasKhalaf,
+    alnourMohammadAboud,
+    alnourOsamaMouri,
+    azaemAbdulbasetZaleq,
+    azaemAbdulrahmanHayani,
+    enayaMohammadNader,
+    enayaMohammadObaid,
+    enayaYasserKesheh,
+    haramAbdKurdi,
+    haramAdnanKurdi,
+    haramHussamHout,
+    haramKarimSawas,
+    ishraqAliOthman,
+    ishraqAmmarAliso,
+    ishraqMohammadAkil,
+    ishraqMohammadIsmail,
+    maalemAbdulrahmanNadaf,
+    maalemFaroukSaleh,
+    mawasemMohammadHajji,
+    mawasemOmarAbboud,
+    mawasemSafaBahlwan,
+    nemaaAbdoBadr,
+    nemaaMohammadDerbala,
+    nemaaMohannadHasan,
+    shaqrouqAliAli,
+    shaqrouqMohammadShaqrouq,
+    tahrirHazemHaddad,
+    tahrirMohammadKhandakani,
+    waisAbdulhamidMahfouz,
+    waisAbdulrahmanAzizi,
+    waisAbdulrahmanDoukha,
+    waisMohammadWais,
+    safaYasserShabak,
+    safaMohammadJendAbdulrahmanShabak,
+    safaAliKaj,
+  ];
 }
 
 /// Vector (SVG) group logos under [groupsSvgAssetPath].
@@ -499,25 +512,27 @@ class GroupSvgAssets {
   static const String shaqrouq = "$_b/shaqrouq_logo.svg";
   static const String tahrir = "$_b/tahrir_logo.svg";
   static const String wais = "$_b/wais_logo.svg";
+  static const String safa = "$_b/safa_logo.svg";
 
   /// All [GroupSvgAssets] paths — keep in sync when adding a new field above.
   static List<String> get bundledPaths => [
-        almasi,
-        azaem,
-        enaya,
-        haram,
-        ishraq,
-        maalem,
-        mawasem,
-        nema,
-        alnour,
-        shaqrouq,
-        tahrir,
-        wais,
-      ];
+    almasi,
+    azaem,
+    enaya,
+    haram,
+    ishraq,
+    maalem,
+    mawasem,
+    nema,
+    alnour,
+    shaqrouq,
+    tahrir,
+    wais,
+    safa,
+  ];
 }
 
 /// Registered member portrait paths (for tests / asset verification).
 List<String> allBundledMemberAndGroupImagePaths() => [
-      ...MemberImageAssets.bundledPaths,
-    ];
+  ...MemberImageAssets.bundledPaths,
+];

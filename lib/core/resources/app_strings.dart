@@ -58,7 +58,7 @@ class AppStrings {
   static const String contactTitle =
       'تطبيق ماسة القلوب من تكتل الماسي — يجمع الأدعية والأذكار وتعليمات المناسك وخدمات الحجّاج لمرافقتك في رحلتك المباركة';
   static const String contactPartnershipNotice =
-      'تم إنجاز هذا التطبيق بالتعاون بين تكتل الماسي ومجموعة مواسم';
+      'تم إنجاز هذا التطبيق بالتعاون بين تكتل الماسي ومجموعة مواسم، مع بوابة خاصة ومبتكرة لمتابعة أعمال النسك من إعداد وتنفيذ مجموعة عزائم';
   static const String contactPartnerAlmasi = 'تكتل الماسي';
   static const String contactPartnerMawasem = 'مجموعة مواسم';
   static const String sendWhats =
