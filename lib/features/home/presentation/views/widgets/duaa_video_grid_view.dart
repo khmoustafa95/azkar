@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/data/models/duaa/duaa_model.dart';
@@ -56,18 +57,22 @@ class DuaaVideoGridView extends StatelessWidget {
                     ),
                   ),
                 )
-              : GridView.builder(
+              : LayoutBuilder(
+                  builder: (context, constraints) {
+                    final cols = Responsive.gridColumns(context);
+                    return GridView.builder(
                   padding: const EdgeInsets.fromLTRB(
                     AppPadding.p12,
                     0,
                     AppPadding.p12,
                     AppPadding.p20,
                   ),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: cols,
                     crossAxisSpacing: AppSize.s12,
                     mainAxisSpacing: AppSize.s12,
-                    childAspectRatio: 0.78,
+                    childAspectRatio:
+                        Responsive.isTablet(context) ? 0.85 : 0.78,
                   ),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
@@ -75,6 +80,8 @@ class DuaaVideoGridView extends StatelessWidget {
                     final accent =
                         DuaaContentListTile.accentForCategory(duaa.category);
                     return _VideoGridTile(duaa: duaa, accent: accent);
+                  },
+                );
                   },
                 ),
         ),

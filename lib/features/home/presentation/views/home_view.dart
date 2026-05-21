@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
@@ -70,8 +71,12 @@ class HomeView extends StatelessWidget {
             floatingActionButton: isKeyboardOpen
                 ? null
                 : SizedBox(
-                    height: AppSize.s80,
-                    width: AppSize.s80,
+                    height: Responsive.isTablet(context)
+                        ? AppSize.s70
+                        : AppSize.s80,
+                    width: Responsive.isTablet(context)
+                        ? AppSize.s70
+                        : AppSize.s80,
                     child: FloatingActionButton(
                       backgroundColor: AppColors.primary,
                       shape: const CircleBorder(),

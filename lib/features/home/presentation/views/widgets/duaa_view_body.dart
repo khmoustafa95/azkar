@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holly_quran/core/di/service_locator.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/helper_functions/ui_feedback.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
@@ -207,20 +208,29 @@ class DuaaViewBody extends StatelessWidget {
                   AppPadding.p16,
                   AppPadding.p100,
                 ),
-                sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: AppSize.s14,
-                    mainAxisSpacing: AppSize.s14,
-                    childAspectRatio: 0.95,
-                  ),
-                  delegate: SliverChildBuilderDelegate((context, i) {
-                    final spec = kDuaaHomeTiles[i];
-                    return _DuaaGridTile(
-                      spec: spec,
-                      onTap: () => _handleTileTap(context, spec),
+                sliver: SliverLayoutBuilder(
+                  builder: (context, constraints) {
+                    final cols = Responsive.gridColumns(
+                      context,
+                      max: kDuaaHomeTiles.length,
                     );
-                  }, childCount: kDuaaHomeTiles.length),
+                    return SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: cols,
+                        crossAxisSpacing: AppSize.s14,
+                        mainAxisSpacing: AppSize.s14,
+                        childAspectRatio:
+                            Responsive.isTablet(context) ? 1.05 : 0.95,
+                      ),
+                      delegate: SliverChildBuilderDelegate((context, i) {
+                        final spec = kDuaaHomeTiles[i];
+                        return _DuaaGridTile(
+                          spec: spec,
+                          onTap: () => _handleTileTap(context, spec),
+                        );
+                      }, childCount: kDuaaHomeTiles.length),
+                    );
+                  },
                 ),
               ),
             ],

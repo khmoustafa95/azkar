@@ -65,9 +65,9 @@ class CardGroup extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.only(top: AppMargin.m8),
-        width: double.infinity * 0.8,
-        clipBehavior: Clip.hardEdge,
+        margin: const EdgeInsets.only(top: AppMargin.m8),
+        width: double.infinity,
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSize.s20),
           color: AppColors.white,

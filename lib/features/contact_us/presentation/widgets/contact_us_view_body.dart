@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_constants.dart';
@@ -29,8 +30,10 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
         ),
       ),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
+        child: ResponsiveBody(
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
+          child: Column(
+            children: [
             const SizedBox(height: AppSize.s16),
             const WhoWeAreVideo(
               assetPath: VideoAssets.whoWeAre,
@@ -81,7 +84,8 @@ class _ContactUsViewBodyState extends State<ContactUsViewBody> {
               ],
             ),
             const SizedBox(height: AppSize.s30),
-          ],
+            ],
+          ),
         ),
       ),
     );

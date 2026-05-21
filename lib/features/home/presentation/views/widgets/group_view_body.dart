@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:holly_quran/core/extension/extensions.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/app_colors.dart';
 import 'package:holly_quran/core/resources/app_routers.dart';
@@ -29,51 +29,63 @@ class _GroupViewBodyState extends State<GroupViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: context.height,
-      alignment: Alignment.center,
+    final carouselHeight = Responsive.groupCarouselHeight(context);
+    final viewportFraction =
+        Responsive.groupCarouselViewportFraction(context);
+
+    return DecoratedBox(
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(ImageAssets.background),
           fit: BoxFit.cover,
         ),
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: AppSize.s1),
-            RepaintBoundary(
-              child: AppPageCarousel(
-                
-                itemCount: _groups.length,
-                height: context.height * 0.60,
-                viewportFraction: 0.6,
-                autoPlay: true,
-                onPageChanged: (index) {
-                  if (_activeIndex != index) {
-                    setState(() => _activeIndex = index);
-                  }
-                },
-                itemBuilder: (ctx, index) {
-                  final group = _groups[index];
-                  return CardGroup(
-                    group: group,
-                    saPhone: group.saPhone,
-                    onTap: () => GoRouter.of(context).pushNamed(
-                      Routes.groupDetailsRoute,
-                      pathParameters: {'id1': '${group.id}'},
-                      extra: group.toJson(),
-                    ),
-                  );
-                },
-              ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: AppPadding.p16),
+          child: ResponsiveBody(
+            child: Column(
+              children: [
+                const SizedBox(height: AppSize.s8),
+                RepaintBoundary(
+                  child: AppPageCarousel(
+                    itemCount: _groups.length,
+                    height: carouselHeight,
+                    viewportFraction: viewportFraction,
+                    autoPlay: true,
+                    onPageChanged: (index) {
+                      if (_activeIndex != index) {
+                        setState(() => _activeIndex = index);
+                      }
+                    },
+                    itemBuilder: (ctx, index) {
+                      final group = _groups[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppPadding.p8,
+                          vertical: AppPadding.p4,
+                        ),
+                        child: CardGroup(
+                          group: group,
+                          saPhone: group.saPhone,
+                          onTap: () => GoRouter.of(context).pushNamed(
+                            Routes.groupDetailsRoute,
+                            pathParameters: {'id1': '${group.id}'},
+                            extra: group.toJson(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: AppSize.s16),
+                _GroupCarouselDots(
+                  count: _groups.length,
+                  activeIndex: _activeIndex,
+                ),
+              ],
             ),
-            const SizedBox(height: AppSize.s16),
-            _GroupCarouselDots(
-              count: _groups.length,
-              activeIndex: _activeIndex,
-            ),
-          ],
+          ),
         ),
       ),
     );

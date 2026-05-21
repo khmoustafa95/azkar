@@ -34,6 +34,18 @@ class HajApp extends StatelessWidget {
         routerConfig: AppRouters.router,
         debugShowCheckedModeBanner: false,
         theme: getApplicationTheme(),
+        builder: (context, child) {
+          final mq = MediaQuery.of(context);
+          return MediaQuery(
+            data: mq.copyWith(
+              textScaler: mq.textScaler.clamp(
+                minScaleFactor: 0.9,
+                maxScaleFactor: 1.2,
+              ),
+            ),
+            child: child ?? const SizedBox.shrink(),
+          );
+        },
       ),
     );
   }

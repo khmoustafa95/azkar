@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/home/data/communication_channel.dart';
@@ -28,17 +29,16 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    // Leave room at the bottom so the centered FAB does not cover content.
-    final bottomPad = AppSize.s100 + mq.padding.bottom;
+    final bottomPad = Responsive.homeScrollBottomPadding(context);
 
     return ColoredBox(
       color: Colors.white,
       child: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: bottomPad),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
+        child: ResponsiveBody(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
             SizedBox(height: AppSize.s16),
 
             _QuickAccessSection(),
@@ -51,7 +51,8 @@ class HomeViewBody extends StatelessWidget {
             // SizedBox(height: AppSize.s20),
             // _YearFooter(),
             SizedBox(height: AppSize.s12),
-          ],
+            ],
+          ),
         ),
       ),
     );

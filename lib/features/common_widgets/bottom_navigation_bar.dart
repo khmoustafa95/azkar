@@ -50,7 +50,9 @@ class AppBottomNavigationBar extends StatelessWidget {
         builder: (context, constraints) {
           final fabSlot = constraints.maxWidth < 360
               ? _fabSlotWidth + 8
-              : _fabSlotWidth;
+              : constraints.maxWidth > 600
+                  ? _fabSlotWidth + 16
+                  : _fabSlotWidth;
 
           return Row(
             crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holly_quran/core/helper_functions/responsive_layout.dart';
 import 'package:holly_quran/core/resources/app_assets.dart';
 import 'package:holly_quran/core/resources/values_manager.dart';
 import 'package:holly_quran/features/admin_advices/presentation/views/admin_advices_view.dart';
@@ -52,7 +53,11 @@ class AdminViewBody extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(child: _SectionHeader()),
+              SliverToBoxAdapter(
+                child: ResponsiveBody(
+                  child: const _SectionHeader(),
+                ),
+              ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(
                   AppPadding.p16,
