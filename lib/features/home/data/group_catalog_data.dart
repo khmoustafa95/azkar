@@ -231,6 +231,7 @@ List<GroupModel> _buildGroupCatalog() {
       id: 4,
       name: "محمد حسين حاج عبود",
       syPhone: '+963937016439',
+      saPhone: '+966580725107',
       photo: MemberImageAssets.alnourMohammadAboud,
       position: "المرشد الديني",
     ),

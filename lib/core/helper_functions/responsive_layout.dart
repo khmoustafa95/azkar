@@ -42,13 +42,15 @@ abstract final class Responsive {
     return cols;
   }
 
-  /// Group/member carousel height — capped on tall tablets.
-  static double groupCarouselHeight(BuildContext context) {
-    final h = sizeOf(context).height;
-    if (isTablet(context)) {
-      return (h * 0.48).clamp(360.0, 480.0);
-    }
-    return (h * 0.58).clamp(300.0, 520.0);
+  /// Height reserved for bottom nav + center FAB (groups tab layout).
+  static double bottomChromeHeight(BuildContext context) {
+    return AppSize.s70 + AppSize.s16;
+  }
+
+  /// Carousel height from [bodyMaxHeight] (not full screen) to avoid white gap.
+  static double groupCarouselHeightFromBody(double bodyMaxHeight) {
+    const dotsAndPadding = 40.0;
+    return (bodyMaxHeight - dotsAndPadding).clamp(280.0, 440.0);
   }
 
   static double groupCarouselViewportFraction(BuildContext context) {

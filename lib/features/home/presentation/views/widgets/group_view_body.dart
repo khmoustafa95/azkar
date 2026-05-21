@@ -29,62 +29,66 @@ class _GroupViewBodyState extends State<GroupViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    final carouselHeight = Responsive.groupCarouselHeight(context);
     final viewportFraction =
         Responsive.groupCarouselViewportFraction(context);
 
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(ImageAssets.background),
-          fit: BoxFit.cover,
+    return SizedBox.expand(
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(ImageAssets.background),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: AppPadding.p16),
-          child: ResponsiveBody(
-            child: Column(
-              children: [
-                const SizedBox(height: AppSize.s8),
-                RepaintBoundary(
-                  child: AppPageCarousel(
-                    itemCount: _groups.length,
-                    height: carouselHeight,
-                    viewportFraction: viewportFraction,
-                    autoPlay: true,
-                    onPageChanged: (index) {
-                      if (_activeIndex != index) {
-                        setState(() => _activeIndex = index);
-                      }
-                    },
-                    itemBuilder: (ctx, index) {
-                      final group = _groups[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.p8,
-                          vertical: AppPadding.p4,
-                        ),
-                        child: CardGroup(
-                          group: group,
-                          saPhone: group.saPhone,
-                          onTap: () => GoRouter.of(context).pushNamed(
-                            Routes.groupDetailsRoute,
-                            pathParameters: {'id1': '${group.id}'},
-                            extra: group.toJson(),
-                          ),
-                        ),
-                      );
-                    },
+        child: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                children: [
+                  const SizedBox(height: AppSize.s8),
+                  Expanded(
+                    child: RepaintBoundary(
+                      child: AppPageCarousel(
+                        itemCount: _groups.length,
+                        viewportFraction: viewportFraction,
+                        alignItemsTop: true,
+                        autoPlay: true,
+                        onPageChanged: (index) {
+                          if (_activeIndex != index) {
+                            setState(() => _activeIndex = index);
+                          }
+                        },
+                        itemBuilder: (ctx, index) {
+                          final group = _groups[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p8,
+                            ),
+                            child: CardGroup(
+                              group: group,
+                              saPhone: group.saPhone,
+                              onTap: () => GoRouter.of(context).pushNamed(
+                                Routes.groupDetailsRoute,
+                                pathParameters: {'id1': '${group.id}'},
+                                extra: group.toJson(),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: AppSize.s16),
-                _GroupCarouselDots(
-                  count: _groups.length,
-                  activeIndex: _activeIndex,
-                ),
-              ],
-            ),
+                  const SizedBox(height: AppSize.s12),
+                  _GroupCarouselDots(
+                    count: _groups.length,
+                    activeIndex: _activeIndex,
+                  ),
+                  SizedBox(
+                    height: Responsive.bottomChromeHeight(context),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

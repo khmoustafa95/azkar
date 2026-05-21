@@ -6,22 +6,27 @@ class AppPageCarousel extends StatefulWidget {
     super.key,
     required this.itemCount,
     required this.itemBuilder,
-    required this.height,
+    this.height,
     this.viewportFraction = 1.0,
     this.initialPage = 0,
     this.autoPlay = false,
     this.autoPlayInterval = const Duration(seconds: 4),
     this.onPageChanged,
+    this.alignItemsTop = false,
   });
 
   final int itemCount;
   final Widget Function(BuildContext context, int index) itemBuilder;
-  final double height;
+  /// When null, fills parent (use inside [Expanded]).
+  final double? height;
   final double viewportFraction;
   final int initialPage;
   final bool autoPlay;
   final Duration autoPlayInterval;
   final ValueChanged<int>? onPageChanged;
+
+  /// When true, each page is top-aligned (avoids empty gap under short cards).
+  final bool alignItemsTop;
 
   @override
   State<AppPageCarousel> createState() => AppPageCarouselState();
@@ -88,12 +93,12 @@ class AppPageCarouselState extends State<AppPageCarousel> {
   @override
   Widget build(BuildContext context) {
     if (widget.itemCount == 0) {
-      return SizedBox(height: widget.height);
+      return widget.height != null
+          ? SizedBox(height: widget.height)
+          : const SizedBox.shrink();
     }
 
-    return SizedBox(
-      height: widget.height,
-      child: PageView.builder(
+    final pageView = PageView.builder(
         controller: _controller,
         itemCount: widget.itemCount,
         onPageChanged: (index) {
@@ -101,7 +106,10 @@ class AppPageCarouselState extends State<AppPageCarousel> {
           widget.onPageChanged?.call(index);
         },
         itemBuilder: (context, index) {
-          final child = widget.itemBuilder(context, index);
+          var child = widget.itemBuilder(context, index);
+          if (widget.alignItemsTop) {
+            child = Align(alignment: Alignment.topCenter, child: child);
+          }
           if (widget.viewportFraction >= 0.99) {
             return child;
           }
@@ -118,7 +126,15 @@ class AppPageCarouselState extends State<AppPageCarousel> {
             child: child,
           );
         },
-      ),
+    );
+
+    if (widget.height == null) {
+      return pageView;
+    }
+
+    return SizedBox(
+      height: widget.height,
+      child: pageView,
     );
   }
 }
