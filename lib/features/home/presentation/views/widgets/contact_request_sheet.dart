@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:holly_quran/core/helper_functions/whatsapp_launcher.dart';
 import 'package:holly_quran/features/home/data/communication_channel.dart';
 import 'package:holly_quran/features/home/data/communication_group_options.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const Color _kSheetDarkGreen = Color(0xFF083A30);
 const Color _kSheetMuted = Color(0xFF6B7570);
@@ -112,25 +112,10 @@ class _ContactRequestSheetBodyState extends State<_ContactRequestSheetBody> {
     setState(() => _sending = true);
 
     final msg = _truncateForWhatsApp(_composeMessage());
-    final digits = _ch.waDigits;
-    final encoded = Uri.encodeComponent(msg);
-
-    final uris = [
-      Uri.parse('whatsapp://send?phone=$digits&text=$encoded'),
-      Uri.parse('https://wa.me/$digits?text=$encoded'),
-    ];
-
-    var opened = false;
-    for (final uri in uris) {
-      try {
-        if (await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-          opened = true;
-          break;
-        }
-      } catch (_) {
-        continue;
-      }
-    }
+    final opened = await openWhatsAppChat(
+      _ch.waDigits,
+      prefilledMessage: msg,
+    );
 
     if (!mounted) return;
     setState(() => _sending = false);

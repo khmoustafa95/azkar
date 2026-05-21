@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:holly_quran/core/extension/extensions.dart';
 import 'package:holly_quran/core/helper_functions/phone_country.dart';
 import 'package:holly_quran/core/helper_functions/ui_feedback.dart';
+import 'package:holly_quran/core/helper_functions/whatsapp_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/resources/values_manager.dart';
@@ -35,12 +36,9 @@ class PhoneWidget extends StatelessWidget {
     String number,
   ) async {
     final messenger = ScaffoldMessenger.maybeOf(context);
-    final dial = normalizePhoneNumber(number);
-    final uri = Uri.parse('https://wa.me/${dial.replaceFirst('+', '')}');
     try {
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
+      final opened = await openWhatsAppChat(number);
+      if (!opened) {
         showAppSnackBarFromMessenger(
           messenger,
           message: 'لا يمكن فتح واتساب على هذا الجهاز',
